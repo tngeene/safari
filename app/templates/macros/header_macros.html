@@ -1,0 +1,103 @@
+{% macro render_header(current_user) %}
+     <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START HEADER -->
+    <header id="header" class="page-topbar">
+      <!-- start header nav-->
+      <div class="navbar-fixed">
+        <nav class="navbar-color gradient-45deg-purple-deep-orange gradient-shadow">
+          <div class="nav-wrapper" id="nav-wrapper">
+            <ul class="right hide-on-med-and-down">
+
+              <li>
+                {% set new_bookings = current_user.new_bookings() %}
+                <a id="notification-activator" href="javascript:notification('#notification_activator');" data-activates='notifications-dropdown' class="waves-effect waves-block waves-light notification-button">
+                  <i class="material-icons">notifications_none
+                    <small style="visibility: {% if new_bookings %}visible{% else %}hidden {% endif %};" id="notification_count"  class="notification-badge">{{ new_bookings }}</small>
+                  </i>
+                </a>
+              </li>
+              <li>
+                {% set new_messages = current_user.new_messages() %}
+                <a href="{{url_for('publisher.messages')}}" class="waves-effect waves-block waves-light notification-button" >
+                  <i  id="badge_count"  class="material-icons">mail_outline
+                    <small style="visibility: {% if new_messages %}visible{% else %}hidden {% endif %};" id="message_count" class="notification-badge">{{ new_messages }}</small>
+                  </i>
+                </a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" class="waves-effect waves-block waves-light profile-button" data-activates="profile-dropdown">
+                  <span class="avatar-status avatar-online">
+                    <img src="{{ url_for('static', filename='images/avatar/avatar-7.png') }}" alt="avatar">
+                    <i></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            {% set notifications = current_user.user_notifications() %}
+            <!-- notifications-dropdown -->
+            <ul id="notifications-dropdown" class="dropdown-content">
+              {% include 'publisher/_notification.html' %}
+            </ul>
+            <!-- notifications-dropdown -->
+            <ul id="messages-dropdown" class="dropdown-content">
+              <li>
+                <h6>Messages
+
+                  <span  class="new badge"></span>
+                </h6>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <a href="#!" class="grey-text text-darken-2">
+                  <span class="material-icons icon-bg-circle cyan small">add_shopping_cart</span> A new order has been placed!</a>
+                <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">2 hours ago</time>
+              </li>
+              <li>
+                <a href="#!" class="grey-text text-darken-2">
+                  <span class="material-icons icon-bg-circle red small">stars</span> Completed the task</a>
+                <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>
+              </li>
+              <li>
+                <a href="#!" class="grey-text text-darken-2">
+                  <span class="material-icons icon-bg-circle teal small">settings</span> Settings updated</a>
+                <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">4 days ago</time>
+              </li>
+              <li>
+                <a href="#!" class="grey-text text-darken-2">
+                  <span class="material-icons icon-bg-circle deep-orange small">today</span> Director meeting started</a>
+                <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">6 days ago</time>
+              </li>
+              <li>
+                <a href="#!" class="grey-text text-darken-2">
+                  <span class="material-icons icon-bg-circle amber small">trending_up</span> Generate monthly report</a>
+                <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">1 week ago</time>
+              </li>
+            </ul>
+            <!-- profile-dropdown -->
+            <ul id="profile-dropdown" class="dropdown-content">
+              <li>
+                <a href="{% if current_user.role.name =='Customer'%}
+                           {{ url_for('customer.profile') }}
+                          {%else%}
+                           {{ url_for('publisher.profile') }}
+                            {%endif%}" class="grey-text text-darken-1">
+                  <i class="material-icons">face</i> Profile</a>
+              </li>
+              <li>
+                <a href="#" class="grey-text text-darken-1">
+                  <i class="material-icons">settings</i> Settings</a>
+              </li>
+              <li class="divider"></li>
+
+              <li>
+                <a href="{{url_for('account.logout')}}" class="grey-text text-darken-1">
+                  <i class="material-icons">keyboard_tab</i> Logout</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- END HEADER -->
+
+{% endmacro %}

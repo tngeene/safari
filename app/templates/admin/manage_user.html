@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>{% extends 'layouts/admin_base.html' %}
+
+{% block custom_head_tags %}
+{{ super() }}
+<!-- CORE CSS-->
+<link href="{{ url_for('static', filename='css/themes/horizontal-menu/materialize.css')}}" type="text/css"
+      rel="stylesheet">
+<link href="{{ url_for('static', filename='css/themes/horizontal-menu/style.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/layouts/style-horizontal.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+
+<!-- START CONTENT -->
+<section id="content" style="margin-top:4%;">
+    <!--breadcrumbs start-->
+    <div id="breadcrumbs-wrapper">
+        <!-- Search for small screen -->
+        <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
+            <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore">
+        </div>
+        <div class="container">
+            <div class="row">
+
+                <div class="col s10 m6 l6">
+                    <h5 class="breadcrumbs-title">{{ user.full_name() }}'s Profile</h5>
+                </div>
+                <div class="col s2 m6 l6">
+                    <a class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn right" href="{{url_for('admin.dashboard')}}"
+                       data-activates="dropdown1">
+                        <i class="material-icons hide-on-med-and-up"></i>
+                        <span class="hide-on-small-onl">Back To Dashboard</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs end-->
+    <!--start container-->
+    <div class="container">
+        <div class="section">
+            <div id="profile-page" class="section">
+                <div class="row">
+                    <!-- profile-page-header -->
+                    <div id="profile-page-header" class="card col s12 m6">
+                        <div class="card-image waves-effect waves-block waves-light z-depth-4">
+                            <img class="activator" src="{{ url_for('static', filename='images/gallary/23.png') }}"
+                                 alt="user background">
+                        </div>
+                        <figure class="card-profile-image">
+                            <img src="{{ url_for('static', filename='images/avatar/av.png') }}"
+                                 alt="profile image"
+                                 class="circle z-depth-2 responsive-img activator gradient-45deg-light-blue-cyan gradient-shadow">
+                        </figure>
+                        <div class="card-content">
+                            <div class="row pt-2">
+                                <div class="col s12 m4 offset-m2">
+                                    <h4 class="card-title grey-text text-darken-4">{{ user.full_name() }}</h4>
+                                    <p class="medium-small black-text">{{ user.role.name }}</p>
+                                </div>
+                                <div class="col s12 m2 center-align">
+                                    {% if user.role.index == 'customer'%}
+                                    <h4 class="card-title grey-text text-darken-4">{{bookingsCount}}</h4>
+                                    <p class="medium-small grey-text">
+                                        Bookings Made
+                                    </p>
+                                    {% elif user.role.index == 'publisher'%}
+                                    <h4 class="card-title grey-text text-darken-4">{{listingsCount}}</h4>
+                                    <p class="medium-small grey-text">
+                                        Listings Created
+                                    </p>
+                                    {% endif %}
+                                </div>
+                                <div class="col s12 m3 left-align">
+                                    <h4 class="card-title grey-text text-darken-4">$ 1,253,000</h4>
+                                    <p class="medium-small grey-text">
+                                        {% if user.role.index == 'publisher'%}Business Profit
+                                        {% elif user.role.index == 'customer'%}Money Spent{% endif %}
+                                    </p>
+                                </div>
+                                <div class="col s12 m1 right-align">
+                                    <a class="btn-floating activator waves-effect waves-light rec accent-2 right">
+                                        <i class="material-icons">perm_identity</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-reveal">
+                            <p>
+                        <span class="card-title grey-text text-darken-4">{{ user.full_name() }}
+                          <i class="material-icons right">close</i>
+                        </span>
+                                <span style="color:#000">
+                                    <i class="material-icons cyan-text text-darken-2 left">perm_identity</i>
+                                    {{ user.role.name }}
+                                </span>
+
+                            <p class="z-depth-4">I am a very simple card. I am good at containing small bits of information.
+                                I am convenient because I require little markup to use effectively.</p>
+                            <p>
+                                <i class="material-icons cyan-text text-darken-2 left">perm_phone_msg</i>{{ user.phone_number_personal }}
+                            </p>
+                            <p>
+                                <i class="material-icons cyan-text text-darken-2 left">email</i>{{ user.email }}</p>
+                            <p>
+                                <i class="material-icons cyan-text text-darken-2 left">cake</i>{{ user.dob }}</p>
+                            <p>
+                                <i class="material-icons cyan-text text-darken-2 left">airplanemode_active</i> BAR - AUS</p>
+                        </div>
+                    </div>
+                    <!-- profile-page-sidebar-->
+                    <div id="profile-page-sidebar" class="col s12 m3">
+                        <!-- Profile About  -->
+                        <div class="card cyan z-depth-4">
+                            <div class="card-content white-text">
+                                <span class="card-title">About {{ user.full_name() }}</span>
+                                <p>I am a very simple card. I am good at containing small bits of information.
+                                    I am convenient because I require little markup to use effectively.</p>
+                            </div>
+                        </div>
+                        <!-- Profile About  -->
+                        <!-- Profile About Details  -->
+                        <ul id="profile-page-about-details" class="collection z-depth-5">
+                            <li class="collection-item">
+                                <div class="row">
+                                    <div class="col s5">
+                                        <i class="material-icons left">card_travel</i> Payments
+                                    </div>
+                                    <div class="col s7 right-align">ABC Name</div>
+                                </div>
+                            </li>
+                            <li class="collection-item">
+                                <div class="row">
+                                    <div class="col s5">
+                                        <i class="material-icons left">poll</i> Site Visits
+                                    </div>
+                                    <div class="col s7 right-align">10</div>
+                                </div>
+                            </li>
+                            <li class="collection-item">
+                                <div class="row">
+                                    <div class="col s5">
+                                        <i class="material-icons left">domain</i> Lives in
+                                    </div>
+                                    <div class="col s7 right-align">{% if user.address %}{{ user.address }}{% endif %} Not Provided</div>
+                                </div>
+                            </li>
+                            <li class="collection-item">
+                                <div class="row">
+                                    <div class="col s5">
+                                        <i class="material-icons left">cake</i> Birth date
+                                    </div>
+                                    <div class="col s7 right-align">{% if user.address %}{{ user.dob }}{% endif %} Not Provided</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!--/ Profile About Details  -->
+                        <!-- Profile About  -->
+                    </div>
+                    <div id="profile-page-sidebar-1" class="col s12 m3">
+                        <div id="profile-page-sidebar-4a" class="col s12 m12">
+                        <!-- Profile Total sell -->
+                            <div class="card center-align z-depth-4">
+                                <div class="card-content teal accent-4 white-text">
+                                    <p class="card-stats-title">
+                                        Payments Made</p>
+                                    <h5 class="card-stats-number">$8990.63</h5>
+                                    <p class="card-stats-compare">
+                                        <i class="material-icons">keyboard_arrow_up</i> 70%
+                                        <span class="teal-text text-lighten-5">last month</span>
+                                    </p>
+                                </div>
+                                <div class="card-action teal darken-1">
+                                    <div id="sales-compositebar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="profile-page-sidebar-4b" class="col s12 m12">
+                            <div class="card z-depth-4">
+                                <div class="card-content white-text">
+                                    <span style="color: #000" class="card-title">Recent Review</span>
+                                    <p style="color: #000">I am a very simple card. I am good at containing small bits of information.
+                                        </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="profile-page-sidebar-3" class="col s12 m6">
+                        <!-- flight-card -->
+                        <!-- <div id="flight-card" class="card">
+                            <div class="card-header pink darken-4">
+                                <div class="card-title">
+                                    <h4 class="flight-card-title">Next Flight</h4>
+                                    <p class="flight-card-date">June 18, Thu 04:50</p>
+                                </div>
+                            </div>
+                            <div class="card-content-bg white-text">
+                                <div class="card-content">
+                                    <div class="row flight-state-wrapper">
+                                        <div class="col s5 m5 l5 center-align">
+                                            <div class="flight-state">
+                                                <h4 class="margin">LDN</h4>
+                                                <p class="ultra-small">London</p>
+                                            </div>
+                                        </div>
+                                        <div class="col s2 m2 l2 center-align">
+                                            <i class="material-icons flight-icon">local_airport</i>
+                                        </div>
+                                        <div class="col s5 m5 l5 center-align">
+                                            <div class="flight-state">
+                                                <h4 class="margin">SFO</h4>
+                                                <p class="ultra-small">San Francisco</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s6 m6 l6 center-align">
+                                            <div class="flight-info">
+                                                <p class="small">
+                                                    <span class="grey-text text-lighten-4">Depart:</span> 04.50</p>
+                                                <p class="small">
+                                                    <span class="grey-text text-lighten-4">Flight:</span> IB 5786</p>
+                                                <p class="small">
+                                                    <span class="grey-text text-lighten-4">Terminal:</span> B</p>
+                                            </div>
+                                        </div>
+                                        <div class="col s6 m6 l6 center-align flight-state-two">
+                                            <div class="flight-info">
+                                                <p class="small">
+                                                    <span class="grey-text text-lighten-4">Arrive:</span> 08.50</p>
+                                                <p class="small">
+                                                    <span class="grey-text text-lighten-4">Flight:</span> IB 5786</p>
+                                                <p class="small">
+                                                    <span class="grey-text text-lighten-4">Terminal:</span> C</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- flight-card -->
+                    </div>
+                    <div id="profile-page-sidebar-4" class="col s12 m6">
+                        {% if user.role.index=='publisher'%}
+                            {% if user.status == 1 %}
+                            <div id="profile-page-sidebar-4c" class="col s12 m12">
+                                <div class="card red accent-2 z-depth-4">
+                                    <a href="{{ url_for('admin.suspend', user_id=user.id) }}">
+                                        <div class="card-content white-text center-align">
+                                            <p class="card-title">
+                                                <i class="material-icons">report_problem</i>Suspend</p>
+                                            <p>Suspend Publisher</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div id="profile-page-sidebar-4d" class="col s12 m12 z-depth-4">
+                                <div class="card gradient-45deg-light-blue-cyan accent-2 z-depth-4">
+                                    <a href="{{ url_for('admin.suspend', user_id=user.id) }}">
+                                        <div class="card-content white-text center-align">
+                                            <p class="card-title">
+                                                <i class="material-icons">restore</i>Reinstate</p>
+                                            <p>Reinstate Publisher</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="profile-page-sidebar-2" class="col s12 m6">
+                        <!-- Profile About  -->
+                        <!-- Profile feed  -->
+                        <!-- <ul id="profile-page-about-feed" class="collection z-depth-1">
+                            <li class="collection-item avatar">
+                                <img src="{{ url_for('static', filename='images/avatar/avatar-2.png') }}" alt=""
+                                     class="circle deep-orange accent-2">
+                                <span class="title">Project Title</span>
+                                <p>Task assigned to new changes.
+                                    <br>
+                                    <span class="ultra-small">Second Line</span>
+                                </p>
+                            </li>
+                            <li class="collection-item avatar">
+                                <i class="material-icons circle teal accent-4">folder</i>
+                                <span class="title">New Project</span>
+                                <p>First Line of Project Work
+                                    <br>
+                                    <span class="ultra-small">Second Line</span>
+                                </p>
+                                <a href="#!" class="secondary-content">
+                                    <i class="material-icons">domain</i>
+                                </a>
+                            </li>
+                            <li class="collection-item avatar">
+                                <i class="material-icons circle cyan">assessment</i>
+                                <span class="title">Last Payment</span>
+                                <p>Last Project Payment
+                                    <br>
+                                    <span class="ultra-small">$ 3,684.00</span>
+                                </p>
+                                <a href="#!" class="secondary-content">
+                                    <i class="material-icons">attach_money</i>
+                                </a>
+                            </li>
+                        </ul> -->
+                        <!-- Profile feed  -->
+                    </div>
+                    <div id="profile-page-sidebar-5" class="col s12 m12">
+                        <!-- Map Card -->
+                        <div class="map-card">
+                            <div class="card">
+                                <div class="card-image waves-effect waves-block waves-light">
+                                    <div id="map-canvas" data-lat="40.747688" data-lng="-74.004142"></div>
+                                </div>
+                                <div class="card-content">
+                                    <a class="btn-floating activator btn-move-up waves-effect waves-light darken-2 right">
+                                        <i class="material-icons">pin_drop</i>
+                                    </a>
+                                    <h4 class="card-title grey-text text-darken-4"><a href="#"
+                                                                                      class="grey-text text-darken-4">Company
+                                        Name LLC</a>
+                                    </h4>
+                                    <p class="blog-post-content">Some more information about this company.</p>
+                                </div>
+                                <div class="card-reveal">
+                          <span class="card-title grey-text text-darken-4">Company Name LLC
+                            <i class="material-icons right">close</i>
+                          </span>
+                                    <p>Here is some more information about this company. As a creative studio we believe
+                                        no client is too big nor too small to work with us to obtain good advantage.By
+                                        combining the creativity of artists with the precision of engineers we develop
+                                        custom solutions that achieve results.Some more information about this
+                                        company.</p>
+                                    <p>
+                                        <i class="material-icons cyan-text text-darken-2">perm_identity</i> Manager Name
+                                    </p>
+                                    <p>
+                                        <i class="material-icons cyan-text text-darken-2">business</i> 125, ABC Street,
+                                        New Yourk, USA</p>
+                                    <p>
+                                        <i class="material-icons cyan-text text-darken-2">perm_phone_msg</i> +1 (612)
+                                        222 8989</p>
+                                    <p>
+                                        <i class="material-icons cyan-text text-darken-2">email</i>
+                                        support@pixinvent.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Map Card -->
+                    </div>
+                </div>
+                <!-- profile-page-sidebar-->
+            </div>
+            <!--/ profile-page-header -->
+
+        </div>
+    </div>
+    <!-- Floating Action Button -->
+    <div class="fixed-action-btn " style="bottom: 50px; right: 19px;">
+        <a class="btn-floating btn-large">
+            <i class="material-icons">add</i>
+        </a>
+        <ul>
+            <li>
+                <a href="css-helpers.html" class="btn-floating blue">
+                    <i class="material-icons">help_outline</i>
+                </a>
+            </li>
+            <li>
+                <a href="cards-extended.html" class="btn-floating green">
+                    <i class="material-icons">widgets</i>
+                </a>
+            </li>
+            <li>
+                <a href="app-calendar.html" class="btn-floating amber">
+                    <i class="material-icons">today</i>
+                </a>
+            </li>
+            <li>
+                <a href="app-email.html" class="btn-floating red">
+                    <i class="material-icons">mail_outline</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- Floating Action Button -->
+    </div>
+    <!--end container-->
+</section>
+<!-- END CONTENT -->
+
+
+{% endblock %}

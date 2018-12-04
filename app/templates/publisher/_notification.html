@@ -1,0 +1,18 @@
+<li>
+    <h6>NOTIFICATIONS
+    </h6>
+  </li>
+  <li class="divider"></li>
+  {% for item in notifications %}
+  <li>
+    <a href="{{url_for('publisher.bookings')}}" class="grey-text text-darken-2">
+      <span class="material-icons icon-bg-circle cyan small">add_shopping_cart</span>New booking by {{ item.user.full_name() }}</a>
+    <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">{{ moment(item.createdAt).calendar() }}</time>
+  </li>
+  {% else %}
+  <li>
+    <a href="#!" class="grey-text text-darken-2">
+      <span class="material-icons icon-bg-circle cyan small">error_outline</span>No new Notifications!!
+    </a>
+  </li>
+  {% endfor %}

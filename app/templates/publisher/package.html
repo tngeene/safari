@@ -1,0 +1,70 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+       <!-- START CONTENT -->
+        <section id="content">
+          <!--breadcrumbs start-->
+          <div id="breadcrumbs-wrapper">
+            <!-- Search for small screen -->
+            <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
+              <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col s10 m6 l6">
+                  <h5 class="breadcrumbs-title">Packages</h5>
+                  <ol class="breadcrumbs">
+                    <li><a href="{{url_for('publisher.dashboard')}}">Dashboard</a></li>
+                    <li class="active">Packages</li>
+                  </ol>
+                </div>
+                <div class="col s2 m6 l6">
+                  <a href="{{url_for('publisher.newPricing')}}" class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn right gradient-45deg-light-blue-cyan gradient-shadow">
+                    <i class="material-icons left">add</i> Add Package</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--breadcrumbs end-->
+          <!--start container-->
+          <div class="container">
+            <div class="section">
+              <!-- statr items list -->
+              <div id="item-posts" class="row">
+                <div class="item-sizer"></div>
+                {% for item in items %}
+                <div class="item product">
+                  <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                      <a href="{{ url_for('publisher.pricing',country=item.location) }}">
+                        <i class="flag-icon flag-icon-{{ arcodes[item.location].lower() if item.location else 'gb' }} large"></i>
+                      </a>
+                    </div>
+                    <div class="card-content">
+                      <div class="row">
+                        <div class="col s12">
+                          <p class="card-title grey-text text-darken-4"><a href="{{ url_for('publisher.pricing',country=item.location) }}" class="grey-text text-darken-4">{{ item.location }}</a>
+                          </p><br>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% else %}
+                <div id="alert" class="card orange lighten-5">
+                  <div class="card-content orange-text">
+                                      <p>No Destinations found!! Please add packages to see them </p>
+                  </div>
+                  </button>
+                </div>
+                {% endfor %}
+              </div>
+              <!--/ end items list -->
+            </div>
+          </div>
+          <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+{% endblock%}
+{% block scripts %}
+
+{% endblock%}

@@ -1,0 +1,61 @@
+<meta name="charset" content="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block page_title %}{{ config.APP_NAME }}{% endblock %}</title>
+
+    <!--STYLES-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
+    <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
+    <title>Safari</title>
+    <!-- Favicons-->
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon/favicon-32x32.png') }}" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="{{ url_for('static', filename='images/favicon/apple-touch-icon-152x152.png') }}">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+
+    <!-- Custom CSS-->
+    <link href="{{ url_for('static', filename='css/custom/custom.css') }}" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="{{ url_for('static', filename='vendors/perfect-scrollbar/perfect-scrollbar.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendors/jvectormap/jquery-jvectormap.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendors/sweetalert/dist/sweetalert.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendors/flag-icon/css/flag-icon.min.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendors/data-tables/css/jquery.dataTables.min.css') }}" type="text/css" rel="stylesheet">
+ <!-- jQuery Library -->
+    <script type="text/javascript" src="{{ url_for('static', filename='vendors/jquery-3.2.1.min.js') }}"></script>
+    <!--STYLES END-->
+
+
+{% if config.GOOGLE_ANALYTICS_ID %}
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function() {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+  ga('create', '{{ config.GOOGLE_ANALYTICS_ID }}', 'auto');
+  ga('send', 'pageview');
+</script>
+{% endif %}
+
+{% if config.SEGMENT_API_KEY %}
+<!-- Segment Analytics -->
+<script>
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
+  analytics.load('{{ config.SEGMENT_API_KEY }}');
+  analytics.page();
+  }}();
+</script>
+{% endif %}

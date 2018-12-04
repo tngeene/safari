@@ -1,0 +1,128 @@
+{% extends 'layouts/admin_base.html' %}
+{% import 'macros/form_macros.html' as f %}
+{% import 'macros/check_password.html' as check %}
+
+{% block custom_head_tags %}
+{{ super() }}
+<!-- CORE CSS-->
+<link href="{{ url_for('static', filename='css/themes/horizontal-menu/materialize.css')}}" type="text/css"
+      rel="stylesheet">
+<link href="{{ url_for('static', filename='css/themes/horizontal-menu/style.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/layouts/style-horizontal.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+
+<!-- START CONTENT -->
+<section id="content">
+     <!--breadcrumbs start-->
+    <div id="breadcrumbs-wrapper">
+        <!-- Search for small screen -->
+        <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
+            <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore">
+        </div>
+        <div class="container">
+             <div class="row">
+                  <div class="col s10 m6 l6">
+                    <h5 class="breadcrumbs-title"></h5>
+                </div>
+                <div class="col s2 m6 l6">
+                    <a class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn right"
+                       href="{{url_for('admin.add_park')}}"
+                       data-activates="dropdown1">
+                        <i class="material-icons hide-on-med-and-up"></i>
+                        <span class="hide-on-small-onl">Add New Park</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs end-->
+    <!--start container-->
+    <div class="container">
+        <div id="image-card" class="section">
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div class="card-panel">
+                        <h4 class="header2">All park</h4>
+                        <div class="row">
+                            {% for park in allparks %}
+                            <div class="col s12 m3">
+                                <div class="card blue-grey darken-4"
+                                     style="
+                                    background-image: url(
+                                       {% if park.image_url %}
+                                            {{ url_for('static', filename='uploads/{}'.format(park.image_url))}}
+                                       {% else %}
+                                            {{ url_for('static', filename='images/cards/macbook.png')}}
+                                       {% endif %}
+                                       );
+                                    width: 100%;
+                                    background-size: cover;">
+                                    <div class="card-content white-text">
+                                        <span class="card-title font-weight-400 mb-10">{{park.name}}</span>
+                                        <p>{{park.frequency}}
+                                            <br> Located in {{park.country.name}}</p>
+                                    </div>
+                                    <ul class="card-action-buttons">
+                                        <li style="display: inline-block;padding-left: 10px;">
+                                            <a href="{{url_for('admin.edit_park',id=park.id)}}"
+                                               class="btn-floating waves-effect waves-light cyan">
+                                                <i class="material-icons">create</i>
+                                            </a>
+                                        </li>
+                                        <li style="display: inline-block;padding-left: 10px;">
+                                            <form method="post" id="delete_park{{park.id}}"
+                                                  action="{{ url_for('admin.delete_park',id=park.id)  }}">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                            </form>
+                                            <a href="#" onclick="delete_item('#delete_park{{park.id}}')"
+                                               class="btn-floating waves-effect waves-light red accent-2">
+                                                <i class="material-icons">delete</i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Action Button -->
+        <div class="fixed-action-btn " style="bottom: 50px; right: 19px;">
+            <a class="btn-floating btn-large">
+                <i class="material-icons">add</i>
+            </a>
+            <ul>
+                <li>
+                    <a href="css-helpers.html" class="btn-floating blue">
+                        <i class="material-icons">help_outline</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="cards-extended.html" class="btn-floating green">
+                        <i class="material-icons">widgets</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="app-calendar.html" class="btn-floating amber">
+                        <i class="material-icons">today</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="app-email.html" class="btn-floating red">
+                        <i class="material-icons">mail_outline</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Floating Action Button -->
+    </div>
+    <!--end container-->
+</section>
+<!-- END CONTENT -->
+{% endblock %}

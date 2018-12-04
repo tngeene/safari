@@ -1,0 +1,131 @@
+{% extends 'layouts/admin_base.html' %}
+{% import 'macros/form_macros.html' as f %}
+{% import 'macros/check_password.html' as check %}
+
+{% block custom_head_tags %}
+{{ super() }}
+<!-- CORE CSS-->
+<link href="{{ url_for('static', filename='css/themes/horizontal-menu/materialize.css')}}" type="text/css"
+      rel="stylesheet">
+<link href="{{ url_for('static', filename='css/themes/horizontal-menu/style.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/layouts/style-horizontal.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+
+<!-- START CONTENT -->
+<section id="content">
+    <!--start container-->
+    <div class="container">
+
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card-panel">
+                    <h4 class="header2">Edit {{bird.name }}</h4>
+                    <div class="row">
+                        <form class="col s12" method="post" enctype="multipart/form-data">
+                            {{ form.hidden_tag() }}
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix"></i>
+                                    {{ form.name() }}
+                                    <label>Name</label>
+
+                                    {%for error in form.name.errors%}
+                                    <div class="error">{{ error }}</div>
+                                    {%endfor%}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix"></i>
+                                    {{ form.description(class_="materialize-textarea") }}
+                                    <label>Description</label>
+
+                                    {%for error in form.description.errors%}
+                                    <div class="error">{{ error }}</div>
+                                    {%endfor%}
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+
+                                    <i class="material-icons prefix"></i>
+                                    <div class="input-field col s12">
+                                      <input disabled value="{{park_name}}" id="disabled2" type="text" class="validate">
+                                      <label for="disabled2">Park</label>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="file-field input-field col s6">
+                                    <div class="btn">
+                                        <span>File</span>
+                                        {{ form.image_url() }}
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" disabled value="Upload"
+                                                   id="disabled">
+                                        </div>
+                                    </div>
+
+                                    {%for error in form.image_url.errors%}
+                                    <div class="error">{{ error }}</div>
+                                    {%endfor%}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="center-align">
+                                    <button id="submit" class="btn cyan waves-effect waves-light" type="submit">Submit
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Action Button -->
+        <div class="fixed-action-btn " style="bottom: 50px; right: 19px;">
+            <a class="btn-floating btn-large">
+                <i class="material-icons">add</i>
+            </a>
+            <ul>
+                <li>
+                    <a href="css-helpers.html" class="btn-floating blue">
+                        <i class="material-icons">help_outline</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="cards-extended.html" class="btn-floating green">
+                        <i class="material-icons">widgets</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="app-calendar.html" class="btn-floating amber">
+                        <i class="material-icons">today</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="app-email.html" class="btn-floating red">
+                        <i class="material-icons">mail_outline</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Floating Action Button -->
+    </div>
+    <!--end container-->
+</section>
+<!-- END CONTENT -->
+{% endblock %}

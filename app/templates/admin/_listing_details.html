@@ -1,0 +1,34 @@
+<div class="modal-content">
+    <h4>{{listing.title}}</h4>
+    {%if listing.short_description%}
+    <h5>Short Description: </h5>
+    <p>{{listing.short_description}}</p>
+    {%endif%}
+    {%if listing.long_description%}
+    <h5>Long Description: </h5>
+    <p>{{listing.long_description}}</p>
+    {%endif%}
+    <h5>Location: </h5>
+    <p><b>{{listing.location}}</b></p>
+    <h5>Duration: </h5>
+    <p>{{listing.duration}}</p>
+    <h5>Rating: </h5>
+    <p>{%if listing.rating%}{{listing.rating}}{% else %}0{%endif%}</p>
+    <h5>Overall Rating: </h5>
+    <p>{%if listing.overal_rating%}{{listing.overal_rating}}{% else %} 0{%endif%}</p>
+    <h5>Reviews: </h5>
+    {% for review in listing.reviews %}
+    <p></p>
+    <p><b>{{review.user.full_name()}}</b>: {{review.comment}}</p>
+    {% endfor %}
+</div>
+<div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+    {% if listing.status == True %}
+    <a href="{{ url_for('admin.approve_listing', listing_id=listing.id) }}"
+       class="modal-action modal-close waves-effect waves-light  btn gradient-45deg-green-teal box-shadow-none border-round mr-1">Decline</a>
+    {% else %}
+    <a href="{{ url_for('admin.approve_listing', listing_id=listing.id) }}"
+       class="modal-action modal-close waves-effect waves-light  btn gradient-45deg-red-pink box-shadow-none border-round mr-1">Approve</a>
+    {%endif%}
+</div>

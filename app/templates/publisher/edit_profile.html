@@ -1,0 +1,195 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+       <!-- START CONTENT -->
+        <section id="content">
+          <!--breadcrumbs start-->
+          <div id="breadcrumbs-wrapper">
+            <div class="container">
+              <div class="row">
+                <div class="col s10 m6 l6">
+                  <h5 class="breadcrumbs-title">Edit Profile</h5>
+                  <ol class="breadcrumbs">
+                    <li><a href="{{url_for('publisher.dashboard')}}">Dashboard</a></li>
+                    <li><a href="{{url_for('publisher.profile')}}">Profile</a></li>
+                    <li class="active">Edit</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--breadcrumbs end-->
+
+          <!--start container-->
+          <div class="container">
+            <div class="section">
+              <div class="divider"></div>
+                <div class="row">
+                <div class="col s12 m12 l12">
+                  <div class="card-panel">
+                    <h4 class="header2">Company Information</h4>
+                    <div class="row">
+                      <form class="col s12" method="post" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+
+                        <div class="row">
+                          <div class="input-field col s12">
+                            <i class="material-icons prefix">account_balance</i>
+                            {{ form.company_name() }}
+                            <label for="first_name">Company Name</label>
+                            {%for error in form.company_name.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s6">
+                            <i class="material-icons prefix">payment</i>
+                            {{ form.paypal() }}
+                            <label for="email">Paypal Email</label>
+                            {%for error in form.paypal.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s6">
+                            <i class="material-icons prefix">link</i>
+                            {{ form.facebook() }}
+                            <label for="email">Facebook url</label>
+                            {%for error in form.facebook.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s6">
+                            <i class="material-icons prefix">link</i>
+                            {{ form.twitter() }}
+                            <label for="email">Twitter url</label>
+                            {%for error in form.twitter.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s6">
+                            <i class="material-icons prefix">link</i>
+                            {{ form.instagram() }}
+                            <label for="email">Instagram url</label>
+                            {%for error in form.instagram.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field col s12">
+                            <i class="material-icons prefix">note</i>
+                            {{ form.overview(class="materialize-textarea") }}
+                            <label for="email">Overview</label>
+                            {%for error in form.overview.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                        </div>
+                        <div class="row" data-toggle="fieldset" id="phone-fieldset">
+                          {%  for phone in form.phones %}
+                          <div class="row" data-toggle="fieldset-entry">
+                          <div class="input-field col s10">
+                            <i class="material-icons prefix">phone</i>
+                            {{ phone.phone_number() }}
+                            <label for="email">Phone Number</label>
+                            {%for error in phone.phone_number.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s2">
+                            <button type="button" class="btn-floating waves-effect waves-light red accent-2" data-toggle="fieldset-remove-row" id="phone-{{loop.index0}}-remove">
+                              <i class="material-icons">remove</i>
+                              </button>
+                          </div>
+                        </div>
+                          {% endfor %}
+                          <div class="row">
+                            <div class="center-align">
+                              <button style="margin-left:3%" type="button" data-toggle="fieldset-add-row" class="btn-floating waves-effect waves-light green accent-2 left" data-target="#phone-fieldset">
+                                <i class="material-icons">add</i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row" data-toggle="fieldset" id="place-fieldset">
+                          {%  for email in form.emails %}
+                          <div class="row" data-toggle="fieldset-entry">
+                          <div class="input-field col s10">
+                            <i class="material-icons prefix">email</i>
+                            {{ email.email() }}
+                            <label for="email">Emails</label>
+                            {%for error in email.email.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s2">
+                            <button type="button" class="btn-floating waves-effect waves-light red accent-2" data-toggle="fieldset-remove-row" id="place-{{loop.index0}}-remove">
+                              <i class="material-icons">remove</i>
+                              </button>
+                          </div>
+                        </div>
+                          {% endfor %}
+                          <div class="row">
+                            <div class="center-align">
+                              <button style="margin-left:3%" type="button" data-toggle="fieldset-add-row" class="btn-floating waves-effect waves-light green accent-2 left" data-target="#place-fieldset">
+                                <i class="material-icons">add</i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row" data-toggle="fieldset" id="day-fieldset">
+                          {%  for location in form.locations %}
+                          <div class="row" data-toggle="fieldset-entry">
+                          <div class="input-field col s5">
+                            <i class="material-icons prefix">location_on</i>
+                            {{ location.city() }}
+                            <label for="email">City</label>
+                            {%for error in location.city.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s5">
+                            <i class="material-icons prefix">location_on</i>
+                           {{ location.country }}
+                            <label for="email">Country</label>
+                            {%for error in location.country.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s2">
+                            <button type="button" class="btn-floating waves-effect waves-light red accent-2" data-toggle="fieldset-remove-row" id="day-{{loop.index0}}-remove">
+                              <i class="material-icons">remove</i>
+                              </button>
+                          </div>
+                        </div>
+                          {% endfor %}
+                          <div class="row">
+                            <div class="center-align">
+                              <button style="margin-left:3%" type="button" data-toggle="fieldset-add-row" class="btn-floating waves-effect waves-light green accent-2 left" data-target="#day-fieldset">
+                                <i class="material-icons">add</i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="row">
+                            <div class="center-align">
+                              <button class="btn cyan waves-effect waves-light" type="submit">Submit
+                                <i class="material-icons right">send</i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+{% endblock%}
+
+{% block scripts %}
+   <script src="{{ url_for("static", filename="js/page.js") }}"></script>
+{% endblock %}

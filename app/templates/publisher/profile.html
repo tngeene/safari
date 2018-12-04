@@ -1,0 +1,149 @@
+{% extends 'layouts/base.html' %}
+{% block custom_head_tags %}
+<link href="{{ url_for('static', filename='css/custom/profile.css') }}" type="text/css"rel="stylesheet">
+{{ super() }}
+{% endblock %}
+{% block content %}
+<!-- START CONTENT -->
+<section id="content">
+  <div id="breadcrumbs-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col s10 m6 l6">
+          <h5 class="breadcrumbs-title">Profile</h5>
+          <ol class="breadcrumbs">
+            <li><a href="{{url_for('publisher.dashboard')}}">Dashboard</a></li>
+            <li class="active">Profile</li>
+          </ol>
+        </div>
+        <div class="col s2 m6 l6">
+          <a href="{{url_for('publisher.edit_profile')}}" class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn right gradient-45deg-light-blue-cyan gradient-shadow">
+            <i class="material-icons left">mode_edit</i> Edit Profile</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--start container-->
+  <div class="container">
+    <div id="profile-page" class="section">
+      <!-- profile-page-header -->
+      <div  class="row">
+        <!-- profile-page-sidebar-->
+    <div class="col s12 m6">
+      <div id="profile-page-header" class="card">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img class="activator" src="{{ url_for('static', filename='uploads/{}'.format(current_user.publisher.banner) ) if current_user.publisher.banner else url_for('static', filename='images/placeholder.png') }}" alt="user background">
+          <a href="{{url_for('publisher.edit_cover')}}" class="btn-floating  right profile_top">
+            <i class="material-icons">mode_edit</i>
+          </a>
+        </div>
+        <figure class="card-profile-image">
+          <img src="{{ url_for('static', filename='uploads/{}'.format(current_user.publisher.logo) ) if current_user.publisher.logo else url_for('static', filename='images/placeholder.png') }}" alt="profile image" class="z-depth-2 responsive-img activator gradient-45deg-light-blue-cyan gradient-shadow">
+          <a href="{{url_for('publisher.edit_cover')}}" class="btn-floating  right top">
+            <i class="material-icons">mode_edit</i>
+          </a>
+        </figure>
+        <div class="card-content">
+          <div class="row pt-2">
+            <div class="col s12 m6 offset-m2">
+              <h4 class="card-title grey-text text-darken-4">{{ current_user.publisher.company_name if current_user.publisher.company_name else current_user.full_name() }}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="profile-page-sidebar" class="col s12 m6">
+      <!-- Profile About  -->
+      <div class="card cyan">
+        <div class="card-content white-text">
+          <span class="card-title">Overview</span>
+          <p>{{current_user.publisher.overview}}</p>
+        </div>
+      </div>
+      <!-- Profile About  -->
+    </div>
+  </div>
+      <!--/ profile-page-header -->
+      <!-- profile-page-content -->
+      <div id="profile-page-content" class="row">
+        <!-- profile-page-sidebar-->
+        <div id="profile-page-sidebar" class="col s12 m4">
+          <!-- Profile About  -->
+          <div class="card cyan">
+            <div class="card-content white-text">
+              <span class="card-title">Contacts</span>
+            </div>
+          </div>
+          <!-- Profile About  -->
+          <!-- Profile About Details  -->
+          <ul id="profile-page-about-details" class="collection z-depth-1">
+            {% for phone in current_user.publisher.phones %}
+            <li class="collection-item">
+              <div class="row">
+                <div class="col s5">
+                  <i class="material-icons left">phone</i></div>
+                <div class="col s7 right-align">{{ phone.phone_number }}</div>
+              </div>
+            </li>
+            {% endfor %}
+            {% for email in current_user.publisher.emails %}
+            <li class="collection-item">
+              <div class="row">
+                <div class="col s5">
+                  <i class="material-icons left">email</i></div>
+                <div class="col s7 right-align">{{ email.email}}</div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          <!--/ Profile About Details  -->
+        </div>
+        <div id="profile-page-sidebar" class="col s12 m4">
+          <!-- Profile About  -->
+          <div class="card cyan">
+            <div class="card-content white-text">
+              <span class="card-title">Locations</span>
+            </div>
+          </div>
+          <!-- Profile About  -->
+          <!-- Profile About Details  -->
+          <ul id="profile-page-about-details" class="collection z-depth-1">
+            {% for location in current_user.publisher.locations %}
+            <li class="collection-item">
+              <div class="row">
+                <div class="col s5">
+                  <i class="material-icons left">location</i></div>
+                <div class="col s7 right-align">{{ location.city}}, {{ location.country }}</div>
+              </div>
+            </li>
+            {% endfor %}
+
+          </ul>
+          <!--/ Profile About Details  -->
+        </div>
+        <div id="profile-page-sidebar" class="col s12 m4">
+          <!-- Profile About  -->
+          <div class="card cyan">
+            <div class="card-content white-text">
+              <span class="card-title">Payment</span>
+            </div>
+          </div>
+          <!-- Profile About  -->
+          <!-- Profile About Details  -->
+          <ul id="profile-page-about-details" class="collection z-depth-1">
+            <li class="collection-item">
+              <div class="row">
+                <div class="col s5">
+                  <i class="material-icons left">payment</i></div>
+                <div class="col s7 right-align">{{ current_user.publisher.paypal }}</div>
+              </div>
+            </li>
+          </ul>
+          <!--/ Profile About Details  -->
+        </div>
+        <!-- profile-page-sidebar-->
+      </div>
+    </div>
+  </div>
+  </section>
+{% endblock%}

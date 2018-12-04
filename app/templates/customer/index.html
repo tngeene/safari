@@ -1,0 +1,145 @@
+{% extends 'layouts/base.html' %}
+ {% block custom_head_tags %}
+    <!-- CORE CSS-->
+    <link href="{{ url_for('static', filename='css/themes/collapsible-menu/materialize.css' )}}" type="text/css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/themes/collapsible-menu/style.css') }}" type="text/css" rel="stylesheet">
+    {% endblock %}
+
+{% block content %}
+        <!-- START CONTENT -->
+        <section id="content">
+          <!--start container-->
+          <div class="container">
+
+            <!--card stats start-->
+            <div id="card-stats">
+              <div class="row">
+                <div class="col s12 m6 l3">
+                  <div class="card gradient-45deg-red-pink gradient-shadow min-height-100 white-text">
+                    <div class="padding-4">
+                      <div class="col s7 m7">
+                        <i class="material-icons background-round mt-5">perm_identity</i>
+                        <p><a href="{{url_for('customer.view_bookings_by', status='pending')}}">Pending</a></p>
+                      </div>
+                      <div class="col s5 m5 right-align">
+
+                        <p>{{pending}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col s12 m6 l3">
+                  <div class="card gradient-45deg-amber-amber gradient-shadow min-height-100 white-text">
+                    <div class="padding-4">
+                      <div class="col s7 m7">
+                        <i class="material-icons background-round mt-5">timeline</i>
+                        <p><a href="{{url_for('customer.view_bookings_by', status='paid')}}">Paid</a></p>
+                      </div>
+                      <div class="col s5 m5 right-align">
+
+                        <p>{{paid}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m6 l3">
+                  <div class="card gradient-45deg-green-teal gradient-shadow min-height-100 white-text">
+                    <div class="padding-4">
+                      <div class="col s7 m7">
+                        <i class="material-icons background-round mt-5">attach_money</i>
+                        <p><a href="{{url_for('customer.view_bookings_by', status='accepted')}}">Accepted</a></p>
+                      </div>
+                      <div class="col s5 m5 right-align">
+
+                        <p>{{accepted}}</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m6 l3">
+                  <div class="card gradient-45deg-green-teal gradient-shadow min-height-100 white-text">
+                    <div class="padding-4">
+                      <div class="col s7 m7">
+                        <i class="material-icons background-round mt-5">attach_money</i>
+                        <p><a href="{{url_for('customer.view_bookings_by', status='cancelled')}}">Cancelled</a></p>
+                      </div>
+                      <div class="col s5 m5 right-align">
+
+                        <p>{{cancelled}}</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--card stats end-->
+
+            <div class="section">
+            <div class="col s12">
+              <h4>Bookings</h4>
+                    <table class="responsive-table">
+                      <thead>
+                        <tr>
+                          <th data-field="id">#</th>
+                          <th data-field="name">Title</th>
+                          <th data-field="price">Location</th>
+                          <th data-field="total">Total</th>
+                          <th data-field="status">Publisher</th>
+                          <th data-field="status">Payment</th>
+                          <th data-field="status">Message</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {%for booking in bookings%}
+                        <tr>
+                          <td>{{loop.index}}</td>
+                          <td>{{booking.listing.price.name}}<a href="{{url_for('customer.review',what='listing', id=booking.listing.price.id)}}"><span>   </span> Review</a></td>
+                          <td>{{booking.listing.location}}</td>
+                          <td><span>$ </span>{{booking.orders.grand_total}}</td>
+                          <td>{{booking.listing.publisher.publisher.company_name}}<a href="{{url_for('customer.review',what='publisher', id=booking.listing.publisher.id)}}"><span>   </span>Review</a></td>
+                          <td>{% if booking.status == True %}
+                            <a href="#">Paid</a>
+                            {%else%}
+                            <a href="{{url_for('home.booking', id=booking.id)}}">Pay  </a>
+                            {%endif%}</td>
+                        <td><a href="{{url_for('publisher.send_message', id=booking.listing.publisher.id)}}">Chat with publisher</a></td>
+                        <td>
+                          {% if booking.state == 'pending' %}
+                          <a class='dropdown-button btn waves-effect waves-light amber darken-4' href='#'>Pending</a>
+                            {% elif booking.state == 'accepted' %}
+                            <a class='dropdown-button btn waves-effect waves-light green darken-1' href='#'>Accepted</a>
+                            {% elif booking.state == 'cancelled' %}
+                            <a class='dropdown-button btn waves-effect waves-light red accent-2' href='#'>Cancelled</a>
+                            {% endif %}
+                        </td>
+
+                        </tr>
+
+                      {%endfor%}
+                      </tbody>
+                    </table>
+                  </div>
+  </div>
+
+            <!-- ecommerce product start-->
+            <div id="ecommerce-product">
+              <!-- ecommerce offers start-->
+              <div id="ecommerce-offer">
+
+                <div class="row">
+
+                </div>
+              </div>
+              <!-- ecommerce offers end-->
+              <!-- //////////////////////////////////////////////////////////////////////////// -->
+            </div>
+            <!--end container-->
+          </div>
+        </section>
+        <!-- END CONTENT -->
+
+{% endblock%}

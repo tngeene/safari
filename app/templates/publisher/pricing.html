@@ -1,0 +1,134 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+       <!-- START CONTENT -->
+        <section id="content">
+          <!--breadcrumbs start-->
+          <div id="breadcrumbs-wrapper">
+            <!-- Search for small screen -->
+            <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
+              <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col s10 m6 l6">
+                  <h5 class="breadcrumbs-title">Packages</h5>
+                  <ol class="breadcrumbs">
+                    <li><a href="{{url_for('publisher.dashboard')}}">Dashboard</a></li>
+                    <li><a href="{{url_for('publisher.package')}}">{{ country }}</a></li>
+                    <li class="active">Package</li>
+                  </ol>
+                </div>
+                <div class="col s2 m6 l6">
+                  <a href="{{url_for('publisher.newPricing')}}" class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn right gradient-45deg-light-blue-cyan gradient-shadow">
+                    <i class="material-icons left">add</i> Add Package</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--breadcrumbs end-->
+          <!--start container-->
+          <div class="container">
+            <div class="section">
+              <p class="caption">View all of your packges here</p>
+              <div class="row">
+                {% for item in items %}
+                <div class="col s12">
+                  <br>
+                  <br>
+                  <div class="divider"></div>
+                  <h4 class="header">{{ item.name }}
+                    <a href="{{url_for('publisher.editPricing',id=item.id)}}" class="btn-floating waves-effect waves-light cyan">
+                      <i class="material-icons">create</i>
+                    </a>
+                  </h4>
+
+                </div>
+                <section class="plans-container" id="plans">
+                  <article class="col s12 m6 l3">
+                    <div class="card hoverable">
+                      <div class="card-image cyan waves-effect">
+                        <div class="card-title">Total Price Adults
+                        </div>
+                        <div class="price">
+                          <sup>$</sup>{{ item.total_price_adults }}
+                        </div>
+                      </div>
+                      <div class="card-content">
+                        <ul class="collection">
+                          {% for include in item.includes %}
+                          <li class="collection-item">{{ include.include }}</li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="col s12 m6 l3">
+                    <div class="card z-depth-1 hoverable">
+                      <div class="card-image red accent-2 waves-effect">
+                        <div class="card-title">Total price children</div>
+                        <div class="price">
+                          <sup>$</sup>{{ item.total_price_children }}
+                        </div>
+                      </div>
+                      <div class="card-content">
+                        <ul class="collection">
+                          {% for include in item.includes %}
+                          <li class="collection-item">{{ include.include }}</li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="col s12 m6 l3">
+                    <div class="card hoverable">
+                      <div class="card-image deep-orange accent-2 waves-effect">
+                        <div class="card-title">Price per day Adults</div>
+                        <div class="price">
+                          <sup>$</sup>{{ item.price_per_day_adults }}
+                          <sub>/day</sub>
+                        </div>
+                      </div>
+                      <div class="card-content">
+                        <ul class="collection">
+                          {% for include in item.includes %}
+                          <li class="collection-item">{{ include.include }}</li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+                    <article class="col s12 m6 l3">
+                    <div class="card hoverable">
+                      <div class="card-image teal waves-effect">
+                        <div class="card-title">Price per day Children</div>
+                        <div class="price">
+                          <sup>$</sup>{{ item.price_per_day_children }}
+                          <sub>/day</sub>
+                        </div>
+                      </div>
+                      <div class="card-content">
+                        <ul class="collection">
+                          {% for include in item.includes %}
+                          <li class="collection-item">{{ include.include }}</li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+                </section>
+                   <div class="divider"></div>
+                   {% else %}
+                   <div id="alert" class="card orange lighten-5">
+                     <div class="card-content orange-text">
+                                         <p>No Packages found!! Please add package to see them </p>
+                     </div>
+                     </button>
+                   </div>
+                  {% endfor %}
+              </div>
+            </div>
+          </div>
+          <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+{% endblock%}

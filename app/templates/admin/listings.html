@@ -1,0 +1,92 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% block custom_head_tags %}
+{{ super() }}
+<!-- CORE CSS-->
+<link href="{{ url_for('static', filename='css/themes/horizontal-menu/materialize.css')}}" type="text/css"
+      rel="stylesheet">
+<link href="{{ url_for('static', filename='css/themes/horizontal-menu/style.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/layouts/style-horizontal.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/prism/prism.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/perfect-scrollbar/perfect-scrollbar.css') }}" type="text/css"
+      rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/data-tables/css/jquery.dataTables.min.css') }}" type="text/css"
+      rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/flag-icon/css/flag-icon.min.css') }}" type="text/css"
+      rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<section id="content">
+    <!--start container-->
+    <!--start container-->
+    <div class="container">
+        <div class="section">
+            <!--DataTables example-->
+            <div id="table-datatables">
+                <h4 class="header">All Listings</h4>
+                <div class="row">
+
+                    <div class="col s12">
+                        <table id="data-table-simple" class="responsive-table display" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Details</th>
+                                <th>Title</th>
+                                <th>Publisher Name</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                                <th>Duration</th>
+                                <th>Rating</th>
+                                <th>Number of Reviews</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            {%for listing in listings%}
+                            <tr>
+                                <td>{{loop.index}}</td>
+                                <td><a class="waves-effect waves-light btn modal-trigger gradient-45deg-indigo-blue"
+                                       onclick="listing_details('{{ listing.id }}')"
+                                       href="#modal2">Details</a></td>
+                                <td><a href="#">{{listing.title}}</a></td>
+                                <td>{{listing.publisher.full_name()}}</td>
+                                <td>{{listing.location}}</td>
+                                <td>{%if listing.status == 1%}Approved{% else %} Not Approved{%endif%}</td>
+                                <td>{{listing.duration}}</td>
+                                <td>{%if listing.rating%}{{listing.rating}}{% else %} 0{%endif%}</td>
+                                <td>{%if listing.overal_rating%}{{listing.overal_rating}}{% else %} 0{%endif%}</td>
+                            </tr>
+                             {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Floating Action Button -->
+        </div>
+    </div>
+    {%for listing in listings%}
+    <div id="modal2" class="modal modal-fixed-footer">
+
+    </div>
+    {%endfor%}
+</section>
+
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/scripts/advanced-ui-modals.js')}}"></script>
+<script>
+  function listing_details(id) {
+		$.ajax('{{ url_for('admin.listing_details') }}?since=' + id).done(function(response) {
+                        $('#modal2').html(response)
+		}).fail(function() {
+			console.log('Error: Could not contact server.');
+		});
+
+      }
+
+  </script>
+{% endblock %}

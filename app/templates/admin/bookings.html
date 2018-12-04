@@ -1,0 +1,68 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% block custom_head_tags %}
+{{ super() }}
+<!-- CORE CSS-->
+<link href="{{ url_for('static', filename='css/themes/horizontal-menu/materialize.css')}}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/themes/horizontal-menu/style.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/layouts/style-horizontal.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/prism/prism.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/perfect-scrollbar/perfect-scrollbar.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/data-tables/css/jquery.dataTables.min.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/flag-icon/css/flag-icon.min.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+        <section id="content">
+          <!--start container-->
+          <!--start container-->
+          <div class="container">
+            <div class="section">
+              <!--DataTables example-->
+              <div id="table-datatables">
+                <h4 class="header">All Bookings</h4>
+                <div class="row">
+
+                  <div class="col s12">
+                    <table id="data-table-simple" class="responsive-table display" cellspacing="0">
+                       <thead>
+                        <tr>
+                          <th>Customer First Name</th>
+                          <th>Customer Last Name</th>
+                          <th>Customer Email</th>
+                          <th>Package Title</th>
+                          <th>Package Publisher</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                          <th>Customer First Name</th>
+                          <th>Customer Last Name</th>
+                          <th>Customer Email</th>
+                          <th>Package Title</th>
+                          <th>Package Publisher</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                      {% for booking in bookings %}
+                        <tr>
+                          <td>{{booking.user.first_name}}</td>
+                          <td>{{booking.user.last_name}}</td>
+                          <td>{{booking.user.email}}</td>
+                          <td>{{booking.listing.title}}</td>
+                          <td>{{booking.listing.publisher.company_name}}</td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            <!-- Floating Action Button -->
+          </div>
+          </div>
+        </section>
+
+ {% endblock %}
+

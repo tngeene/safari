@@ -1,0 +1,43 @@
+<div class="list-content clearfix" >
+{%for publisher in publishers%}
+<div class="list-item-entry">
+    <div class="hotel-item style-3 bg-white">
+        <div class="table-view">
+            <div class="radius-top cell-view">
+                <img src="{{ url_for('static', filename='uploads/{}'.format(publisher.banner) ) if publisher.banner else url_for('static', filename='images/placeholder.png') }}" alt="">
+            </div>
+            <div class="title hotel-middle clearfix cell-view">
+                <h3><b>{{ publisher.company_name }}</b></h3>
+                <div class="rate-wrap">
+                    <div class="rate">
+                    <span class="fa fa-star {{'color-yellow' if publisher.rating >= 1 else 'color-grey'  }}"></span>
+                    <span class="fa fa-star {{'color-yellow' if publisher.rating >= 2 else 'color-grey'  }}"></span>
+                    <span class="fa fa-star {{'color-yellow' if publisher.rating >= 3 else 'color-grey'  }}"></span>
+                    <span class="fa fa-star {{'color-yellow' if publisher.rating >= 4 else 'color-grey'  }}"></span>
+                    <span class="fa fa-star {{'color-yellow' if publisher.rating >= 5 else 'color-grey'  }}"></span>
+                </div>
+                <i>{{ publisher.overal_ratings }} reviews</i>
+            </div>
+                <p><b>Office in: </b>
+                  {%  for location in publisher.getLocations() %}
+                  <span class="flag-icon flag-icon-{{ arcodes[location.country.capitalize()].lower() if location.country else 'gb' }}"></span>
+                  {{ location.country }}
+                  {% endfor %}</p>
+                <p><b>Price range: </b>{{ "$ {:,.0f}".format(publisher.user.get_price_range()['min']) }} - {{ "$ {:,.0f}".format(publisher.user.get_price_range()['max']) }}</p>
+            </div>
+            <div class="title hotel-right clearfix cell-view">
+                <img src="{{ url_for('static', filename='uploads/{}'.format(publisher.logo) ) if publisher.logo else url_for('static', filename='images/placeholder.png') }}" width="75px" class="operator-list-logo">
+                <a class="c-button b-40 bg-blue hv-blue-o grid-hidden" href="{{ url_for('home.tour_operator_details', publisher_id=publisher.user.id) }}">view tours</a>
+            </div>
+        </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="alert alert-warning" role="alert">
+              <span class="text-success">No Publishers Found!!</span>
+  </div>
+  {%endfor%}
+</div>
+<div class="c_pagination clearfix padd-120">
+  {% include 'home/_paginate.html' %}
+</div>

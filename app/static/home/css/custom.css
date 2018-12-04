@@ -1,0 +1,95 @@
+.m-1 {
+    margin: 1rem;
+}
+
+.mb-1 {
+    margin-bottom: 1rem;
+}
+
+.p-2 {
+    padding: 2rem;
+}
+
+.py-2 {
+    padding: 2rem 0;
+}
+
+.px-2 {
+    padding: 0 2rem;
+}
+
+.pt-2 {
+    padding-top: 2rem;
+}
+
+.mb-2 {
+    margin-bottom: 2rem;
+}
+
+.pb-2 {
+    padding-bottom: 2rem !important;
+}
+
+.m-2 {
+    margin: 2rem;
+}
+
+.py-3 {
+    padding: 3rem 0 !important;
+}
+
+.py-5 {
+    padding: 5rem 0;
+}
+
+.pt-5 {
+    padding-top: 5rem;
+}
+
+.footer-payment {
+    padding-left: 2rem;
+}
+
+.bg-light {
+    background: #f2f2f2;
+}
+
+.thin-button {
+    padding: 7px 20px !important;
+    margin-bottom: 0.5rem;
+}
+
+.operator-list-logo {
+    margin-bottom: 1rem;
+}
+
+.popular-img-300 {
+    min-height: 300px;
+}
+
+.h-350 {
+    min-height: 350px !important;
+}
+
+.name{
+  margin-bottom: 0px !important;
+}
+
+.color-white-2{
+  font-size: 13px;
+  color: #c7c7c7;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.color-white-3 {
+    font-size: 13px;
+    color: #c7c7c7;
+}
+
+.hr2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #c7c7c7;
+}

@@ -1,0 +1,51 @@
+{% extends 'layouts/base.html' %}
+ {% block custom_head_tags %}
+    <!-- CORE CSS-->
+    <link href="{{ url_for('static', filename='css/themes/collapsible-menu/materialize.css' )}}" type="text/css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/themes/collapsible-menu/style.css') }}" type="text/css" rel="stylesheet">
+    {% endblock %}
+
+{% block content %}
+        <!-- START CONTENT -->
+        <section id="content">
+          <!--start container-->
+          <div class="container">
+            <div class="section">
+              <!--DataTables example-->
+              <div id="table-datatables">
+                <h4 class="header">All Payments</h4>
+                <div class="row">
+
+                  <div class="col s12">
+                    <table id="data-table-simple" class="responsive-table display" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Payment Method</th>
+                          <th>Booked Title</th>
+                          <th>Payment Date</th>
+                          <th>Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {%for payment in payments%}
+                        <tr>
+                          <td>{{loop.index}}</td>
+                          <td>{{payment.card_holder_name}} </td>
+                           <td>{{payment.booking.listing.price.name}} </td>
+                          <td>{{payment.timestamp}}</td>
+                          <td>$ {{payment.amount}}</td>
+                        </tr>
+                      {%endfor%}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+          </div>
+            <!--end container-->
+          </div>
+        </section>
+        <!-- END CONTENT -->
+
+{% endblock%}

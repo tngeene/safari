@@ -1,0 +1,130 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+       <!-- START CONTENT -->
+        <section id="content">
+          <!--breadcrumbs start-->
+          <div id="breadcrumbs-wrapper">
+            <div class="container">
+              <div class="row">
+                <div class="col s10 m6 l6">
+                  <h5 class="breadcrumbs-title">Add New Pricing</h5>
+                  <ol class="breadcrumbs">
+                    <li><a href="{{url_for('publisher.dashboard')}}">Dashboard</a></li>
+                    <li><a href="{{url_for('publisher.package')}}">Packages</a></li>
+                    <li class="active">New</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--breadcrumbs end-->
+          <!--start container-->
+          <div class="container">
+            <div class="section">
+              <div class="divider"></div>
+                <div class="row">
+                <div class="col s12 m12 l12">
+                  <div class="card-panel">
+                    <h4 class="header2">New Pricing</h4>
+                    <div class="row">
+                      <form class="col s12" method="post">
+                          {{ form.hidden_tag() }}
+                        <div class="row">
+                         <div class="input-field col s12">
+                            <i class="material-icons prefix">title</i>
+                            {{ form.name }}
+                            <label for="email">Title</label>
+                             {%for error in form.name.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s6">
+                            <i class="material-icons prefix">attach_money</i>
+                            {{ form.price_per_day_adults }}
+                            <label for="email">Price Per Day Adult</label>
+                              {%for error in form.price_per_day_adults.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s6">
+                            <i class="material-icons prefix">attach_money</i>
+                            {{ form.price_per_day_children }}
+                            <label for="email">Price Per Day Child</label>
+                              {%for error in form.price_per_day_children.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field col s6">
+                            <i class="material-icons prefix">attach_money</i>
+                            {{ form.total_price_adults }}
+                            <label for="email">Total Price Adult</label>
+                              {%for error in form.total_price_adults.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s6">
+                            <i class="material-icons prefix">attach_money</i>
+                            {{ form.total_price_children }}
+                            <label for="email">Total Price Child</label>
+                              {%for error in form.total_price_children.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s6">
+                            <i class="material-icons prefix">add_location</i>
+                            {{ form.location }}
+                            <label for="email">Destination</label>
+                              {%for error in form.location.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                        </div>
+                        <div class="row" data-toggle="fieldset" id="include-fieldset">
+                          {%  for include in form.includes %}
+                          <div class="row" data-toggle="fieldset-entry">
+                          <div class="input-field col s10">
+                            <i class="material-icons prefix">done</i>
+                            {{ include.include }}
+                            <label for="email">Prices inclusive of</label>
+                            {%for error in include.include.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s2">
+                            <button type="button" class="btn-floating waves-effect waves-light red accent-2" data-toggle="fieldset-remove-row" id="include-{{loop.index0}}-remove">
+                              <i class="material-icons">remove</i>
+                              </button>
+                          </div>
+                        </div>
+                          {% endfor %}
+                          <div class="row">
+                            <div class="center-align">
+                              <button style="margin-left:3%" type="button" data-toggle="fieldset-add-row" class="btn-floating waves-effect waves-light green accent-2 left" data-target="#include-fieldset">
+                                <i class="material-icons">add</i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                          <div class="row">
+                            <div class="center-align">
+                              <button class="btn cyan waves-effect waves-light" type="submit">Submit
+                                <i class="material-icons right">send</i>
+                              </button>
+                            </div>
+                          </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+{% endblock%}
+{% block scripts %}
+   <script src="{{ url_for("static", filename="js/page.js") }}"></script>
+{% endblock %}

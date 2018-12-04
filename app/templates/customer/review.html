@@ -1,0 +1,57 @@
+{% extends 'layouts/base.html' %}
+ {% block custom_head_tags %}
+    <!-- CORE CSS-->
+    <link href="{{ url_for('static', filename='css/themes/collapsible-menu/materialize.css' )}}" type="text/css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/themes/collapsible-menu/style.css') }}" type="text/css" rel="stylesheet">
+    {% endblock %}
+
+{% block content %}
+        <!-- START CONTENT -->
+        <section id="content">
+          <!--start container-->
+          <div class="container">
+            <div class="section">
+              <!--DataTables example-->
+              <div id="table-datatables">
+                <h4 class="header">Review {{what}}</h4>
+                <div class="row">
+
+                    <form class="formValidate" id="formValidate"  method="post" action="{{url_for('customer.review', what=what, id=id)}}">
+                        {{form.hidden_tag()}}
+
+
+
+                            {% for subfield in form.stars %}
+                                <tr>
+                                    <td>{{ subfield }}</td>
+                                    <td>{{ subfield.label }}</td>
+                                </tr>
+                            {% endfor %}
+
+                            {%for error in form.stars.errors%}
+                            <span>{{error}}</span>
+                            {%endfor%}
+
+
+                        <div class="input-field col s12">
+                            {{form.comment.label}}
+                            {{form.comment}}
+
+                            {%for error in form.comment.errors%}
+                            <span>{{error}}</span>
+                            {%endfor%}
+                        </div>
+                        <div class="input-field col s12">
+                            {{form.submit(class="btn waves-effect waves-light right submit")}}
+                        </div>
+
+                    </form>
+                </div>
+              </div>
+          </div>
+            <!--end container-->
+          </div>
+        </section>
+        <!-- END CONTENT -->
+
+{% endblock%}

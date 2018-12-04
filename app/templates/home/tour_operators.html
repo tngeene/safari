@@ -1,0 +1,82 @@
+{% extends 'home/home_base.html' %}
+
+
+{% block home_content %}
+
+    <!-- listings -->
+    <div class="list-wrapper bg-grey-2 py-5">
+        <div class="container py-5">
+            <div class="row">
+                {%  include 'home/_operator_sidebar.html' %}
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    <!-- sort actions -->
+                    <div class="list-header clearfix">
+                        <h3 class="color-dr-blue-2">Tour operators</h3>
+                    </div>
+                    <!-- end sort actions -->
+
+                    <!-- list -->
+                    <div id="listing-changeable">
+
+                        <!-- list item -->
+                        {%  include 'home/_tour_operators.html' %}
+                    </div>
+                    <!-- end list item -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock home_content %}
+
+{% block scripts %}
+<script>
+var html ='<div class="loading-center-absolute">';
+    html +='<div class="object object_four"></div>';
+    html +='<div class="object object_three"></div>';
+    html +='<div class="object object_two"></div>';
+    html +='<div class="object object_one"></div>';
+    html +='</div>';
+
+$(document).ready(function() {
+    var div =$('#listing-changeable');
+
+    var office = {
+          form: $('#form-operator'),
+          check:$('.off-check'),
+          url:'{{ url_for('home._get_office') }}'
+        };
+
+    var rating = {
+          form: $('#rating-form'),
+          check:$('.rating-check'),
+          url:'{{ url_for('home._get_tour_ratings') }}'
+        };
+
+
+    function updateOffice(){
+        var send = office.form.serialize();
+        $.get(office.url, send, function(data){
+            div.html(data)
+        });
+      }
+
+    function updateRating(){
+        var send = rating.form.serialize();
+        $.get(rating.url, send, function(data){
+            div.html(data)
+        });
+      }
+
+    office.check.on( "click",function() {
+      div.html(html);
+      updateOffice();
+    });
+
+    rating.check.on( "click",function() {
+      div.html(html);
+      updateRating();
+    });
+});
+  </script>
+
+{% endblock %}

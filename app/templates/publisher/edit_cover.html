@@ -1,0 +1,65 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<!-- START CONTENT -->
+<section id="content">
+  <div id="breadcrumbs-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col s10 m6 l6">
+          <h5 class="breadcrumbs-title">Edit Cover</h5>
+          <ol class="breadcrumbs">
+            <li><a href="{{url_for('publisher.dashboard')}}">Dashboard</a></li>
+            <li><a href="{{url_for('publisher.profile')}}">Profile</a></li>
+            <li class="active">Edit Cover</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--breadcrumbs end-->
+  <!--start container-->
+  <div class="container">
+    <div class="divider"></div>
+    <!--file-upload-->
+    <form class="col s12" method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+    <div id="file-upload" class="section">
+      <!--Default version-->
+      <div class="row section">
+        <div class="col s12 m4 l3">
+          <p>Banner</p>
+        </div>
+        <div class="col s12 m8 l9">
+          {{ form.banner(id="input-file-now",class="dropify",**{" data-default-file": url_for('static', filename='uploads/{}'.format(current_user.publisher.banner) ) if current_user.publisher.banner else ""} ) }}
+           {%for error in form.banner.errors%}
+              <div class="error">{{ error }}</div>
+            {%endfor%}
+        </div>
+      </div>
+    </div>
+    <div class="row section">
+      <div class="col s12 m4 l3">
+        <p>Logo</p>
+      </div>
+      <div class="col s12 m8 l9">
+        {{ form.logo(id="input-file-events",class="dropify-event",**{" data-default-file": url_for('static', filename='uploads/{}'.format(current_user.publisher.logo) ) if current_user.publisher.logo else ""} ) }}
+         {%for error in form.logo.errors%}
+            <div class="error">{{ error }}</div>
+          {%endfor%}
+      </div>
+    </div>
+    <div class="row">
+      <div class="row">
+        <div class="center-align">
+          <button class="btn cyan waves-effect waves-light" type="submit">Save
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  </div>
+  <!--end container-->
+</section>
+<!-- END CONTENT -->
+{% endblock%}

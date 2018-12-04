@@ -1,0 +1,56 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+       <!-- START CONTENT -->
+        <section id="content">
+          <!--breadcrumbs start-->
+          <div id="breadcrumbs-wrapper">
+            <!-- Search for small screen -->
+            <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
+              <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col s10 m6 l6">
+                  <h5 class="breadcrumbs-title">Listings</h5>
+                  <ol class="breadcrumbs">
+                    <li><a href="{{url_for('publisher.dashboard')}}">Dashboard</a></li>
+                    <li><a href="{{url_for('publisher.destination',country=country)}}">{{ country }}</a></li>
+                    <li class="active">Listings</li>
+                  </ol>
+                </div>
+                <div class="col s2 m6 l6">
+                  <a href="{{url_for('publisher.newListing')}}"
+                     class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn right gradient-45deg-light-blue-cyan gradient-shadow">
+                    <i class="material-icons left">add</i> Add Listing</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--breadcrumbs end-->
+          <!--start container-->
+          <div class="container">
+            <div class="section">
+              <!-- statr items list -->
+              <div id="item-posts" class="row">
+                <div class="item-sizer"></div>
+                {% for item in items %}
+                  {% include 'publisher/_listing.html' %}
+                {% else %}
+                <div id="alert" class="card orange lighten-5">
+                  <div class="card-content orange-text">
+                   <p>No Listings found!! Please add listings to see them </p>
+                  </div>
+                  </button>
+                </div>
+                {% endfor %}
+              </div>
+              <!--/ end items list -->
+            </div>
+          </div>
+          <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+{% endblock%}
+{% block scripts %}
+
+{% endblock%}

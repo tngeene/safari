@@ -1,0 +1,21 @@
+<div class="col-xs-12 col-sm-4 col-md-3">
+        <div class="sidebar bg-white clearfix">
+            <div class="sidebar-block type-2">
+                <h4 class="sidebar-title color-dark-2">Kenya</h4>
+                <ul class="sidebar-category color-5">
+                    <li class="{% if '/overview' in request.path %}active{% endif %}">
+                    <a href="{{ url_for('home.country_details') }}">Overview</a>
+                    </li>
+                    <li class="{% if '/parks_and_reserves' in request.path %}active{% endif %}">
+                        <a href="{{ url_for('home.country_parks_and_reserves') }}">Parks and Reserves</a>									
+                    </li>
+                    <li class="{% if '/wildlife' in request.path %}active{% endif %}">
+                        <a href="{{ url_for('home.country_wildlife') }}">Wildlife</span></a>									
+                    </li>
+                    <li class="{% if '/birds' in request.path %}active{% endif %}">
+                        <a href="{{ url_for('home.country_birds') }}">Birds</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>

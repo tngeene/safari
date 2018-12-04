@@ -1,0 +1,136 @@
+{% import 'macros/admin_nav_macros.html' as nav %}
+{% import 'macros/rightnav_macros.html' as right %}
+{% import 'macros/footer_macros.html' as footer %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        {% include 'partials/_head.html' %}
+
+        {# Any templates that extend this template can set custom_head_tags to add scripts to their page #}
+        {% block custom_head_tags %}{% endblock %}
+    </head>
+    <body id="layouts-horizontal">
+        <!-- Start Page Loading -->
+        <div id="loader-wrapper">
+          <div id="loader"></div>
+          <div class="loader-section section-left"></div>
+          <div class="loader-section section-right"></div>
+        </div>
+        <!-- End Page Loading -->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START MAIN -->
+        <div id="main">
+            <div class="wrapper">
+                {% set dropdown =
+                  [
+                    ('All Users',
+                      [
+                        ('admin.registered_users', 'All Users', 'group'),
+                        ('admin.new_user', 'Add Users', 'person_add'),
+                        ('admin.invite_user', 'Invite Users', 'plus_one'),
+                      ],
+                      '','group'
+                    ),
+                    ('home.index', 'View Site', 'home')
+                  ]
+                %}
+
+
+
+                {% block nav %}
+                    {{ nav.render_nav(current_user, dropdown) }}
+                {% endblock %}
+
+                {% include 'partials/_flashes.html' %}
+                {# When extended, the content block contains all the html of the webpage #}
+
+
+                {% block content %}
+
+                {% endblock %}
+
+                {% block right %}
+                      {{ right.render_right(current_user, dropdown) }}
+                {% endblock %}
+
+                {% block footer %}
+                    {{ footer.render_footer(current_user) }}
+                {% endblock %}
+
+                {# Implement CSRF protection for site #}
+                {% if csrf_token()|safe %}
+                    <div style="visibility: hidden; display: none">
+                      <input type="hidden" name="csrf_token" value="{{ csrf_token()|safe }}">
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+
+
+      <!-- ================================================
+    Scripts
+    ================================================ -->
+     <!-- jQuery Library -->
+    <script type="text/javascript" src="{{ url_for('static', filename='vendors/jquery-3.2.1.min.js') }}"></script>
+    <!--materialize js-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+    <!--scrollbar-->
+    <script type="text/javascript" src="{{ url_for('static', filename='vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <!-- chartjs -->
+    <script type="text/javascript" src="{{ url_for('static', filename='vendors/chartjs/chart.min.js') }}"></script>
+    <!-- sparkline -->
+    <script type="text/javascript" src="{{ url_for('static', filename='vendors/sparkline/jquery.sparkline.min.js') }}"></script>
+    <!-- google map api -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek"></script>
+    <!--jvectormap-->
+    <script type="text/javascript" src="{{ url_for('static', filename='vendors/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='vendors/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='vendors/jvectormap/vectormap-script.js') }}"></script>
+    <!--google map-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts/google-map-script.js') }}"></script>
+    <!--plugins.js - Some Specific JS codes for Plugin Settings-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/plugins.js') }}"></script>
+    <!--card-advanced.js - Page specific JS-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts/dashboard-analytics.js') }}"></script>
+        <!-- data-tables -->
+    <script type="text/javascript" src="{{ url_for('static', filename='vendors/data-tables/js/jquery.dataTables.min.js') }}"></script>
+    <!--data-tables.js - Page Specific JS codes -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts/data-tables.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='vendors/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <!--custom-script.js - Add your own theme custom JS-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/custom-script.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts/cards-extended.js') }}"></script>
+     <!-- masonry -->
+    <script src="{{ url_for('static', filename='vendors/masonry.pkgd.min.js') }}"></script>
+    <!-- imagesloaded -->
+    <script src="{{ url_for('static', filename='vendors/imagesloaded.pkgd.min.js') }}"></script>
+    <!--page-item.js - Page Specific JS codes-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts/page-item.js') }}"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('#select-role').dropdown({
+            onChange: function (value, text, $selectedItem) {
+                $('td.user.role:contains(' + value + ')').closest('tr').removeClass('hidden').show();
+                $('td.user.role').not(':contains(' + value + ')').closest('tr').addClass('hidden').hide();
+            }
+        });
+    });
+    function delete_item(id){
+      swal({    title: "Are you sure?",
+                  text: "You will not be able to recover this file!",
+                  type: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#DD6B55",
+                  confirmButtonText: "Yes, delete it!",
+                  closeOnConfirm: false },
+                  function(){
+                  $(id).submit();
+                });
+    }
+    </script>
+     {% block scripts %}
+        {% endblock %}
+    </body>
+</html>

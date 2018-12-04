@@ -1,0 +1,52 @@
+{% extends 'layouts/base.html' %}
+ {% block custom_head_tags %}
+    <!-- CORE CSS-->
+    <link href="{{ url_for('static', filename='css/themes/collapsible-menu/materialize.css' )}}" type="text/css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/themes/collapsible-menu/style.css') }}" type="text/css" rel="stylesheet">
+    {% endblock %}
+
+{% block content %}
+        <!-- START CONTENT -->
+        <section id="content">
+          <!--start container-->
+          <div class="container">
+            <div class="section">
+              <!--DataTables example-->
+              <div id="table-datatables">
+                <h4 class="header">All Bookings {{status}}</h4>
+                <div class="row">
+
+                  <div class="col s12">
+                    <table id="data-table-simple" class="responsive-table display" cellspacing="0">
+                      <thead>
+                        <tr>
+
+                          <th>Title</th>
+                          <th>Publisher</th>
+                          <th>Location</th>
+                          <th>Start date</th>
+                          <th>Price</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                        {%for booking in bookings%}
+                          <td>{{booking.listing.price.name}}</td>
+                          <td>{{booking.listing.publisher.publisher.company_name}}</td>
+                          <td>{{booking.listing.location}}</td>
+                          <td>{{booking.listing.availability_from}}</td>
+                          <td><span>$  </span>{{booking.orders.grand_total}}</td>
+                        </tr>
+                      {%endfor%}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+          </div>
+            <!--end container-->
+          </div>
+        </section>
+        <!-- END CONTENT -->
+
+{% endblock%}

@@ -1,0 +1,152 @@
+<div class="item product">
+  <div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+      <a href="#" class="btn-floating btn-large btn-price waves-effect waves-light teal accent-4">${{ item.price.total_price_adults}}</a>
+      <a href="#">
+        <img src="{% if item.images[0] %}{{ url_for('static', filename='uploads/{}'.format(item.images[0].image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" height="200px" alt="item-img">
+      </a>
+    </div>
+    <ul class="card-action-buttons">
+      <li>
+        <a href="{{url_for('publisher.editListing',id=item.id)}}" class="btn-floating waves-effect waves-light cyan">
+          <i class="material-icons">create</i>
+        </a>
+      </li>
+      <li>
+        <form  method="post" id="deleteListing{{item.id}}" action="{{ url_for('publisher.deleteListing',id=item.id)  }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        </form>
+        <a href="#" onclick="delete_listing('#deleteListing{{item.id}}')" class="btn-floating waves-effect waves-light red accent-2">
+          <i class="material-icons">delete</i>
+        </a>
+      </li>
+      <li>
+        <a class="btn-floating waves-effect waves-light deep-orange accent-2">
+          <i class="material-icons activator">info_outline</i>
+        </a>
+      </li>
+    </ul>
+    <div class="card-content">
+      <div class="row">
+        <div class="col s12">
+          <p class="card-title grey-text text-darken-4"><a href="#" class="grey-text text-darken-4">{{ item.price.name}}</a>
+          </p><br>
+          <a href="{{url_for('publisher.publishListing',id=item.id)}}">{% if item.published == false %} Publish {% else %} Unpublish{% endif %}</a>
+        </div>
+      </div>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">
+        <i class="material-icons right">close</i> {{ item.price.name}}</span>
+         <ul id="task-card" class="collection">
+  <li class="collection-item dismissable">
+    <label>Location
+      <a href="#" class="secondary-content">
+        <span class="ultra-small">{{ item.location }}</span>
+      </a>
+    </label>
+  </li>
+  <li class="collection-item dismissable">
+     <label>Duration
+      <a href="#" class="secondary-content">
+        <span class="ultra-small">{{ item.duration }}</span>
+      </a>
+    </label>
+  </li>
+  <li class="collection-item dismissable">
+    <label>Availability To
+      <a href="#" class="secondary-content">
+        <span class="ultra-small">{{ moment(item.availability_to).format("MMM Do YYYY")}}</span>
+      </a>
+    </label>
+  </li>
+  <li class="collection-item dismissable">
+     <label>Availability From
+      <a href="#" class="secondary-content">
+        <span class="ultra-small">{{ moment(item.availability_from).format("MMM Do YYYY")}}</span>
+      </a>
+    </label>
+  </li>
+  <li class="collection-item dismissable">
+    <label>Connectivity
+      <a href="#" class="secondary-content">
+        <span class="ultra-small">{{item.connectivity}}</span>
+      </a>
+    </label>
+  </li>
+  <li class="collection-item dismissable">
+    <label>pricing
+      <a href="{{ url_for('publisher.pricing',country=item.price.location) }}" class="secondary-content">
+        <span class="ultra-small">{{item.price.name}}</span>
+      </a>
+    </label>
+  </li>
+  <li class="collection-item dismissable">
+    <label>Tags
+      <a href="#" class="secondary-content">
+        <span class="ultra-small">{% for tag in item.categories %} {{tag.name}},{% endfor %}</span>
+      </a>
+    </label>
+  </li>
+  <li class="collection-item dismissable">
+    <label>Physical condition
+      <a href="#" class="secondary-content">
+        <span class="ultra-small">{{item.physical_condition}}</span>
+      </a>
+    </label>
+  </li>
+  <li class="collection-item dismissable">
+    <label>Summary
+      <a href="#" class="secondary-content">
+        <span class="ultra-small">{{item.long_description}}</span>
+      </a>
+    </label>
+    <label>Policy
+      <a href="#" class="secondary-content">
+        <span class="ultra-small">{{item.policy}}</span>
+      </a>
+    </label>
+    <label>Add ons
+      <a href="#" class="secondary-content">
+        <span class="ultra-small">{{item.add_ons}}</span>
+      </a>
+    </label>
+    <label>Activities:
+      {% for activity in item.activities %}
+      <li class="collection-item dismissable">
+      <i class="material-icons prefix">done</i>
+      <a href="#" class="secondary-content">
+        <span class="ultra-small">{{activity.activity}}</span>
+      </a>
+    </li>
+      {% endfor %}
+    </label>
+  </li>
+  <li class="collection-item dismissable">
+    <label>Places:
+      {% for place in item.places %}
+      <li class="collection-item dismissable">
+      <i class="material-icons prefix">place</i>
+      <a href="#" class="secondary-content">
+        <span class="ultra-small">{{place.place}}</span>
+      </a>
+    </li>
+      {% endfor %}
+    </label>
+  </li>
+  <li class="collection-item dismissable">
+    <label>Day By Day description:
+      {% for day in item.days %}
+
+      <label>{{ day.title }}
+      <a href="#" class="secondary-content">
+        <span class="ultra-small">{{day.day_by_day}}</span>
+      </a>
+
+      {% endfor %}
+    </label>
+  </li>
+</ul>
+    </div>
+  </div>
+</div>

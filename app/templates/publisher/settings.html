@@ -1,0 +1,77 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+       <!-- START CONTENT -->
+        <section id="content">
+          <!--breadcrumbs start-->
+          <div id="breadcrumbs-wrapper">
+            <!-- Search for small screen -->
+            <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
+              <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col s10 m6 l6">
+                  <h5 class="breadcrumbs-title">Change Password</h5>
+                  <ol class="breadcrumbs">
+                    <li><a href="{{url_for('publisher.dashboard')}}">Dashboard</a></li>
+                    <li class="active">Settings</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--breadcrumbs end-->
+          <!--start container-->
+          <div class="container">
+            <div class="section">
+              <div class="divider"></div>
+              <div class="row">
+                <div class="col s12 m12 l12">
+                  <div class="card-panel">
+                    <div class="row">
+                      <form class="col s12"  method="post">
+                          {{ form.hidden_tag() }}
+                        <h4 class="header2">Change password</h4>
+                        <div class="row">
+                          <div class="input-field col s3">
+                            <i class="material-icons prefix">lock_outline</i>
+                            {{ form.oldpassword(id="oldpassword") }}
+                            <label for="oldpassword">Current Password</label>
+                              {%for error in form.oldpassword.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s3">
+                            <i class="material-icons prefix">lock_outline</i>
+                            {{ form.password(id="password") }}
+                            <label for="password">New Password</label>
+                              {%for error in form.password.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s3">
+                            <i class="material-icons prefix">lock_outline</i>
+                            {{ form.password2(id="password2") }}
+                            <label for="password2">Confirm Password</label>
+                              {%for error in form.password2.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s3">
+                            <div class="input-field col s12">
+                              <button class="btn cyan waves-effect waves-light" type="submit">
+                                <i class="material-icons">lock_open</i> Reset Password</button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+{% endblock%}

@@ -1,0 +1,66 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<!-- START CONTENT -->
+<section id="content">
+  <!--breadcrumbs start-->
+  <div id="breadcrumbs-wrapper">
+    <!-- Search for small screen -->
+    <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
+      <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col s10 m6 l6">
+          <h5 class="breadcrumbs-title">Categories</h5>
+          <ol class="breadcrumbs">
+            <li><a href="{{ url_for('publisher.dashboard') }}">Dashboard</a>
+            </li>
+            <li class="active">Categories</li>
+          </ol>
+        </div>
+        <div class="col s2 m6 l6">
+          <a href="{{url_for('publisher.newCategory')}}" class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn right gradient-45deg-light-blue-cyan gradient-shadow">
+            <i class="material-icons left">add</i> Add Category</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--breadcrumbs end-->
+  <!--start container-->
+  <div class="container">
+    <div class="divider"></div>
+    <!--Gradient Card-->
+    <div id="image-card" class="section">
+      <h4 class="header">Categories</h4>
+      <div class="row">
+        <div class="col s12">
+          <div class="row">
+            {% for item in items %}
+            <div class="col s12 m3">
+              <div class="card gradient-shadow gradient-45deg-light-blue-cyan border-radius-3">
+                <div class="card-content center">
+                  <img src="
+                  {% if item.image_url %}
+                    {{ url_for('static', filename='uploads/{}'.format(item.image_url))}}
+                  {% else %}
+                    {{ url_for('static', filename='images/placeholder.png')}}
+                  {% endif %}" height="100px" class="width-40 border-round z-depth-5">
+                  <h5 class="white-text lighten-4">{{ item.name }}</h5>
+                </div>
+              </div>
+            </div>
+            {% else %}
+            <div id="alert" class="card orange lighten-5">
+              <div class="card-content orange-text">
+                                  <p>No Categories found!! Please add categories to see them </p>
+              </div>
+              </button>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <!--end container-->
+</section>
+<!-- END CONTENT -->
+{% endblock%}

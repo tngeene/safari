@@ -1,0 +1,116 @@
+
+{% extends 'layouts/base.html' %}
+ {% block custom_head_tags %}
+    <!-- CORE CSS-->
+    <link href="{{ url_for('static', filename='css/themes/collapsible-menu/materialize.css' )}}" type="text/css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/themes/collapsible-menu/style.css') }}" type="text/css" rel="stylesheet">
+    {% endblock %}
+
+{% block content %}
+        <section id="content">
+          <!--start container-->
+          <div class="container">
+            <div id="profile-page" class="section">
+              
+              <!--jqueryvalidation-->
+            <div id="jqueryvalidation" class="section">
+              <div class="row">
+                <div class="col m12">
+                  <div class="card-panel">
+                    <h4 class="header2">Edit Profile</h4>
+                    <div class="row">
+                      <form class="formValidate" id="formValidate" method="post" action="{{url_for('customer.profile')}}"><div class="row">
+                        {{form.hidden_tag()}}
+                          <div class="input-field col s12">
+                            <label >First Name*</label>
+                            {{form.first_name}}
+                            {%for error in form.first_name.errors%}
+                            <span>{{error}}</span>
+                            {%endfor%}
+                            <div class="errorTxt1"></div>
+                          </div>
+                          <div class="input-field col s12">
+                            {{form.last_name.label}}
+                            {{form.last_name}}
+                            {%for error in form.last_name.errors%}
+                            <span>{{error}}</span>
+                            {%endfor%}
+                            <div class="errorTxt1"></div>
+                          </div>
+                          <div class="input-field col s12">
+                            <label>E-Mail *</label>
+                            {{form.email}}
+                            {%for error in form.email.errors%}
+                            <span>{{error}}</span>
+                            {%endfor%}
+                            <div class="errorTxt2"></div>
+                          </div>
+                          <div class="input-field col s12">
+                            {{form.address.label}}
+                            {{form.address}}
+                            {%for error in form.address.errors%}
+                            <span>{{error}}</span>
+                            {%endfor%}
+                            <div class="errorTxt3"></div>
+                          </div>
+                          <div class="input-field col s12">
+                             {{form.dob.label}}
+                            {{form.dob(placeholder="Choose Date",  class="datepicker")}}
+                            {%for error in form.dob.errors%}
+                            <span>{{error}}</span>
+                            {%endfor%}
+                            <div class="errorTxt4"></div>
+                          </div>
+
+                          <div class="input-field col s12">
+                            {{form.submit( class="btn waves-effect waves-light right submit" )}}
+                              <i class="material-icons right">send</i>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m12 l6">
+                </div>
+              </div>
+            </div>
+            <!-- Floating Action Button -->
+            <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
+              <a class="btn-floating btn-large gradient-45deg-light-blue-cyan gradient-shadow">
+                <i class="material-icons">add</i>
+              </a>
+              <ul>
+                <li>
+                  <a href="css-helpers.html" class="btn-floating blue">
+                    <i class="material-icons">help_outline</i>
+                  </a>
+                </li>
+                <li>
+                  <a href="cards-extended.html" class="btn-floating green">
+                    <i class="material-icons">widgets</i>
+                  </a>
+                </li>
+                <li>
+                  <a href="app-calendar.html" class="btn-floating amber">
+                    <i class="material-icons">today</i>
+                  </a>
+                </li>
+                <li>
+                  <a href="app-email.html" class="btn-floating red">
+                    <i class="material-icons">mail_outline</i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <!-- Floating Action Button -->
+              </div>
+            </div>
+          </div>
+      </div>
+      <!--end container-->
+      </section>
+      <!-- END CONTENT -->
+
+{% endblock%}

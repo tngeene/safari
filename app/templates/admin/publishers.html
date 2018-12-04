@@ -1,0 +1,59 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% block custom_head_tags %}
+{{ super() }}
+<!-- CORE CSS-->
+<link href="{{ url_for('static', filename='css/themes/horizontal-menu/materialize.css')}}" type="text/css"
+      rel="stylesheet">
+<link href="{{ url_for('static', filename='css/themes/horizontal-menu/style.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/layouts/style-horizontal.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/prism/prism.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/perfect-scrollbar/perfect-scrollbar.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/data-tables/css/jquery.dataTables.min.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/flag-icon/css/flag-icon.min.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <section id="content">
+        <!--start container-->
+        <!--start container-->
+        <div class="container">
+            <div class="section">
+                <!--DataTables example-->
+                <div id="table-datatables">
+                    <h4 class="header">All Publishers</h4>
+                    <div class="row">
+
+                        <div class="col s12">
+                            <table id="data-table-simple" class="responsive-table display" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Company Name</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {%for publisher in publishers%}
+                                <tr onclick="window.location.href = '{{ url_for('admin.user_info', user_id=publisher.id) }}';">
+                                    <td>{{publisher.full_name()}}</td>
+                                    <td>{{publisher.company_name}}</td>
+                                    <td>{{publisher.email}}</td>
+                                    <td>{%if publisher.status == True%} Active {%else%} Suspended {%endif%}</td>
+                                </tr>
+                                {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Floating Action Button -->
+            </div>
+            <!--end container-->
+        </div>
+    </section>
+
+{% endblock %}
+

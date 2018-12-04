@@ -1,0 +1,58 @@
+{% extends 'home/home_base.html' %}
+
+
+{% block home_content %}
+
+    <!-- listings -->
+    <div class="list-wrapper bg-grey-2 py-5">
+        <div class="container py-5">
+            <!-- top banner -->
+            {% include 'home/_banner.html' %}
+            <!-- end top banner -->
+
+            <div class="row">
+                <!-- sidebar -->
+                {% include 'home/operator_sidebar.html' %}
+                <!-- end sidebar -->
+
+
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    <!-- list -->
+                    <div id="listings" class="list-content clearfix">
+                        <!-- list item -->
+                        <div class="list-item-entry">
+                            <div class="hotel-item style-3 bg-white">
+                                <div class="col-md-4">
+                                    <div class="title pb-2 text-center">
+                                        <h4><b>Phone(s)</b></h4> <br>
+                                        {% for contact in publisher.publisher.phones %}
+                                        <a href="#">{{contact.phone_number}}</a> <br>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="title pb-2 text-center">
+                                        <h4><b>Email(s)</b></h4> <br>
+                                        {% for contact in publisher.publisher.emails %}
+                                        <a href="#">{{contact.email}}</a> <br>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="title pb-2 text-center">
+                                        <h4><b>Social</b></h4> <br>
+                                        <a href="{{ ''.join(['http://', publisher.publisher.facebook ]) or "#" }}" target="_blank"><span class="fa fa-facebook"></span></a> &nbsp;
+                                        <a href="{{ ''.join(['http://', publisher.publisher.twitter])  or "#" }}" target="_blank"><span class="fa fa-twitter"></span></a> &nbsp;
+                                        <a href="{{ ''.join(['http://', publisher.publisher.instagram ]) or "#"}}" target="_blank"><span class="fa fa-instagram"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end list item -->
+                    </div>
+                    <!-- end list -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock home_content %}

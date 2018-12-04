@@ -1,0 +1,155 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% block custom_head_tags %}
+{{ super() }}
+<!-- CORE CSS-->
+<link href="{{ url_for('static', filename='css/themes/horizontal-menu/materialize.css')}}" type="text/css"
+      rel="stylesheet">
+<link href="{{ url_for('static', filename='css/themes/horizontal-menu/style.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/layouts/style-horizontal.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+
+<!-- START CONTENT -->
+<section id="content">
+    <!--breadcrumbs start-->
+    <div id="breadcrumbs-wrapper">
+        <!-- Search for small screen -->
+        <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
+            <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col s2 m6 l6"></div>
+                <div class="col s2 m6 l6">
+                    <a class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn right" href="#!"
+                       data-activates="dropdown1">
+                        <i class="material-icons hide-on-med-and-up">settings</i>
+                        <span class="hide-on-small-onl">Settings</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs end-->
+    <!--start container-->
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="col s12 m10 l7 offset-l2">
+                    <p class="caption">Manage Your Account</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m10 l7 offset-l2">
+                    <p class="caption" style="margin-bottom: 18px;"></p>
+                    <div class="divider"></div>
+                    <div id="password" class="section scrollspy">
+                        <h4 class="header">Change Password</h4>
+                        <p><b>Two-step verification</b></p>
+                        <p>Make your account safer!
+                            Two-step verification secures your account by requiring a second confirmation,
+                            in addition to your password, to access your account.
+                            That second step means your account stays secure even if your password is compromised.<br>
+                            Safari will notify you about changes to your account and changes that will enable 2-factor authentication.
+                            Notifications are sent via email to {{user.email}}
+                        </p>
+                        <p><a href="{{url_for('admin.change_password')}}">Change Your Password</a></p>
+                    </div>
+                    <div id="email" class="section scrollspy">
+                        <h4 class="header">Change Email</h4>
+                        <p><b>Confirm your primary email address</b><br>
+                            Your primary email is {{user.email}}</p>
+                        <p><a href="{{url_for('admin.change_email_request')}}">Change Your Email</a></p>
+                    </div>
+                    <div id="data" class="section scrollspy">
+                        <h4 class="header">Your Details</h4>
+                        <table class="highlight">
+                            <thead>
+                            <tr>
+                                <th style="min-width: 150px;">Name</th>
+                                <th>Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Full Name</td>
+                                <td>{{user.full_name()}}</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{{user.email}}</td>
+                            </tr>
+                            <tr>
+                                <td>Phone Number</td>
+                                <td>{{user.phone_number}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Table of Contents -->
+                <div class="col hide-on-small-only m3 l2">
+                    <div class="toc-wrapper">
+                        <br>
+                        <br>
+                        <br>
+                        <ul class="section table-of-contents">
+                            <li><a href="#password">Password</a></li>
+                            <li><a href="#email">Email</a></li>
+                            <li><a href="#data">{{user.first_name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Floating Action Button -->
+        <div class="fixed-action-btn " style="bottom: 50px; right: 19px;">
+            <a class="btn-floating btn-large">
+                <i class="material-icons">add</i>
+            </a>
+            <ul>
+                <li>
+                    <a href="css-helpers.html" class="btn-floating blue">
+                        <i class="material-icons">help_outline</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="cards-extended.html" class="btn-floating green">
+                        <i class="material-icons">widgets</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="app-calendar.html" class="btn-floating amber">
+                        <i class="material-icons">today</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="app-email.html" class="btn-floating red">
+                        <i class="material-icons">mail_outline</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Floating Action Button -->
+    </div>
+    <!--end container-->
+</section>
+<!-- END CONTENT -->
+
+
+{% endblock %}
+
+{% block scripts%}
+<script type="text/javascript">
+      $(document).ready(function() {
+        $('.scrollspy').scrollSpy();
+      });
+        function(id) {
+        return 'a[href="#' + id + '"]';
+        }
+</script>
+{% endblock %}

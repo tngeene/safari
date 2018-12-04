@@ -1,0 +1,74 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+       <!-- START CONTENT -->
+        <section id="content">
+          <!--breadcrumbs start-->
+          <div id="breadcrumbs-wrapper">
+            <!-- Search for small screen -->
+            <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
+              <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col s10 m6 l6">
+                  <h5 class="breadcrumbs-title">Add New Category</h5>
+                  <ol class="breadcrumbs">
+                    <li><a href="{{url_for('publisher.dashboard')}}">Dashboard</a></li>
+                    <li><a href="{{url_for('publisher.category')}}">Categories</a></li>
+                    <li class="active">New</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--breadcrumbs end-->
+          <!--start container-->
+          <div class="container">
+            <div class="section">
+              <div class="divider"></div>
+                <div class="row">
+                <div class="col s12 m12 l12">
+                  <div class="card-panel">
+                    <h4 class="header2">New Category</h4>
+                    <div class="row">
+                      <form class="col s12" method="post" action="" enctype="multipart/form-data">
+                          {{ form.hidden_tag() }}
+                        <div class="row">
+                          <div class="input-field col s12">
+                            <i class="material-icons prefix">format_list_bulleted</i>
+                            {{ form.name() }}
+                            <label for="email">Name</label>
+                              {%for error in form.name.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="file-field input-field col s12">
+                          <i class="material-icons prefix">attach_file</i>
+                          <input class="file-path validate" placeholder="Upload one or more files" type="text" />
+                          <div class="btn">
+                            <span>Choose files</span>
+                            {{ form.image() }}
+                              {%for error in form.image.errors%}
+                                <span class="helper-text" data-error="wrong">{{ error }}</span>
+                              {%endfor%}
+                          </div>
+                        </div>
+                        </div>
+                          <div class="row">
+                            <div class="center-align">
+                              <button class="btn cyan waves-effect waves-light" type="submit">Submit
+                                <i class="material-icons right">send</i>
+                              </button>
+                            </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+{% endblock%}

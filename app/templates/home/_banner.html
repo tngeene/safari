@@ -1,0 +1,30 @@
+<div class="bg-white mb-2 p-2">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{ url_for('static', filename='uploads/{}'.format(publisher.publisher.banner) ) if publisher.publisher.banner else url_for('static', filename='images/placeholder.png') }}" width="300px" alt="">
+        </div>
+        <div class="col-md-6">
+            <h3 class="color-dark-2">{{ publisher.publisher.company_name }}</h3>
+            <div class="rate-wrap">
+                <div class="rate">
+                  <span class="fa fa-star {{'color-yellow' if publisher.publisher.rating >= 1 else 'color-grey'  }}"></span>
+                  <span class="fa fa-star {{'color-yellow' if publisher.publisher.rating >= 2 else 'color-grey'  }}"></span>
+                  <span class="fa fa-star {{'color-yellow' if publisher.publisher.rating >= 3 else 'color-grey'  }}"></span>
+                  <span class="fa fa-star {{'color-yellow' if publisher.publisher.rating >= 4 else 'color-grey'  }}"></span>
+                  <span class="fa fa-star {{'color-yellow' if publisher.publisher.rating >= 5 else 'color-grey'  }}"></span>
+                </div>
+                <i>{{ publisher.publisher.overal_ratings }} review{{ 's' if publisher.publisher.overal_ratings >1 }}</i>
+            </div>
+            <p><b>Office in: </b>
+              {%  for location in publisher.publisher.getLocations() %}
+              <span class="flag-icon flag-icon-{{ arcodes[location.country.capitalize()].lower() if location.country else 'gb' }}"></span>
+              {{ location.country }}
+              {% endfor %}</p>
+            </span></p>
+            <p><b>Price range: </b>{{ "$ {:,.0f}".format(publisher.get_price_range()['min']) }} - {{ "$ {:,.0f}".format(publisher.get_price_range()['max']) }} </p>
+        </div>
+        <div class="col-md-2">
+            <img src="{{ url_for('static', filename='uploads/{}'.format(publisher.publisher.logo) ) if publisher.publisher.logo else url_for('static', filename='images/placeholder.png') }}" width="150px" class="pb-2" alt="">
+        </div>
+    </div>
+</div>

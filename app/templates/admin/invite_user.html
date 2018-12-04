@@ -1,0 +1,124 @@
+{% extends 'layouts/admin_base.html' %}
+{% block custom_head_tags %}
+{{ super() }}
+<!-- CORE CSS-->
+<link href="{{ url_for('static', filename='css/themes/horizontal-menu/materialize.css')}}" type="text/css"
+      rel="stylesheet">
+<link href="{{ url_for('static', filename='css/themes/horizontal-menu/style.css') }}" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/layouts/style-horizontal.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+
+<!-- START CONTENT -->
+<section id="content">
+    <!--start container-->
+    <div class="container">
+
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card-panel">
+                    <h4 class="header2">Invite User</h4>
+                    <div class="row">
+                        <form class="col s12" method="post" enctype="multipart/form-data">
+                            {{ form.hidden_tag() }}
+                            <div class="row">
+
+
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">email</i>
+                                    {{ form.email() }}
+                                    <label>Email</label>
+
+                                    {%for error in form.email.errors%}
+                                    <div class="error">{{ error }}</div>
+                                    {%endfor%}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">person</i>
+                                    {{ form.first_name() }}
+                                    <label>First Name</label>
+
+                                    {%for error in form.first_name.errors%}
+                                    <div class="error">{{ error }}</div>
+                                    {%endfor%}
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">group</i>
+                                    {{ form.last_name() }}
+                                    <label>Last Name</label>
+
+                                    {%for error in form.last_name.errors%}
+                                    <div class="error">{{ error }}</div>
+                                    {%endfor%}
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="center-align">
+                                    <button class="btn cyan waves-effect waves-light" type="submit">Submit
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Action Button -->
+        <div class="fixed-action-btn " style="bottom: 50px; right: 19px;">
+            <a class="btn-floating btn-large">
+                <i class="material-icons">add</i>
+            </a>
+            <ul>
+                <li>
+                    <a href="css-helpers.html" class="btn-floating blue">
+                        <i class="material-icons">help_outline</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="cards-extended.html" class="btn-floating green">
+                        <i class="material-icons">widgets</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="app-calendar.html" class="btn-floating amber">
+                        <i class="material-icons">today</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="app-email.html" class="btn-floating red">
+                        <i class="material-icons">mail_outline</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Floating Action Button -->
+    </div>
+    <!--end container-->
+</section>
+<!-- END CONTENT -->
+{% endblock %}
+
+{% block scripts %}
+    <script>
+  $('#submit').attr('disabled', true);
+  $('#password2').keyup(function() {
+    var result = $(this).val();
+    var result2 = $('#password2').val()
+    if(result == result2) {
+      $('#submit').attr('disabled', false);
+    } else {
+      $('#submit').attr('disabled', true);
+    }
+  });
+    </script>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'home/home_base.html' %}
+
+
+{% block home_content %}
+
+    <!-- listings -->
+    <div class="list-wrapper bg-grey-2 py-5">
+        <div class="container py-5">
+            <!-- top banner -->
+            {% include 'home/_banner.html' %}
+            <!-- end top banner -->
+
+            <div class="row">
+                <!-- sidebar -->
+                {% include 'home/operator_sidebar.html' %}
+                <!-- end sidebar -->
+
+
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    <!-- list -->
+                    <div id="listings" class="grid-content clearfix">
+                        <div class="row">
+                          {% for listing in publisher_listings %}
+                            <div class="col-md-6">
+                                <!-- list item -->
+                                <div class="list-item-entry">
+                                    <div class="hotel-item style-3">
+                                        <div class="table-view">
+                                            <div class="radius-top">
+                                                <img src="{{ url_for('static', filename='home/flags/4x3/{}.svg'.format(arcodes[listing.location].lower() if listing.location else 'ke')) }}" alt="">
+                                            </div>
+                                            <div class="title hotel-middle pb-2">
+                                                <h4><b>{{listing.location}}</b></h4> <br>
+                                                <h5><b>{{ listing.get_country_count() }} listing{{ 's' if listing.get_country_count() > 1}}</b></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="alert alert-warning" role="alert">
+                                        <span class="text-success">No reviews Found!!</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- end list item -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock home_content %}

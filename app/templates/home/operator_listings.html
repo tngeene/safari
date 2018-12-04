@@ -1,0 +1,55 @@
+{% extends 'home/home_base.html' %}
+
+
+{% block home_content %}
+
+    <!-- listings -->
+    <div class="list-wrapper bg-grey-2 py-5">
+        <div class="container py-5">
+            <!-- top banner -->
+          {% include 'home/_banner.html' %}
+            <!-- end top banner -->
+
+            <div class="row">
+                <!-- sidebar -->
+                {% include 'home/operator_sidebar.html' %}
+                <!-- end sidebar -->
+
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    <!-- sort actions -->
+                    <div class="list-header clearfix">
+                        <div class="drop-wrap drop-wrap-s-4 color-4 list-sort">
+                            <div class="drop">
+                            <b>Sort by price</b>
+                                <a href="#" class="drop-list"><i class="fa fa-angle-down"></i></a>
+                                <span>
+                                    <a href="#">ASC</a>
+                                    <a href="#">DESC</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end sort actions -->
+
+                    <!-- list -->
+                    <div id="listings" class="grid-content clearfix">
+                        <!-- list item -->
+                        {% for publisher_listing in publisher_listings %}
+                            {% include 'home/_operator_listings.html' %}
+                            {% else %}
+                            <div class="alert alert-warning" role="alert">
+                                        <span class="text-success">No listings Found!!</span>
+                            </div>
+                        {%endfor%}
+                    </div>
+                    <!-- end list item -->
+
+
+                    <div class="c_pagination clearfix padd-120">
+                      {% include 'home/_paginate.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock home_content %}

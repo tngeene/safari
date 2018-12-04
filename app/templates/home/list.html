@@ -1,0 +1,100 @@
+{% extends 'home/home_base.html' %}
+
+
+{% block home_content %}
+
+    <!-- listings -->
+    <div class="list-wrapper bg-grey-2 py-5">
+        <div class="container py-5">
+            <div class="row">
+                {% include 'home/_list_sidebar.html' %}
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    <!-- sort actions -->
+                    <div class="list-header clearfix">
+                        <h3 class="color-dr-blue-2">Listings</h3>
+                    </div>
+                    <!-- end sort actions -->
+                    <div id="listing-changeable">
+                    <!-- list -->
+                    {% include 'home/_listings.html' %}
+                    <!--end listing-->
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock home_content %}
+{% block scripts %}
+<script>
+var html ='<div class="loading-center-absolute">';
+    html +='<div class="object object_four"></div>';
+    html +='<div class="object object_three"></div>';
+    html +='<div class="object object_two"></div>';
+    html +='<div class="object object_one"></div>';
+    html +='</div>';
+
+function updateRange(send){
+    var range={
+        'div' :$('#listing-changeable'),
+        'url' :'{{ url_for('home._get_range') }}'
+    }
+    var last = Session.get("range") || Session.set('range',send);
+
+    var sendable =false;
+
+    if (typeof last !== 'undefined') {
+        var sendable = ((last.maxval - send.maxval) > 100 || (send.maxval-last.maxval) > 100 || (send.minval-last.minval) > 100 || (last.minval-send.minval) > 100) ? true:false;
+    }
+
+    if (sendable  == true){
+      Session.set('range',send);
+      range.div.html(html)
+      $.get(range.url, send, function(data){
+          range.div.html(data)
+      });
+    }
+  }
+
+$(document).ready(function() {
+    var div =$('#listing-changeable');
+
+    var category = {
+          form: $('#form-checkbox'),
+          check:$('.cat-check'),
+          url:'{{ url_for('home._get_category') }}'
+        };
+
+    var rating = {
+          form: $('#rating-form'),
+          check:$('.rating-check'),
+          url:'{{ url_for('home._get_ratings') }}'
+        };
+
+
+    function updateCategory(){
+        var send = category.form.serialize();
+        $.get(category.url, send, function(data){
+            div.html(data)
+        });
+      }
+
+    function updateRating(){
+        var send = rating.form.serialize();
+        $.get(rating.url, send, function(data){
+            div.html(data)
+        });
+      }
+
+    category.check.on( "click",function() {
+      div.html(html);
+      updateCategory();
+    });
+
+    rating.check.on( "click",function() {
+      div.html(html);
+      updateRating();
+    });
+});
+  </script>
+
+{% endblock %}

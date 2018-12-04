@@ -1,0 +1,43 @@
+{% extends 'home/home_base.html' %}
+
+
+{% block home_content %}
+
+    <!-- listings -->
+    <div class="list-wrapper bg-grey-2 py-5">
+        <div class="container py-5">
+            <!-- top banner -->
+            {% include 'home/_banner.html' %}
+            <!-- end top banner -->
+
+            <div class="row">
+                <!-- sidebar -->
+                {% include 'home/operator_sidebar.html' %}
+                <!-- end sidebar -->
+
+
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    <div id="overview" class="mb-2 p-2 bg-white">
+                        <h4 class="sidebar-title color-dark-2">Overview</h4>
+                        <p>
+                            {{ publisher.publisher.overview }}
+                        </p>
+                    </div>
+
+                    <!-- list -->
+                    <div id="listings" class="grid-content clearfix">
+                        <!-- list item -->
+                        {% for publisher_listing in publisher.listings.filter_by(status=True).limit(4) %}
+                          {% include 'home/_operator_listings.html' %}
+                          {% else %}
+                          <div class="alert alert-warning" role="alert">
+                                      <span class="text-success">No Listings Found!!</span>
+                          </div>
+                        {%endfor%}
+                    </div>
+                    <!-- end list item -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock home_content %}

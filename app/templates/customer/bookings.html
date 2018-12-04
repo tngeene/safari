@@ -1,0 +1,62 @@
+{% extends 'layouts/base.html' %}
+ {% block custom_head_tags %}
+    <!-- CORE CSS-->
+    <link href="{{ url_for('static', filename='css/themes/collapsible-menu/materialize.css' )}}" type="text/css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/themes/collapsible-menu/style.css') }}" type="text/css" rel="stylesheet">
+    {% endblock %}
+
+{% block content %}
+        <!-- START CONTENT -->
+        <section id="content">
+          <!--start container-->
+          <div class="container">
+            <div class="section">
+              <!--DataTables example-->
+              <div id="table-datatables">
+                <h4 class="header">All Bookings</h4>
+                <div class="row">
+
+                  <div class="col s12">
+                    <table id="data-table-simple" class="responsive-table display" cellspacing="0">
+                      <thead>
+                        <tr>
+
+                          <th>Title</th>
+                          <th>Publisher</th>
+                          <th>Location</th>
+                          <th>Start date</th>
+                          <th>Price</th>
+                          <th>status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {%for booking in bookings%}
+                        <tr>
+                          <td>{{booking.listing.price.name}} <a href="{{url_for('customer.review',what='listing', id=booking.listing.price.id)}}"><span>   </span> Review</a></td>
+                          <td>{{booking.listing.publisher.publisher.company_name}}<a href="{{url_for('customer.review',what='publisher', id=booking.listing.publisher.publisher.id)}}"><span>   </span>Review</a></td>
+                          <td>{{booking.listing.location}}</td>
+                          <td>{{booking.listing.availability_from}}</td>
+                          <td><span>$ </span>{{booking.orders.grand_total}}</td>
+                          <td>
+                            {% if booking.state == 'pending' %}
+                            <a class='dropdown-button btn waves-effect waves-light amber darken-4' href='#'>Pending</a>
+                              {% elif booking.state == 'accepted' %}
+                              <a class='dropdown-button btn waves-effect waves-light green darken-1' href='#'>Accepted</a>
+                              {% elif booking.state == 'cancelled' %}
+                              <a class='dropdown-button btn waves-effect waves-light red accent-2' href='#'>Cancelled</a>
+                              {% endif %}
+                          </td>
+                        </tr>
+                      {%endfor%}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+          </div>
+            <!--end container-->
+          </div>
+        </section>
+        <!-- END CONTENT -->
+
+{% endblock%}

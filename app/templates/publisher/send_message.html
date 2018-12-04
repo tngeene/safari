@@ -1,0 +1,92 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<!-- START CONTENT -->
+<section id="content">
+  <!--breadcrumbs start-->
+  <div id="breadcrumbs-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="padding-1">
+        <div class="col s10 m6 l6">
+          <div class="row">
+            <div class="col s1">
+              <img src="{{ url_for('static', filename='images/avatar/avatar-7.png' )}}" alt="" class="circle z-depth-2 responsive-img activator gradient-45deg-light-blue-cyan">
+            </div>
+          <div class="col s10">
+            <p class="grey-text text-darken-4 margin">{{ user.full_name() }}</p>
+            {% if user.last_seen %}
+            <span class="grey-text text-darken-1 ultra-small">Last seen - {{ moment(user.last_seen ).calendar() }}</span>
+            {% endif %}
+          </div>
+         </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <!--breadcrumbs end-->
+  <!--start container-->
+  <div class="container">
+    <div id="image-card" class="section">
+      <div class="row">
+        <div class="col s12">
+          {% for message in current_user.user_messages(user) %}
+          {% if message.author == current_user %}
+          <div class="row">
+            <div class="col s12 m6 l6">
+              <div class="card blue-grey darken-4 white-text">
+                <div class="padding-2">
+                  <p class="no-margin">{{ message.body }}</p>
+                </div>
+              </div>
+              <span class="blue-text ultra-small left">{{ moment(message.timestamp ).calendar() }}</span>
+            </div>
+          </div>
+          {% else %}
+          <div class="row">
+            <div class="col s12 m6 l6 right">
+              <div class="card deep-orange accent-2 min-height-50 white-text">
+                <div class="padding-2">
+                  <p class="no-margin">{{ message.body }}</p>
+                </div>
+              </div>
+              <span class="blue-text ultra-small right">{{ moment(message.timestamp ).calendar() }}</span>
+            </div>
+          </div>
+          {% endif %}
+          {% else %}
+          <div class="row">
+            <div class="col s12 m6 l2">
+                <div class="padding-2">
+                  <p class="no-margin">No Messages found!!</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12 m12 l12">
+          <form class="col s12" method="post">
+            {{ form.hidden_tag() }}
+            <div class="row">
+              <div class="input-field col s11">
+                <i class="material-icons prefix">question_answer</i>
+                {{ form.message(class="materialize-textarea") }}
+                <label for="message">New Message</label>
+              </div>
+              <div class="input-field col s1">
+                <button class="btn-floating waves-effect waves-light " type="submit">
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+      <!--end container-->
+</section>
+<!-- END CONTENT -->
+{% endblock%}
