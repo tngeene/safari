@@ -26,7 +26,7 @@ def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
-        if current_user.role.index == 'publisher' and not current_user.publisher\
+        if current_user.role.index == 'publisher' and current_user.confirmed and not current_user.publisher\
             and request.path != url_for('publisher.edit_profile') and request.endpoint != 'static':
             flash('You need to finish editig your profile','cyan')
             return redirect(url_for('publisher.edit_profile'))
