@@ -88,9 +88,9 @@ def create_app(config_name):
     # assets_env.register('skye_js', vendor_js)
 
     # Configure SSL if platform supports it
-    if not app.debug and not app.testing and not app.config['SSL_DISABLE']:
-        from flask.ext.sslify import SSLify
-        SSLify(app)
+    #if not app.debug and not app.testing and not app.config['SSL_DISABLE']:
+     #   from flask.ext.sslify import SSLify
+      #  SSLify(app)
 
     # # Create app blueprints
 
