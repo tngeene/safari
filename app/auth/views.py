@@ -49,7 +49,7 @@ def oauth_authorize(provider):
 @account.route('/callback/<provider>')
 def oauth_callback(provider):
     if not current_user.is_anonymous:
-        return redirect(url_for('index'))
+        return redirect(url_for('home.index'))
     oauth = OAuthSignIn.get_provider(provider)
     social_id, username, email = oauth.callback()
     if social_id is None:
@@ -61,7 +61,12 @@ def oauth_callback(provider):
         db.session.add(user)
         db.session.commit()
     login_user(user, True)
-    return redirect(url_for('index'))
+    if current_user.role.index == 'admin':
+        return redirect(request.args.get('next') or url_for('admin.dashboard'))
+    elif current_user.role.index == 'publisher':
+        return redirect(request.args.get('next') or url_for('publisher.dashboard'))
+    else:
+        return redirect(request.args.get('next') or url_for('customer.dashboard'))
 
 
 @account.route('/', methods=['GET', 'POST'])

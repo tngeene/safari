@@ -370,9 +370,9 @@ class GoogleSignIn(OAuthSignIn):
             name='google',
             client_id=self.consumer_id,
             client_secret=self.consumer_secret,
-            authorize_url=google_params.get('authorization_endpoint'),
-            access_token_url=google_params.get('userinfo_endpoint'),
-            base_url=google_params.get('token_endpoint')
+            authorize_url='https://accounts.google.com/o/oauth2/v2/auth',
+            access_token_url='https://accounts.google.com/o/oauth2/v2/tokeninfo',
+            base_url='https://accounts.google.com/'
         )
 
     def authorize(self):
@@ -383,9 +383,12 @@ class GoogleSignIn(OAuthSignIn):
         )
 
     def callback(self):
-        def decode_json(payload):
-            return json.loads(payload.decode('utf-8'))
+        def decode_json(data):
+            import json
 
+            new_data = data.decode("utf-8", "strict")
+
+            return json.loads(new_data)
         if 'code' not in request.args:
             return None, None, None
         oauth_session = self.service.get_auth_session(
