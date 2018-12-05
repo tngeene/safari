@@ -22,7 +22,7 @@ class PlaceForm(NoCsrfForm):
 
 
 class ImageForm(NoCsrfForm):
-    image = FileField(validators=[FileAllowed(photos, u'Image only!')])
+    image = FileField(validators=[FileAllowed(photos, u'Image Only!'), FileRequired(u'Choose a file!')])
 
 
 class DayForm(NoCsrfForm):
