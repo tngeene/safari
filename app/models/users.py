@@ -411,9 +411,9 @@ class FacebookSignIn(OAuthSignIn):
             name='facebook',
             client_id=self.consumer_id,
             client_secret=self.consumer_secret,
-            authorize_url='https://graph.facebook.com/oauth/authorize',
-            access_token_url='https://graph.facebook.com/oauth/access_token',
-            base_url='https://graph.facebook.com/'
+            authorize_url='https://www.facebook.com/v3.2/dialog/oauth',
+            access_token_url='https://www.facebook.com/v3.2/dialog/oauth',
+            base_url='https://www.facebook.com/'
         )
 
     def authorize(self):
@@ -430,7 +430,7 @@ class FacebookSignIn(OAuthSignIn):
         if 'code' not in request.args:
             return None, None, None
         oauth_session = self.service.get_auth_session(
-            data={'code': request.args['code'],
+            data={'token': request.args['token'],
                   'grant_type': 'authorization_code',
                   'redirect_uri': self.get_callback_url()},
             decoder=decode_json
