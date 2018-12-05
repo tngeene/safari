@@ -412,14 +412,14 @@ class FacebookSignIn(OAuthSignIn):
             client_id=self.consumer_id,
             client_secret=self.consumer_secret,
             authorize_url='https://www.facebook.com/v3.2/dialog/oauth',
-            access_token_url='https://www.facebook.com/v3.2/dialog/oauth',
-            base_url='https://www.facebook.com/'
+            access_token_url='https://graph.facebook.com/oauth/access_token',
+            base_url='https://graph.facebook.com/'
         )
 
     def authorize(self):
         return redirect(self.service.get_authorize_url(
             scope='email',
-            response_type='token',
+            response_type='code',
             redirect_uri=self.get_callback_url())
         )
 
