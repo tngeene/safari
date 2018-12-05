@@ -1,4 +1,4 @@
-# from flask import render_template, session, json, current_app, redirect, url_for, Blueprint, flash, g
+from flask import render_template, session, json, current_app, redirect, url_for, Blueprint, flash, g
 # # -*- coding: utf-8 -*-
 #
 # import os
@@ -9,7 +9,7 @@
 # import google_auth_oauthlib.flow
 # import googleapiclient.discovery
 #
-# social = Blueprint('social', __name__)
+social = Blueprint('social', __name__)
 #
 #
 # # This variable specifies the name of a file that contains the OAuth 2.0
