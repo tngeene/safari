@@ -21,7 +21,7 @@ home = Blueprint('home', __name__)
 @home.route('/', methods=['post', 'get'])
 def index():
     form = Search()
-    popular_packages = Listing.query.limit(10)
+    popular_packages = Listing.query..filter(Listing.status == True).limit(10)
     if Booking.query.count() > 3:
         popular_list = [row[0] for row in db.session.query(Listing.id, func.count(Booking.listing_id).label('total')).join(Booking).group_by(Listing).order_by('total DESC').all()]
         popular_packages=Listing.query.filter(Listing.id.in_(popular_list)).filter(Listing.status == True).limit(6)
@@ -45,7 +45,7 @@ def listings():
     if request.args.get('place') or request.args.get('date'):
          name=request.args.get('place') or ''
          date = request.args.get('date') or datetime.now()
-         if isinstance(date , basestring):
+         if isinstance(date , str):
              checkdate = datetime.strptime(date, '%m/%d/%Y')
              date = datetime.combine(checkdate, datetime.min.time())
          listings=get_search(name,date,page)
