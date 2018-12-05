@@ -43,8 +43,8 @@ def create_app(config_name):
             'secret': 'KfvqdFDqYYn9hXDFeC3BmImD'
         },
         'facebook': {
-            'id': '340669703151082',
-            'secret': '9d1b868c34d034b780e9da3af9213653'
+            'id': '1357352657745486',
+            'secret': '52e5d34fef41614988fbd1a7e33deab2'
         },
         'twitter': {
             'id': 'NzD4SB1S9Ulod1k1cqZGH5g6J ',
