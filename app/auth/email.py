@@ -16,7 +16,7 @@ def send_password_reset_email(user):
 
 
 def send_confirm_email(user):
-    token = user.get_token()
+    token =user.get_confirmation_token()
     confirm_link = url_for('account.confirm', token=token, _external=True)
     send_email(_('[Safari] Confirm Your Account'),
                sender='noreply@out2safari.com',

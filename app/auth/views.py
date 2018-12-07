@@ -259,8 +259,8 @@ def confirm(token):
             flash('Your account has been confirmed, Please finish your Registration.', 'cyan')
             return redirect(url_for('publisher.edit_profile'))
         return redirect(url_for('account.login'))
-    if User.check_token(token):
-        user=User.check_token(token)
+    user = User.verify_confirmation_token(token)
+    if user:
         user.confirmed = True
         db.session.commit()
 
