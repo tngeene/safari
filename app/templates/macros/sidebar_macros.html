@@ -36,6 +36,7 @@
 
     {% if current_user.is_authenticated and current_user.role.index == 'admin' %}
         {% set endpoints = [
+
           ('admin.registered_users', 'Registered Users', ''),
           ('admin.new_user', 'Add Users', ''),
           ('admin.invite_user', 'Invite Users', ''),
@@ -46,7 +47,6 @@
           ('publisher.bookings', 'Bookings', 'people'),
           ('publisher.destination', 'Destinations', 'my_location'),
           ('publisher.package', 'Packages', 'attach_money'),
-          ('publisher.category', 'Categories', 'dehaze'),
           ('publisher.profile', 'Profile', 'account_circle'),
           ('publisher.settings', 'Settings', 'settings'),
           ('home.index', 'View Site', 'home')

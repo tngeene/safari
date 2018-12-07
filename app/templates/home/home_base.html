@@ -65,7 +65,7 @@
                                     </li>
                                     {% if current_user.is_authenticated %}
                                     <li>
-                                        <a href="{{ url_for('account.logout') }}">
+                                        <a href="{{ url_for('customer.profile') }}">
                                             <img src="{{ url_for('static', filename='home/img/user_icon.png') }}" alt="" width="20px">
                                         </a>
                                         <ul class="dropmenu">
@@ -117,7 +117,7 @@
                                     <a href="{{ url_for('home.listings') }}">Listings</a>
                                 </div>
                                 <div class="contact-line color-grey-3">
-                                    <a href="{{ url_for('home.tour_operators_list') }}">Tour Operators Us</a>
+                                    <a href="{{ url_for('home.tour_operators_list') }}">Tour Operators</a>
                                 </div>
                                 <div class="contact-line color-grey-3">
                                     <a href="{{ url_for('home.countries_and_parks_list') }}">Countries and Parks</a>

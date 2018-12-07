@@ -147,7 +147,6 @@ def publishListing(id):
 
 @publisher.route('/category')
 @login_required
-@publisher_login_required
 @check_confirmed
 def category():
     categories = Category.query.order_by(Category.createdAt.desc()).all()
@@ -156,7 +155,6 @@ def category():
 
 @publisher.route('/category/new', methods=('GET', 'POST'))
 @login_required
-@publisher_login_required
 @check_confirmed
 def newCategory():
     form = CategoryForm()
