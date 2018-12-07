@@ -15,6 +15,7 @@ from flask_rq import get_queue
 from app.email import send_email
 from app.auth.email import send_confirm_email
 from app.auth.email import send_password_reset_email
+from app.auth.admin_decorators import check_confirmed
 
 admin = Blueprint('admin', __name__)
 photos = UploadSet('photos', IMAGES)
@@ -23,6 +24,7 @@ photos = UploadSet('photos', IMAGES)
 @admin.route('/')
 @login_required
 @admin_required
+@check_confirmed
 def dashboard():
     """Admin dashboard page."""
     bookings = Booking.query.all()
@@ -48,6 +50,7 @@ def dashboard():
 @admin.route('/all_publishers')
 @login_required
 @admin_required
+@check_confirmed
 def publishers():
     """Publisher dashboard page."""
     roles=Role.query.filter_by(index='publisher').first_or_404()
@@ -58,6 +61,7 @@ def publishers():
 @admin.route('/all_payments')
 @login_required
 @admin_required
+@check_confirmed
 def payments():
     """Payment dashboard page."""
     return render_template('admin/blank.html')
@@ -76,6 +80,7 @@ def customers():
 @admin.route('/all_bookings')
 @login_required
 @admin_required
+@check_confirmed
 def bookings():
     """Admin dashboard page."""
     bookings = Booking.query.all()
@@ -95,6 +100,7 @@ def listings():
 @admin.route('/listing_details')
 @login_required
 @admin_required
+@check_confirmed
 def listing_details():
     """All Listings Page."""
     id = request.args.get('since', 0, type=int)
@@ -105,6 +111,7 @@ def listing_details():
 @admin.route('/view_publisher/<user_id>')
 @login_required
 @admin_required
+@check_confirmed
 def publisher_by(user_id):
     """Publisher dashboard page."""
     roles = Role.query.filter_by(index='publisher').first_or_404()
@@ -113,6 +120,9 @@ def publisher_by(user_id):
 
 
 @admin.route('/view_customer/<id>')
+@login_required
+@admin_required
+@check_confirmed
 def customer_id(id):
     """Admin dashboard page."""
     return render_template('admin/index.html')
@@ -121,6 +131,7 @@ def customer_id(id):
 @admin.route('/view_booking/<id>')
 @login_required
 @admin_required
+@check_confirmed
 def booking_id(id):
     """Admin dashboard page."""
     return render_template('admin/index.html')
@@ -129,6 +140,7 @@ def booking_id(id):
 @admin.route('/view_listing/<id>')
 @login_required
 @admin_required
+@check_confirmed
 def listing_id(id):
     """Admin dashboard page."""
     return render_template('admin/index.html')
@@ -137,6 +149,7 @@ def listing_id(id):
 @admin.route('/add_new_user', methods=['GET', 'POST'])
 @login_required
 @admin_required
+@check_confirmed
 def new_user():
     """Create a new user."""
     form = NewUserForm()
@@ -157,6 +170,7 @@ def new_user():
 @admin.route('/invite-user', methods=['GET', 'POST'])
 @login_required
 @admin_required
+@check_confirmed
 def invite_user():
     """Invites a new user to create an account and set their own password."""
     form = InviteUserForm()
@@ -190,6 +204,7 @@ def invite_user():
 @admin.route('/all_users')
 @login_required
 @admin_required
+@check_confirmed
 def registered_users():
     """View all registered users."""
     users = User.query.all()
@@ -202,6 +217,7 @@ def registered_users():
 @admin.route('/view_user/<int:user_id>/info')
 @login_required
 @admin_required
+@check_confirmed
 def user_info(user_id):
     """View a user's profile."""
     user = User.query.filter_by(id=user_id).first()
@@ -217,6 +233,7 @@ def user_info(user_id):
 @admin.route('/user/<int:user_id>/change-email', methods=['GET', 'POST'])
 @login_required
 @admin_required
+@check_confirmed
 def change_user_email(user_id):
     """Change a user's email."""
     user = User.query.filter_by(id=user_id).first()
@@ -236,6 +253,7 @@ def change_user_email(user_id):
     '/user/<int:user_id>/change-account-type', methods=['GET', 'POST'])
 @login_required
 @admin_required
+@check_confirmed
 def change_account_type(user_id):
     """Change a user's account type."""
     if current_user.id == user_id:
@@ -259,6 +277,7 @@ def change_account_type(user_id):
 @admin.route('/user/<int:user_id>/delete')
 @login_required
 @admin_required
+@check_confirmed
 def delete_user_request(user_id):
     """Request deletion of a user's account."""
     user = User.query.filter_by(id=user_id).first()
@@ -286,6 +305,7 @@ def delete_user(user_id):
 @admin.route('/approve_listing/<listing_id>')
 @login_required
 @admin_required
+@check_confirmed
 def approve_listing(listing_id):
     listing = Listing.query.filter_by(id=listing_id).first_or_404()
     if listing.status == 1:
@@ -301,6 +321,7 @@ def approve_listing(listing_id):
 @admin.route('/publisher/<int:user_id>/_suspend')
 @login_required
 @admin_required
+@check_confirmed
 def suspend(user_id):
     """Suspend a user's account."""
     user = User.query.filter_by(id=user_id).first()
@@ -320,6 +341,7 @@ def suspend(user_id):
 @admin.route('/countries/view_all')
 @login_required
 @admin_required
+@check_confirmed
 def countries():
     allcountries = Country.query.all()
 
@@ -329,6 +351,7 @@ def countries():
 @admin.route('/countries/add', methods=['GET', 'POST'])
 @login_required
 @admin_required
+@check_confirmed
 def add_country():
     allcountries = Country.query.all()
     """Create a new country."""
@@ -355,6 +378,7 @@ def add_country():
 @admin.route('/countries/edit/<id>', methods=('GET', 'POST'))
 @login_required
 @admin_required
+@check_confirmed
 def edit_country(id):
     country = Country.query.filter_by(id=id).first_or_404()
     form = EditCountryForm(obj=country)
@@ -373,6 +397,7 @@ def edit_country(id):
 @admin.route('/countries/delete/<id>', methods=['POST'])
 @login_required
 @admin_required
+@check_confirmed
 def delete_country(id):
     country = Country.query.filter_by(id=id).first_or_404()
     db.session.delete(country)
@@ -384,6 +409,7 @@ def delete_country(id):
 @admin.route('/birds/view_all')
 @login_required
 @admin_required
+@check_confirmed
 def birds():
     allbirds = Bird.query.all()
 
@@ -393,6 +419,7 @@ def birds():
 @admin.route('/birds/add', methods=['GET', 'POST'])
 @login_required
 @admin_required
+@check_confirmed
 def add_bird():
     allbirds = Bird.query.all()
     """Create a new bird."""
@@ -419,6 +446,7 @@ def add_bird():
 @admin.route('/birds/edit/<id>', methods=('GET', 'POST'))
 @login_required
 @admin_required
+@check_confirmed
 def edit_bird(id):
     bird = Bird.query.filter_by(id=id).first_or_404()
     form = EditBirdForm(obj=bird)
@@ -440,6 +468,7 @@ def edit_bird(id):
 @admin.route('/birds/delete/<id>', methods=['POST'])
 @login_required
 @admin_required
+@check_confirmed
 def delete_bird(id):
     bird = Bird.query.filter_by(id=id).first_or_404()
     db.session.delete(bird)
@@ -460,6 +489,7 @@ def wildlife():
 @admin.route('/wildlife/add', methods=['GET', 'POST'])
 @login_required
 @admin_required
+@check_confirmed
 def add_wildlife():
     allwildlife = Wildlife.query.all()
     """Create a new bird."""
@@ -487,6 +517,7 @@ def add_wildlife():
 @admin.route('/wildlife/edit/<id>', methods=('GET', 'POST'))
 @login_required
 @admin_required
+@check_confirmed
 def edit_wildlife(id):
     wildlife = Wildlife.query.filter_by(id=id).first_or_404()
     form = EditWildlifeForm(obj=wildlife)
@@ -508,6 +539,7 @@ def edit_wildlife(id):
 @admin.route('/wildlife/delete/<id>', methods=['POST'])
 @login_required
 @admin_required
+@check_confirmed
 def delete_wildlife(id):
     wildlife = Wildlife.query.filter_by(id=id).first_or_404()
     db.session.delete(wildlife)
@@ -519,6 +551,7 @@ def delete_wildlife(id):
 @admin.route('/parks/view_all')
 @login_required
 @admin_required
+@check_confirmed
 def parks():
     allparks = Park.query.all()
 
@@ -528,6 +561,7 @@ def parks():
 @admin.route('/parks/add', methods=['GET', 'POST'])
 @login_required
 @admin_required
+@check_confirmed
 def add_park():
     allparks = Park.query.all()
     """Create new park."""
@@ -556,6 +590,7 @@ def add_park():
 @admin.route('/parks/edit/<id>', methods=('GET', 'POST'))
 @login_required
 @admin_required
+@check_confirmed
 def edit_park(id):
     park = Park.query.filter_by(id=id).first_or_404()
     form = EditParkForm(obj=park)
@@ -577,6 +612,7 @@ def edit_park(id):
 @admin.route('/parks/delete/<id>', methods=['POST'])
 @login_required
 @admin_required
+@check_confirmed
 def delete_park(id):
     park = Park.query.filter_by(id=id).first_or_404()
     db.session.delete(park)
@@ -597,6 +633,7 @@ def admin_settings():
 @admin.route('/settings/change_password', methods=('GET', 'POST'))
 @login_required
 @admin_required
+@check_confirmed
 def change_password():
     """Change an existing user's password."""
     form = ChangePasswordForm()
@@ -615,6 +652,7 @@ def change_password():
 @admin.route('/settings/change-email', methods=['GET', 'POST'])
 @admin_required
 @login_required
+@check_confirmed
 def change_email_request():
     """Respond to existing user's request to change their email."""
     form = ChangeEmailForm()
@@ -644,6 +682,7 @@ def change_email_request():
 @admin.route('/settings/change-email/<token>', methods=['GET', 'POST'])
 @login_required
 @admin_required
+@check_confirmed
 def change_email(token):
     """Change existing user's email with provided token."""
     if current_user.change_email(token):
@@ -651,6 +690,3 @@ def change_email(token):
     else:
         flash('The confirmation link is invalid or has expired.', 'error')
     return redirect(url_for('admin.dashboard'))
-
-
-

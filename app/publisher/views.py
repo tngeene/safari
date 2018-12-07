@@ -12,7 +12,7 @@ from flask_login import (
     login_required,
 )
 
-from app.auth.admin_decorators import publisher_login_required
+from app.auth.admin_decorators import publisher_login_required,check_confirmed
 from app.publisher.forms import *
 
 publisher = Blueprint('publisher', __name__)
@@ -36,6 +36,7 @@ def before_request():
 @publisher.route('/')
 @login_required
 @publisher_login_required
+@check_confirmed
 def dashboard():
     """Admin dashboard page."""
     listing_count = current_user.listings.count()
@@ -47,6 +48,7 @@ def dashboard():
 @publisher.route('/listings/<country>')
 @login_required
 @publisher_login_required
+@check_confirmed
 def listing(country):
     listings = Listing.query.filter_by(publisher=current_user, location=country).order_by(
         Listing.createdAt.desc()).all()
@@ -56,6 +58,7 @@ def listing(country):
 @publisher.route('/listings/new', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
+@check_confirmed
 def newListing():
     form = ListingForm()
     form.price_type_id.choices = [(row.id, row.name) for row in
@@ -102,6 +105,7 @@ def newListing():
 @publisher.route('/listings/edit/<id>', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
+@check_confirmed
 def editListing(id):
     listing = Listing.query.filter_by(id=id, publisher=current_user).first_or_404()
     form = EditListingForm(obj=listing)
@@ -117,6 +121,7 @@ def editListing(id):
 @publisher.route('/listings/delete/<id>', methods=['POST'])
 @login_required
 @publisher_login_required
+@check_confirmed
 def deleteListing(id):
     listing = Listing.query.filter_by(id=id, publisher=current_user).first_or_404()
     db.session.delete(listing)
@@ -128,6 +133,7 @@ def deleteListing(id):
 @publisher.route('/listings/publish/<id>')
 @login_required
 @publisher_login_required
+@check_confirmed
 def publishListing(id):
     listing = Listing.query.filter_by(id=id, publisher=current_user).first_or_404()
     if listing.published == True:
@@ -142,6 +148,7 @@ def publishListing(id):
 @publisher.route('/category')
 @login_required
 @publisher_login_required
+@check_confirmed
 def category():
     categories = Category.query.order_by(Category.createdAt.desc()).all()
     return render_template('publisher/category.html', items=categories)
@@ -150,6 +157,7 @@ def category():
 @publisher.route('/category/new', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
+@check_confirmed
 def newCategory():
     form = CategoryForm()
     if form.validate_on_submit():
@@ -167,6 +175,7 @@ def newCategory():
 @publisher.route('/destinations')
 @login_required
 @publisher_login_required
+@check_confirmed
 def destination():
     destinations = Listing.query.filter_by(publisher=current_user).group_by(Listing.location)
     return render_template('publisher/destination.html', items=destinations)
@@ -175,6 +184,7 @@ def destination():
 @publisher.route('/packages')
 @login_required
 @publisher_login_required
+@check_confirmed
 def package():
     pricing = Price.query.filter_by(publisher=current_user).group_by(Price.location)
     arcodes = get_arcode()
@@ -184,6 +194,7 @@ def package():
 @publisher.route('/packages/<country>')
 @login_required
 @publisher_login_required
+@check_confirmed
 def pricing(country):
     pricing = Price.query.filter_by(publisher=current_user, location=country).order_by(Price.createdAt.desc()).all()
     return render_template('publisher/pricing.html', items=pricing, country=country)
@@ -192,6 +203,7 @@ def pricing(country):
 @publisher.route('/pricing/new', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
+@check_confirmed
 def newPricing():
     form = PriceForm()
     form.location.choices = get_countries()
@@ -213,6 +225,7 @@ def newPricing():
 @publisher.route('/pricing/edit/<id>', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
+@check_confirmed
 def editPricing(id):
     pricing = Price.query.filter_by(id=id).first_or_404()
     form = EditPriceForm(obj=pricing)
@@ -228,6 +241,7 @@ def editPricing(id):
 @publisher.route('/bookings')
 @login_required
 @publisher_login_required
+@check_confirmed
 def bookings():
     current_user.last_booking_read_time = datetime.utcnow()
     current_user.add_notification('unread_booking_count', 0)
@@ -241,6 +255,7 @@ def bookings():
 @publisher.route('/confirm_booking/<id>/<state>')
 @login_required
 @publisher_login_required
+@check_confirmed
 def confirm_booking(id,state):
     booking = Booking.query.filter_by(id=id).first_or_404()
     if booking.listing.publisher != current_user:
@@ -253,6 +268,7 @@ def confirm_booking(id,state):
 
 @publisher.route('/send_message/<id>', methods=['GET', 'POST'])
 @login_required
+@check_confirmed
 def send_message(id):
     user = User.query.filter_by(id=id).first_or_404()
     form = MessageForm()
@@ -269,6 +285,7 @@ def send_message(id):
 
 @publisher.route('/messages')
 @login_required
+@check_confirmed
 def messages():
     current_user.last_message_read_time = datetime.utcnow()
     current_user.add_notification('unread_message_count', 0)
@@ -281,6 +298,7 @@ def messages():
 
 @publisher.route('/notifications')
 @login_required
+@check_confirmed
 def notifications():
     since = request.args.get('since', 0.0, type=float)
     notifications = current_user.notifications.filter(
@@ -294,12 +312,14 @@ def notifications():
 
 @publisher.route('/notifications_view')
 @login_required
+@check_confirmed
 def notifications_view():
     bookings = current_user.user_notifications()
     return render_template('publisher/_notification.html', notifications=bookings)
 
 @publisher.route('/settings', methods=['GET', 'POST'])
 @login_required
+@check_confirmed
 def settings():
     form = EditPasswordForm()
     if form.validate_on_submit():
@@ -313,6 +333,7 @@ def settings():
 @publisher.route('/profile')
 @login_required
 @publisher_login_required
+@check_confirmed
 def profile():
     form = BannerForm()
     if form.validate_on_submit():
@@ -333,6 +354,7 @@ def profile():
 @publisher.route('/edit_profile', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
+@check_confirmed
 def edit_profile():
     form = ProfileForm()
     publisher = current_user.publisher
@@ -368,6 +390,7 @@ def edit_profile():
 @publisher.route('/edit_cover', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
+@check_confirmed
 def edit_cover():
     form = BannerForm()
     if form.validate_on_submit():
