@@ -23,12 +23,14 @@ from app import db
 from app.email import send_email
 from app.models import User
 from app.auth.email import send_password_reset_email
+from app.auth.admin_decorators import check_confirmed
 
 customer = Blueprint('customer', __name__)
 
 
 @customer.route('/')
 @login_required
+@check_confirmed
 def dashboard():
     """Admin dashboard page."""
 
@@ -45,6 +47,7 @@ def dashboard():
 
 @customer.route('/book/<id>', methods=['post', 'get'])
 @login_required
+@check_confirmed
 def book(id):
     """Admin dashboard page."""
     list_booked = Listing.query.filter_by(id=id).first_or_404()
@@ -71,6 +74,7 @@ def book(id):
 
 @customer.route('/booking/communicate')
 @login_required
+@check_confirmed
 def communicateaboutbook():
     """Admin dashboard page."""
     return redirect(url_for('customer.dashboard'))
@@ -78,6 +82,7 @@ def communicateaboutbook():
 
 @customer.route('/view/booking/<status>')
 @login_required
+@check_confirmed
 def view_bookings_by(status):
     """Admin dashboard page."""
     bookings = Booking.query.filter_by(user=current_user, state=status).all()
@@ -86,6 +91,7 @@ def view_bookings_by(status):
 
 @customer.route('/view/booking')
 @login_required
+@check_confirmed
 def view_bookings():
     """Admin dashboard page."""
     bookings = Booking.query.filter_by(user=current_user).all()
@@ -94,6 +100,7 @@ def view_bookings():
 
 @customer.route('/view/payments')
 @login_required
+@check_confirmed
 def view_payments():
     """Admin dashboard page."""
     payments = Payment.query.filter_by(user=current_user).all()
@@ -103,6 +110,7 @@ def view_payments():
 
 @customer.route('/accept_offer')
 @login_required
+@check_confirmed
 def accept_offer():
     """Admin dashboard page."""
     return redirect(url_for('customer.dashboard'))
@@ -121,6 +129,8 @@ def decline_offer():
 
 
 @customer.route('/review/<what>/<id>', methods=['post', 'get'])
+@login_required
+@check_confirmed
 def review(what, id):
     """Admin dashboard page."""
 
@@ -157,6 +167,7 @@ def review(what, id):
 
 @customer.route('/profile', methods=['post', 'get'])
 @login_required
+@check_confirmed
 def profile():
     """Admin dashboard page."""
 
@@ -172,6 +183,7 @@ def profile():
 
 @customer.route('/settings', methods=['post', 'get'])
 @login_required
+@check_confirmed
 def settings():
     """Admin dashboard page."""
 
