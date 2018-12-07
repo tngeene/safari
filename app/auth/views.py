@@ -241,7 +241,7 @@ def change_email(token):
 @login_required
 def confirm_request():
     """Respond to new user's request to confirm their account."""
-    send_confirm_email(user)
+    send_confirm_email(current_user)
     flash('A new confirmation link has been sent to {}.'.format(
         current_user.email), 'green')
     return redirect(url_for('account.unconfirmed'))
