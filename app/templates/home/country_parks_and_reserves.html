@@ -2,40 +2,11 @@
 
 
 {% block home_content %}
-    
+
     <!-- listings -->
     <div class="list-wrapper bg-grey-2 py-5">
         <div class="container py-5">
-            <!-- top banner -->
-            <div class="bg-white mb-2 p-2">
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="{{ url_for('static', filename='home/img/slide/main_slide_1.jpg') }}" width="300px" alt="">
-                    </div>
-                    <div class="col-md-6">
-                        <h3 class="color-dark-2">Kenya</h3>
-                        <div class="rate-wrap">
-                            <div class="rate">
-                                <span class="fa fa-star color-yellow"></span>
-                                <span class="fa fa-star color-yellow"></span>
-                                <span class="fa fa-star color-yellow"></span>
-                                <span class="fa fa-star color-yellow"></span>
-                                <span class="fa fa-star color-yellow"></span>
-                            </div>
-                            <i>485 reviews</i> 
-                        </div>
-                        <p><b>Office in: </b>Kenya <span class="fa fa-flag"></span></p>
-                        <p><b>Size: </b>1-5 employees (Founded in 2015)</p>
-                        <p><b>Price range: </b>$908 - $9833</p>
-                        <p><b>Tour types: </b>Custom budget and mid-range tours that can depart every day.</p>
-                    </div>
-                    <div class="col-md-2">
-                        <img src="{{ url_for('static', filename='home/img/slide/main_slide_1.jpg') }}" width="150px" class="pb-2" alt="">
-                        <a href="#" class="c-button b-40 bg-blue-2 hv-blue-2-o">Kenya Safaris</a>
-                    </div>
-                </div>
-            </div>
-            <!-- end top banner -->
+            {% include 'home/_country_banner.html' %}
 
             <div class="row">
                 <!-- sidebar -->
@@ -44,41 +15,33 @@
 
 
                 <div class="col-xs-12 col-sm-8 col-md-9">
-                    <!-- list -->
-                    <div id="listings" class="list-content clearfix">
-                        <!-- list item -->
-                        <div class="list-item-entry">
-                            <div class="hotel-item style-3 bg-white">
-                                <div class="table-view">
-                                    <div class="radius-top cell-view">
-                                        <img src="{{ url_for('static', filename='home/img/slide/main_slide_1.jpg') }}" alt="">
-                                    </div>
-                                    <div class="title hotel-middle clearfix cell-view">
-                                        <h3><b>Amboseli National PArk</b></h3>
-                                        <div class="rate-wrap">
-                                            <div class="rate">
-                                                <span class="fa fa-star color-yellow"></span>
-                                                <span class="fa fa-star color-yellow"></span>
-                                                <span class="fa fa-star color-yellow"></span>
-                                                <span class="fa fa-star color-yellow"></span>
-                                                <span class="fa fa-star color-yellow"></span>
-                                            </div>
-                                            <i>485 revies</i> 
+
+                    {% for park in country.parks %}
+                        <!-- list -->
+                        <div id="listings" class="list-content clearfix">
+                            <!-- list item -->
+                            <a href="{{ url_for('home.park_details', park_id=park.id) }}`"></a>
+                            <div class="list-item-entry">
+                                <div class="hotel-item style-3 bg-white">
+                                    <div class="table-view">
+                                        <div class="radius-top cell-view">
+                                            <img src="{{ url_for('static', filename='uploads/{}'.format(country.image_url)) }}" alt="">
                                         </div>
-                                        <p><b>Office in: </b>Kenya <span class="fa fa-flag"></span></p> 
-                                        <p><b>Price range: </b>$908 - $9833</p>
-                                        <p><b>Tour types: </b>Custom budget and mid-range tours that can deoart every day.</p>
-                                    </div>
-                                    <div class="title hotel-right clearfix cell-view"> 
-                                        <img src="{{ url_for('static', filename='home/img/slide/main_slide_1.jpg') }}" width="75px" class="operator-list-logo" alt="">
-                                        <a class="c-button b-40 bg-blue hv-blue-o grid-hidden" href="#">view details</a>
+                                        <div class="title hotel-middle clearfix cell-view">
+                                            <h3><b>{{ park.name }}</b></h3>
+                                            <p><b>Climate: </b>{{ park.climate }}</p>
+                                            <p><b>Best time to visit: </b>{{ park.best_time_to_visit }}</p> <br>
+                                            <p>{{ park.description }}</p>
+                                        </div>
+                                        <div class="title hotel-right clearfix cell-view">
+                                            <a class="c-button b-40 bg-blue hv-blue-o grid-hidden" href="#">view details</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- end list item -->
-
+                        <!-- end list item -->
+                    {% endfor %}
 
                     <div class="c_pagination clearfix padd-120">
                         <a href="#" class="c-button b-40 bg-blue-2 hv-blue-2-o fl">prev page</a>
@@ -97,4 +60,3 @@
         </div>
     </div>
 {% endblock home_content %}
-    

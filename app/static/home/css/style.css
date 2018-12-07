@@ -1547,7 +1547,7 @@ nav li.type-4 .dropmenu .fa-chevron-right { display: none; }
 
 .offers-info li b { font-size: 24px; padding-right: 10px; }
 
-.offers-block:hover .tour-layer { opacity: 1; }
+/* .offers-block:hover .tour-layer { opacity: 1; } */
 
 .offers-block:hover h3 { color: #ff6600; }
 

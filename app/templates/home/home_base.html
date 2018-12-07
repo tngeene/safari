@@ -65,7 +65,24 @@
                                     </li>
                                     {% if current_user.is_authenticated %}
                                     <li>
-                                        <a href="{{ url_for('account.logout') }}" class="c-button bg-dr-blue-2 thin-button">logout</a>
+                                        <a href="{{ url_for('account.logout') }}">
+                                            <img src="{{ url_for('static', filename='home/img/user_icon.png') }}" alt="" width="20px">
+                                        </a>
+                                        <ul class="dropmenu">
+                                            <li>
+                                                <a href="{{ url_for('customer.profile') }}">{{ current_user.full_name() }}</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ url_for('customer.profile') }}">Profile</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ url_for('{}.dashboard'.format(current_user.role.index)) }}">Dashboard</a>
+                                            </li>
+                                            <li role="separator" class="divider"></li>
+                                            <li>
+                                                <a href="{{ url_for('account.logout') }}">Logout</a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     {% else %}
                                     <li>
@@ -94,35 +111,29 @@
                             <h6>Links: </h6>
                             <div class="contact-info">
                                 <div class="contact-line color-grey-3">
-                                    <a href="#">Home</a>
+                                    <a href="{{ url_for('home.index') }}">Home</a>
                                 </div>
                                 <div class="contact-line color-grey-3">
-                                    <a href="{{ url_for('home.about') }}">About</a>
+                                    <a href="{{ url_for('home.listings') }}">Listings</a>
                                 </div>
                                 <div class="contact-line color-grey-3">
-                                    <a href="#">Listings</a>
+                                    <a href="{{ url_for('home.tour_operators_list') }}">Tour Operators Us</a>
                                 </div>
                                 <div class="contact-line color-grey-3">
-                                    <a href="#">Contact Us</a>
+                                    <a href="{{ url_for('home.countries_and_parks_list') }}">Countries and Parks</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="footer-block">
-                            <h6>Personal</h6>
+                            <h6>General</h6>
                             <div class="contact-info">
                                 <div class="contact-line color-grey-3">
                                     <a href="#">Terms and Conditions</a>
                                 </div>
                                 <div class="contact-line color-grey-3">
                                     <a href="#">Privacy Policy</a>
-                                </div>
-                                <div class="contact-line color-grey-3">
-                                    <a href="#">Support</a>
-                                </div>
-                                <div class="contact-line color-grey-3">
-                                    <a href="#">FAQs</a>
                                 </div>
                             </div>
                         </div>
@@ -136,6 +147,12 @@
                                 </div>
                                 <div class="contact-line color-grey-3">
                                     <a href="#">Tanzania</a>
+                                </div>
+                                <div class="contact-line color-grey-3">
+                                    <a href="#">Uganda</a>
+                                </div>
+                                <div class="contact-line color-grey-3">
+                                    <a href="#">Rwanda</a>
                                 </div>
                             </div>
                         </div>

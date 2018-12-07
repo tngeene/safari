@@ -11,58 +11,35 @@
                     <div class="list-content clearfix">
                         <!-- list item -->
                         {% for country in countries %}
-                        <div class="list-item-entry">
-                            <div class="hotel-item style-3 bg-white">
-                                <div class="table-view">
-                                    <div class="radius-top cell-view">
-                                        <img src="{{ url_for('static', filename='home/img/slide/main_slide_1.jpg') }}" alt="">
-                                    </div>
-                                    <div class="title hotel-middle clearfix cell-view">
-                                        <h3><b><a href="{{ url_for('home.country_details') }}">Kenya</a></b></h3>
-                                        <div class="rate-wrap">
-                                            <div class="rate">
-                                                <span class="fa fa-star color-yellow"></span>
-                                                <span class="fa fa-star color-yellow"></span>
-                                                <span class="fa fa-star color-yellow"></span>
-                                                <span class="fa fa-star color-yellow"></span>
-                                                <span class="fa fa-star color-yellow"></span>
-                                            </div>
-                                            <i>485 revies</i> 
-                                        </div>
-                                        <p>
-                                            Tanzania has three safari circuits and each one of them 
-                                            would make Tanzania a top wildlife destination. The popular 
-                                            Northern circuit with the Serengeti and Ngorongoro crater 
-                                            offers one of the best classical safaris in Africa, especially 
-                                            if timed with the annual wildebeest migration.
-                                        </p> 
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <h5>Rates</h5>
-                                                <p>$180 to $456</p>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <h5>Best time</h5>
-                                                <p>Jun to Oct (Migration from Jun-Jul & Jan-Feb</p>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <h5>High season</h5>
-                                                <p>July to March (Northern circuit parks get crowded)</p>
-                                            </div>
+                        <a href="{{ url_for('home.country_details',country_id=country.id) }}">
+                            <div class="hotel-item style-3 bg-white py-3">
+                                <div class="list-item-entry">
+                                    <div class="col-md-3">
+                                        <div class="thumbnail">
+                                            <img src="{{ url_for('static', filename='uploads/{}'.format(country.image_url)) }}" alt="{{ country.name }}">
                                         </div>
                                     </div>
-                                    <div class="title hotel-right clearfix cell-view text-left">
-                                        <h5 class="mb-1"><b>Kenya parks and reserves</b></h5>
-                                        <p><a>Amboseli National Park</a></p> 
-                                        <p><a>Lake Nakuru National Park</a></p>
-                                        <p><a>Masai Mara National Reserve</a></p>
-                                        <p><a>Masai Mara National Reserve</a></p>
-                                        <a class="c-button b-40 bg-blue hv-blue-o grid-hidden m-2" href="{{ url_for('home.country_details') }}">view tours</a>
+                                    <div class="col-md-6">
+                                        <h3>
+                                            <b>{{ country.name }}</b>
+                                        </h3>
+                                        <p>{{ country.overview }}</p> <br>
+                                        <h5><b>Best time to visit</b></h5>
+                                        <p class="small">{{ country.best_time_to_visit }}</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h5 class="mb-1">
+                                            <b>Kenya parks and reserves</b>
+                                        </h5>
+                                        {% for park in country.parks.limit(4) %}
+                                            <p><a href="#">{{ park.name }}</a></p>
+                                        {% endfor %}
+                                        <a class="c-button b-40 bg-blue hv-blue-o grid-hidden m-2" href="{{ url_for('home.country_details', country_id=country.id) }}">view more</a>
                                     </div>
                                 </div>
                             </div>
-                          </div>
+                        </a>
+
                         {%endfor%}
                     </div>
                     <!-- end list item -->
