@@ -241,8 +241,7 @@ def change_email(token):
 @login_required
 def confirm_request():
     """Respond to new user's request to confirm their account."""
-    token = current_user.get_token()
-    send_confirm_email(User.check_token(token))
+    send_confirm_email(user)
     flash('A new confirmation link has been sent to {}.'.format(
         current_user.email), 'green')
     return redirect(url_for('account.unconfirmed'))
@@ -261,7 +260,6 @@ def confirm(token):
             return redirect(url_for('publisher.edit_profile'))
         return redirect(url_for('account.login'))
     if User.check_token(token):
-        user = User.check_token(token)
         user.confirmed = True
         db.session.commit()
 
