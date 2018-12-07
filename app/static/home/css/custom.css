@@ -93,3 +93,15 @@
     border: 0;
     border-top: 1px solid #c7c7c7;
 }
+
+.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .caption {
+    padding: 20px;
+}
+
+.small {
+    font-size: 12px !important;
+}

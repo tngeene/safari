@@ -191,28 +191,38 @@ def tour_operator_contact(publisher_id):
 
 @home.route('/countries-and-parks')
 def countries_and_parks_list():
-    countries = Listing.query.all()
+    countries = Country.query.all()
     return render_template('home/countries_and_parks.html', countries=countries)
 
 
-@home.route('/countries/1/overview')
-def country_details():
-    return render_template('home/country_details.html')
+@home.route('/countries/<country_id>/overview')
+def country_details(country_id):
+    country = Country.query.filter_by(id=country_id).first_or_404()
+    return render_template('home/country_details.html', country=country)
 
 
-@home.route('/countries/1/parks_and_reserves')
-def country_parks_and_reserves():
-    return render_template('home/country_parks_and_reserves.html')
+@home.route('/park_details/<park_id>')
+def park_details(park_id):
+    park = Park.query.filter_by(id=park_id).first_or_404()
+    return render_template('home/park_details.html', park=park)
 
 
-@home.route('/countries/1/wildlife')
-def country_wildlife():
-    return render_template('home/country_wildlife.html')
+@home.route('/countries/<country_id>/parks_and_reserves')
+def country_parks_and_reserves(country_id):
+    country = Country.query.filter_by(id=country_id).first_or_404()
+    return render_template('home/country_parks_and_reserves.html', country=country)
 
 
-@home.route('/countries/1/birds')
-def country_birds():
-    return render_template('home/country_birds.html')
+@home.route('/countries/<country_id>/wildlife')
+def country_wildlife(country_id):
+    country = Country.query.filter_by(id=country_id).first_or_404()
+    return render_template('home/country_wildlife.html', country=country)
+
+
+@home.route('/countries/<country_id>/birds')
+def country_birds(country_id):
+    country = Country.query.filter_by(id=country_id).first_or_404()
+    return render_template('home/country_birds.html', country=country)
 
 
 @home.route('/contact-us')

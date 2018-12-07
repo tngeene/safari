@@ -219,40 +219,43 @@
             <div class="row">
                 <div class="top-baner arrows">
                     <div class="swiper-container offers-slider" data-autoplay="5000" data-loop="1" data-speed="500" data-slides-per-view="responsive" data-mob-slides="1" data-xs-slides="2" data-sm-slides="2" data-md-slides="3" data-lg-slides="3" data-add-slides="3">
-                        <div class="swiper-wrapper">
+                        <div class="swiper-wrapper">    
                             {%for listing in popular_packages%}
-                            <div class="col-md-4" style="max-height:500px">
-                                <div class="offers-block radius-mask">
-                                    <div class="clip">
-                                        <a class="bg bg-bg-chrome act" href="#">
-                                            <img src="{% if listing.images[0] %}{{ url_for('static', filename='uploads/{}'.format(listing.images[0].image_url))}}{% else %}{{ url_for('static', filename='images/gallary/10.png')}}{% endif %}" height="200px" alt="item-img">
-                                        </a>
-                                    </div>
-                                    <div class="tour-layer delay-1"></div>
-                                    <div class="vertical-top">
-                                        <div class="rate">
-                                          <span class="fa fa-star {{'color-yellow' if listing.rating >= 1 else 'color-grey'  }}"></span>
-                                          <span class="fa fa-star {{'color-yellow' if listing.rating >= 2 else 'color-grey'  }}"></span>
-                                          <span class="fa fa-star {{'color-yellow' if listing.rating >= 3 else 'color-grey'  }}"></span>
-                                          <span class="fa fa-star {{'color-yellow' if listing.rating >= 4 else 'color-grey'  }}"></span>
-                                          <span class="fa fa-star {{'color-yellow' if listing.rating >= 5 else 'color-grey'  }}"></span>
+                            <a href="{{url_for('home.listings_by_details', id=listing.id)}}">
+                                <div class="col-md-4">
+                                    <div class="thumbnail">
+                                        <img src="{% if listing.images[0] %}{{ url_for('static', filename='uploads/{}'.format(listing.images[0].image_url))}}{% else %}{{ url_for('static', filename='images/gallary/10.png')}}{% endif %}" alt="item-img" style="max-height: 260px !important; width: 100%;">
+                                        <div class="caption">
+                                            <h4>{{listing.price.name}}</h4>
+                                            <div class="rate">
+                                                <span class="fa fa-star {{'color-yellow' if listing.rating >= 1 else 'color-grey'  }}"></span>
+                                                <span class="fa fa-star {{'color-yellow' if listing.rating >= 2 else 'color-grey'  }}"></span>
+                                                <span class="fa fa-star {{'color-yellow' if listing.rating >= 3 else 'color-grey'  }}"></span>
+                                                <span class="fa fa-star {{'color-yellow' if listing.rating >= 4 else 'color-grey'  }}"></span>
+                                                <span class="fa fa-star {{'color-yellow' if listing.rating >= 5 else 'color-grey'  }}"></span>
+                                            </div>
+                                            <ul class="offers-info">
+                                                <li><b>{{ "$ {:,.0f}".format(listing.price.total_price_adults) }}</b><br>Per Adult</li>
+                                                <li><b>{{ "$ {:,.0f}".format(listing.price.total_price_children) }}</b><br>Per Child</li>
+                                                <li>Duration<br>{{listing.duration}} <br></li>
+                                            </ul>
+                                            <p>
+                                                <b>Location: </b>
+                                                {{listing.location}} 
+                                                <span class="bull">{{ listing.package}}<br></span>
+                                                <b> You visit: </b>
+                                                {% for place in listing.places %}{{ place.place}}{{', ' if listing.places[loop.index]}}{% endfor %}
+                                            </p>
+                                            <a href="{{url_for('home.listings_by_details', id=listing.id)}}" class="c-button bg-aqua hv-aqua-o b-40">
+                                                <span>view more</span>
+                                            </a>
                                         </div>
-                                        <h3>{{listing.price.name}}</h3>
-                                    </div>
-                                    <div class="vertical-bottom">
-                                        <ul class="offers-info">
-                                            <li><b>{{ "$ {:,.0f}".format(listing.price.total_price_adults) }}</b><br>Per Adult</li>
-                                            <li><b>{{ "$ {:,.0f}".format(listing.price.total_price_children) }}</b><br>Per Child</li>
-                                            <li>Duration<br>{{listing.duration}} <br></li>
-                                        </ul>
-                                        <p><b>Location: </b>{{listing.location}} <span class="bull">{{ listing.package}}<br><b> You visit: </b>{% for place in listing.places %}{{ place.place}}{{', ' if listing.places[loop.index]}}{% endfor %}</p>
-                                        <a href="{{url_for('home.listings_by_details', id=listing.id)}}" class="c-button bg-aqua hv-aqua-o b-40"><span>view more</span></a>
-                                    </div>
+                                    </div>    
                                 </div>
-                            </div>
+                            </a>
                             {% else %}
                             <div class="alert alert-warning" role="alert">
-                                        <span class="text-success">No Listings Found!!</span>
+                                <span class="text-success">No Listings Found!!</span>
                             </div>
                             {%endfor%}
                         </div>
@@ -278,40 +281,36 @@
                     <div class="swiper-container offers-slider" data-autoplay="5000" data-loop="1" data-speed="500" data-slides-per-view="responsive" data-mob-slides="1" data-xs-slides="2" data-sm-slides="2" data-md-slides="3" data-lg-slides="3" data-add-slides="3">
                         <div class="swiper-wrapper">
                             {%for operator in popular_operators%}
-                            <div class="swiper-slide" data-val={{loop.index}}>
-                                <div class="offers-block radius-mask h-350">
-                                <div class="clip">
-                                     <div class="clip">
-                                         <a class="bg bg-bg-chrome act" href="{{ url_for('home.tour_operator_details', publisher_id=operator.user.id) }}">
-                                           <img src="{{ url_for('static', filename='uploads/{}'.format(operator.banner)) if operator.banner else url_for('static', filename='images/placeholder.png')}}" height="200px" alt="item-img">
-                                         </a>
-                                     </div>
+                            <a href="{{ url_for('home.tour_operator_details', publisher_id=operator.user.id) }}">
+                                <div class="swiper-slide" data-val={{loop.index}}>
+                                    <div class="thumbnail">
+                                        <img src="{{ url_for('static', filename='uploads/{}'.format(operator.banner)) if operator.banner else url_for('static', filename='images/placeholder.png')}}" alt="item-img" style="height: 200px !important; width:100%;">
+                                        <div class="caption" style="min-height: 150px;">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <img src="{{ url_for('static', filename='uploads/{}'.format(operator.logo) ) if operator.logo else url_for('static', filename='images/placeholder.png') }}" alt="" width="75px">
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <h4>{{ operator.company_name }}</h4>
+                                                    <div class="rate-wrap">
+                                                        <div class="rate">
+                                                            <span class="fa fa-star {{'color-yellow' if operator.rating >= 1 else 'color-grey'  }}"></span>
+                                                            <span class="fa fa-star {{'color-yellow' if operator.rating >= 2 else 'color-grey'  }}"></span>
+                                                            <span class="fa fa-star {{'color-yellow' if operator.rating >= 3 else 'color-grey'  }}"></span>
+                                                            <span class="fa fa-star {{'color-yellow' if operator.rating >= 4 else 'color-grey'  }}"></span>
+                                                            <span class="fa fa-star {{'color-yellow' if operator.rating >= 5 else 'color-grey'  }}"></span>
+                                                        </div>
+                                                        <i>{{ operator.overal_ratings }} reviews</i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="vertical-bottom">
-                                  <div class="row">
-                                      <div class="col-md-3">
-                                          <img src="{{ url_for('static', filename='uploads/{}'.format(operator.logo) ) if operator.logo else url_for('static', filename='images/placeholder.png') }}" alt="" width="75px">
-                                      </div>
-                                      <div class="col-md-9">
-                                          <p>{{ operator.company_name }}</p>
-                                          <div class="rate-wrap">
-                                              <div class="rate">
-                                              <span class="fa fa-star {{'color-yellow' if operator.rating >= 1 else 'color-grey'  }}"></span>
-                                              <span class="fa fa-star {{'color-yellow' if operator.rating >= 2 else 'color-grey'  }}"></span>
-                                              <span class="fa fa-star {{'color-yellow' if operator.rating >= 3 else 'color-grey'  }}"></span>
-                                              <span class="fa fa-star {{'color-yellow' if operator.rating >= 4 else 'color-grey'  }}"></span>
-                                              <span class="fa fa-star {{'color-yellow' if operator.rating >= 5 else 'color-grey'  }}"></span>
-                                          </div>
-                                          <i>{{ operator.overal_ratings }} reviews</i>
-                                      </div>
-                                  </div>
-                                </div>
-                                </div>
-                                </div>
-                            </div>
+                            </a>
                             {% else %}
                             <div class="alert alert-warning" role="alert">
-                                        <span class="text-success">No operators Found!!</span>
+                                <span class="text-success">No operators Found!!</span>
                             </div>
                             {%endfor%}
                         </div>
