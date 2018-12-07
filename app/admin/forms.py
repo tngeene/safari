@@ -19,7 +19,7 @@ from wtforms.validators import (
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from app import db
-from app.models import Role, User
+from app.models import Role, User, Category
 
 photos = UploadSet('photos', IMAGES)
 
@@ -150,3 +150,13 @@ class EditParkForm(Form):
     best_time_to_visit = TextAreaField('Best Time To Visit')
     country = SelectField(validators=[InputRequired()], choices=[], coerce=int)
     submit = SubmitField('Add')
+
+class CategoryForm(Form):
+    name = StringField('name', validators=[Length(min=2, max=80)])
+    image = FileField(validators=[FileAllowed(photos, u'Image only!')])
+    submit = SubmitField('save')
+
+    def validate_name(self, name):
+        category = Category.query.filter_by(name=name.data).first()
+        if category is not None:
+            raise ValidationError('This category has already been added')

@@ -690,3 +690,27 @@ def change_email(token):
     else:
         flash('The confirmation link is invalid or has expired.', 'error')
     return redirect(url_for('admin.dashboard'))
+
+@admin.route('/category')
+@admin_required
+@check_confirmed
+def category():
+    categories = Category.query.order_by(Category.createdAt.desc()).all()
+    return render_template('admin/category.html', items=categories)
+
+
+@admin.route('/category/new', methods=('GET', 'POST'))
+@admin_required
+@check_confirmed
+def newCategory():
+    form = CategoryForm()
+    if form.validate_on_submit():
+        image = form.image.data
+        if image:
+            image = photos.save(form.image.data)
+        category = Category(name=form.name.data, image_url=image)
+        db.session.add(category)
+        db.session.commit()
+        flash('Category added successfully', 'green')
+        return redirect(url_for('admin.category'))
+    return render_template('admin/add_category.html', form=form)
