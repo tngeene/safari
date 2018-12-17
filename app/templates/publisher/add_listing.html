@@ -7,7 +7,7 @@
             <div class="container">
               <div class="row">
                 <div class="col s10 m6 l6">
-                  <h5 class="breadcrumbs-title">Add New listing</h5>
+                  <h5 class="breadcrumbs-title">Add New Package</h5>
                   <ol class="breadcrumbs">
                     <li><a href="{{url_for('publisher.dashboard')}}">Dashboard</a></li>
                     <li><a href="{{url_for('publisher.destination')}}">Listings</a></li>
@@ -118,7 +118,7 @@
                           <div class="input-field col s12">
                             <i class="material-icons prefix">message</i>
                             {{ form.add_ons(class="materialize-textarea") }}
-                            <label for="email">Add ons</label>
+                            <label for="email">Add extras</label>
                             {%for error in form.add_ons.errors%}
                                 <div class="error">{{ error }}</div>
                               {%endfor%}
