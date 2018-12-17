@@ -5,7 +5,7 @@
         <a href="{{url_for('home.listings_by_details',id=publisher_listing.id)}}">
             <div class="thumbnail">
                 <img src="{{ url_for('static', filename='uploads/{}'.format(publisher_listing.images[0].image_url))if publisher_listing.images[0] else url_for('static', filename='images/gallary/10.png') }}" alt="" style="height:250px !important; width:100%;">
-                <div class="caption">
+                <div class="caption" style="height: 300px !important;">
                     <h4>
                         <b>{{ publisher_listing.price.name }}</b>
                     </h4>

@@ -224,7 +224,7 @@
                             <a href="{{url_for('home.listings_by_details', id=listing.id)}}">
                                 <div class="col-md-4">
                                     <div class="thumbnail">
-                                        <img src="{% if listing.images[0] %}{{ url_for('static', filename='uploads/{}'.format(listing.images[0].image_url))}}{% else %}{{ url_for('static', filename='images/gallary/10.png')}}{% endif %}" alt="item-img" style="max-height: 260px !important; width: 100%;">
+                                        <img src="{% if listing.images[0] %}{{ url_for('static', filename='uploads/{}'.format(listing.images[0].image_url))}}{% else %}{{ url_for('static', filename='images/gallary/10.png')}}{% endif %}" alt="item-img" style="height: 225px !important; width: 100%;">
                                         <div class="caption">
                                             <h4>{{listing.price.name}}</h4>
                                             <div class="rate">
