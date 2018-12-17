@@ -39,7 +39,7 @@ def about():
     return render_template('home/about.html')
 
 
-@home.route('/listings')
+@home.route('/packages')
 def listings():
     page = request.args.get('page', 1, type=int)
     categories = Category.query.all()
@@ -63,13 +63,13 @@ def listings():
                            arcodes=arcodes, categories=categories, maxval=maxval)
 
 
-@home.route('/listings/<package>')
+@home.route('/packages/<package>')
 def listings_by_package(package):
     packages = Listing.query.all()
     return render_template('home/packages.html', packages=packages)
 
 
-@home.route('/listings/details/<id>')
+@home.route('/packages/details/<id>')
 def listings_by_details(id):
     listings = Listing.query.filter_by(id=id).first_or_404()
     form = BookingForm()
@@ -146,7 +146,7 @@ def tour_operator_details(publisher_id):
                            publisher_listings=publisher_listings, arcodes=arcodes)
 
 
-@home.route('/tour-operators/<publisher_id>/listings')
+@home.route('/tour-operators/<publisher_id>/packages')
 def tour_operator_listings(publisher_id):
     page = request.args.get('page', 1, type=int)
     publisher = User.query.filter_by(id=publisher_id).first()
