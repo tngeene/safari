@@ -1,3 +1,10 @@
+.mx-auto {
+    margin-right: auto;
+    margin-left: auto;
+    float: none !important;
+}
+
+
 .m-1 {
     margin: 1rem;
 }
