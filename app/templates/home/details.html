@@ -19,7 +19,7 @@
 			                <div class="swiper-wrapper">
 								{% for item in listings.images %}
 		                    	<div class="swiper-slide active" data-val="{{ loop.index - 1 }}">
-		                    		 <img class="img-responsive" src="{% if item %}{{ url_for('static', filename='uploads/{}'.format(item.image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" alt="" height="580px">
+		                    		 <img class="" src="{% if item %}{{ url_for('static', filename='uploads/{}'.format(item.image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" alt="" height="580px">
 		                    	</div>
 								{% endfor %}
 		                    </div>
@@ -33,7 +33,7 @@
 			                <div class="swiper-wrapper">
 								{% for item in listings.images %}
 		                    	<div class="swiper-slide {% if loop.index == 1 %} current active{% endif %}" data-val="{{ loop.index - 1 }}">
-		                    		 <img class="img-responsive img-full" src="{% if item %}{{ url_for('static', filename='uploads/{}'.format(item.image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" alt="" height="100px">
+		                    		 <img class="img-full" src="{% if item %}{{ url_for('static', filename='uploads/{}'.format(item.image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" alt="" height="100px">
 		                    	</div>
 								{% endfor %}
 							</div>
@@ -224,7 +224,7 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="form-block clearfix col-md-6">
+										<div class="form-block clearfix col-md-12">
 											<label class="" for="adult">Adults</label>
 											<div class="input-style-1 b-50 color-3">
 												{{form.adults(id="adult",value=1)}}
@@ -233,7 +233,7 @@
 											  {%endfor%}
 											</div>
 										</div>
-										<div class="form-block clearfix col-md-6">
+										<div class="form-block clearfix col-md-12">
 											<label class="" for="kids">Children(under 12)</label>
 											<div class="input-style-1 b-50 color-3">
 												{{form.kids(id="kids",value=1)}}
@@ -264,7 +264,7 @@
 									</div>
 								</div>
 								<div class="details-btn">
-									{{form.book(class="c-button b-40 bg-tr-1 hv-white")}}
+									{{form.book(class="c-button bg-dr-blue-2")}}
 								</div>
 							</form>
 						</div>
