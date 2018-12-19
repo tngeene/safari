@@ -19,7 +19,7 @@
 			                <div class="swiper-wrapper">
 								{% for item in listings.images %}
 		                    	<div class="swiper-slide active" data-val="{{ loop.index - 1 }}">
-		                    		 <img class="" src="{% if item %}{{ url_for('static', filename='uploads/{}'.format(item.image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" alt="" height="580px">
+		                    		 <img class="" src="{% if item %}{{ url_for('static', filename='uploads/{}'.format(item.image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" alt="" height="500px">
 		                    	</div>
 								{% endfor %}
 		                    </div>
