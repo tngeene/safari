@@ -87,25 +87,11 @@ def editListing(id):
     listing = Listing.query.filter_by(id=id, publisher=current_user).first_or_404()
     form = ListingForm(obj=listing)
     form.location.choices = get_countries()
-    form.categories.choices = [(row.id, row.name) for row in Category.query.order_by(Category.createdAt.desc()).all()]
     if form.validate_on_submit():
-        listing.title=form.title.data,
-        listing.location=form.location.data,
-        listing.duration=form.duration.data,
-        listing.availability_from=form.availability_from.data,
-        listing.availability_to=form.availability_to.data,
-        listing.physical_condition=form.physical_condition.data,
-        listing.package=form.package.data,
-        listing.connectivity=form.connectivity.data
-        for category in listing.categories:
-            listing.categories.remove(category)
+        form.populate_obj(listing)
         db.session.commit()
-
-        for row in form.categories.data:
-            category = Category.query.filter_by(id=row).first_or_404()
-            listing.categories.append(category)
         return redirect(url_for('publisher.newPricing', id=listing.id))
-    return render_template('publisher/add_listing.html', form=form,listing=listing)
+    return render_template('publisher/edit_listing.html', form=form)
 
 
 @publisher.route('/listings/delete/<id>', methods=['POST'])
@@ -193,23 +179,20 @@ def pricing(country):
 @publisher_login_required
 @check_confirmed
 def newPricing(id):
-    listing=Listing.query.filter_by(id=id, publisher=current_user).first_or_404()
-    form = PriceForm(obj=listing.price)
+    form = PriceForm()
     if form.validate_on_submit():
-        if not listing.price:
-            price = Price(total_price_adults=form.total_price_adults.data,
-                          total_price_children=form.total_price_children.data,
-                          price_per_day_adults=form.price_per_day_adults.data,
-                          price_per_day_children=form.price_per_day_children.data,listing=listing, publisher=current_user)
-            db.session.add(price)
-            for item in form.includes.data:
-                includes = Include(include=item['include'], price=price)
-                db.session.add(includes)
-        else:
-            form.populate_obj(listing.price)
+        listing=Listing.query.filter_by(id=id).first_or_404()
+        price = Price(total_price_adults=form.total_price_adults.data,
+                      total_price_children=form.total_price_children.data,
+                      price_per_day_adults=form.price_per_day_adults.data,
+                      price_per_day_children=form.price_per_day_children.data,listing=listing, publisher=current_user)
+        for item in form.includes.data:
+            includes = Include(include=item['include'], price=price)
+            db.session.add(includes)
+        db.session.add(price)
         db.session.commit()
         return redirect(url_for('publisher.newExtras', id=listing.id))
-    return render_template('publisher/add_price.html', form=form, listing=listing)
+    return render_template('publisher/add_price.html', form=form)
 
 
 @publisher.route('/pricing/edit/<id>', methods=('GET', 'POST'))
@@ -232,38 +215,47 @@ def editPricing(id):
 @publisher_login_required
 @check_confirmed
 def newExtras(id):
-    listing=Listing.query.filter_by(id=id, publisher=current_user).first_or_404()
-    form = ExtrasForm(obj=listing)
+    form = ExtrasForm()
+    listing=Listing.query.filter_by(id=id).first_or_404()
     if form.validate_on_submit():
-        form.populate_obj(listing)
+        listing.summary=form.long_description.data
+        listing.add_ons=form.add_ons.data
+        for item in form.activities.data:
+            activities = Activity(activity=item['activity'], listing=listing)
+            db.session.add(activities)
+
+        for item in form.places.data:
+            places = Place(place=item['place'].lower(), listing=listing)
+            db.session.add(places)
+
+        for item in form.days.data:
+            days = Day(title=item['title'], day_by_day=item['day_by_day'], listing=listing)
+            db.session.add(days)
         db.session.commit()
         return redirect(url_for('publisher.newPolicy', id=listing.id))
-    return render_template('publisher/add_extra.html', form=form, listing=listing)
+    return render_template('publisher/add_extra.html', form=form)
 
 @publisher.route('/policy/new/<id>', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
 @check_confirmed
 def newPolicy(id):
-    listing=Listing.query.filter_by(id=id, publisher=current_user).first_or_404()
-    form = PolicyForm(obj=listing)
+    listing=Listing.query.filter_by(id=id).first_or_404()
+    form = PolicyForm()
     if form.validate_on_submit():
-        form.populate_obj(listing)
+        listing.policy=form.policy.data
         db.session.commit()
         return redirect(url_for('publisher.newImages', id=listing.id))
-    return render_template('publisher/add_policy.html', form=form, listing=listing)
+    return render_template('publisher/add_policy.html', form=form)
 
 @publisher.route('/images/new/<id>', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
 @check_confirmed
 def newImages(id):
-    listing=Listing.query.filter_by(id=id, publisher=current_user).first_or_404()
+    listing=Listing.query.filter_by(id=id).first_or_404()
     form = ImageForm()
     if form.validate_on_submit():
-        for image in listing.images:
-            db.session.delete(image)
-
         for image in form.images.data:
             if image['image'] is not None:
                 img = photos.save(image['image'])
@@ -271,7 +263,7 @@ def newImages(id):
                 db.session.add(image)
         db.session.commit()
         return redirect(url_for('publisher.listing',country=listing.location))
-    return render_template('publisher/add_image.html', form=form, listing=listing)
+    return render_template('publisher/add_image.html', form=form)
 
 
 @publisher.route('/bookings')

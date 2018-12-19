@@ -86,7 +86,8 @@ class DevelopmentConfig(Config):
     # SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
     #     'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
 
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://safari:safari2019@localhost/safari'
+
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://safari:safari2019@localhost/safari
     # DB_URL = 'postgresql+psycopg2://postgres:postgres@localhost/skye'
     #
     # SQLALCHEMY_DATABASE_URI = DB_URL

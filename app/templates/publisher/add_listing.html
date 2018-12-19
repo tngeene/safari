@@ -7,11 +7,11 @@
             <div class="container">
               <div class="row">
                 <div class="col s10 m6 l6">
-                  <h5 class="breadcrumbs-title">Add New Package</h5>
+                  <h5 class="breadcrumbs-title">{{ 'Add New Package' if not listing else 'Edit Package'  }}</h5>
                   <ol class="breadcrumbs">
                     <li><a href="{{url_for('publisher.dashboard')}}">Dashboard</a></li>
-                    <li><a href="{{url_for('publisher.destination')}}">Listings</a></li>
-                    <li class="active">New</li>
+                    <li><a href="{{url_for('publisher.destination')}}">Destinations</a></li>
+                    <li class="active">{{ 'New' if not listing else 'Edit'  }}</li>
                   </ol>
                 </div>
               </div>
@@ -27,23 +27,30 @@
                 <div class="col s12 m12 l12">
                   <div class="card-panel">
                     <h4 class="header2">Basic information</h4>
+                    <div class="center-align">
+                      <span class="btn disabled">Trip Info</span>
+                      <span class="btn disabled">Package</span>
+                      <span class="btn disabled">Extras</span>
+                      <span class="btn disabled">Policy</span>
+                      <span class="btn disabled">Images</span>
+                    </div>
                     <div class="row">
                       <form class="col s12" method="post" enctype="multipart/form-data">
                         {{ form.hidden_tag() }}
                         <div class="row">
+                          <div class="input-field col s12">
+                            <i class="material-icons prefix">title</i>
+                            {{ form.title() }}
+                            <label for="email">Title</label>
+                            {%for error in form.title.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
                           <div class="input-field col s6">
                             <i class="material-icons prefix">add_location</i>
                             {{ form.location() }}
                             <label for="email">Location</label>
                             {%for error in form.location.errors%}
-                                <div class="error">{{ error }}</div>
-                              {%endfor%}
-                          </div>
-                          <div class="input-field col s6">
-                            <i class="material-icons prefix">attach_money</i>
-                           {{ form.price_type_id() }}
-                            <label for="email">Pricing package</label>
-                            {%for error in form.price_type_id.errors%}
                                 <div class="error">{{ error }}</div>
                               {%endfor%}
                           </div>
@@ -55,16 +62,6 @@
                                 <div class="error">{{ error }}</div>
                               {%endfor%}
                           </div>
-                          <div class="input-field col s6">
-                            <i class="material-icons prefix">work</i>
-                            {{ form.package() }}
-                            <label for="email">Package</label>
-                            {%for error in form.package.errors%}
-                                <div class="error">{{ error }}</div>
-                              {%endfor%}
-                          </div>
-                        </div>
-                        <div class="row">
                           <div class="input-field col s6">
                             <i class="material-icons prefix">date_range</i>
                             {{ form.availability_from(class="datepicker") }}
@@ -81,8 +78,14 @@
                                 <div class="error">{{ error }}</div>
                               {%endfor%}
                           </div>
-                        </div>
-                        <div class="row">
+                          <div class="input-field col s6">
+                            <i class="material-icons prefix">work</i>
+                            {{ form.package() }}
+                            <label for="email">Package</label>
+                            {%for error in form.package.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
                            <div class="input-field col s6">
                             <i class="material-icons prefix">format_list_bulleted</i>
                              {{ form.categories() }}
@@ -107,146 +110,11 @@
                                 <div class="error">{{ error }}</div>
                               {%endfor%}
                           </div>
-                          <div class="input-field col s12">
-                            <i class="material-icons prefix">note</i>
-                            {{ form.long_description(class="materialize-textarea") }}
-                            <label for="email">Summary</label>
-                            {%for error in form.long_description.errors%}
-                                <div class="error">{{ error }}</div>
-                              {%endfor%}
-                          </div>
-                          <div class="input-field col s12">
-                            <i class="material-icons prefix">message</i>
-                            {{ form.add_ons(class="materialize-textarea") }}
-                            <label for="email">Add extras</label>
-                            {%for error in form.add_ons.errors%}
-                                <div class="error">{{ error }}</div>
-                              {%endfor%}
-                          </div>
-                          <div class="input-field col s12">
-                            <i class="material-icons prefix">question_answer</i>
-                            {{ form.policy(class="materialize-textarea") }}
-                            <label for="email">Policy</label>
-                            {%for error in form.policy.errors%}
-                                <div class="error">{{ error }}</div>
-                              {%endfor%}
-                          </div>
-                        </div>
-                        <div class="row" data-toggle="fieldset" id="phone-fieldset">
-                          {%  for activity in form.activities %}
-                          <div class="row" data-toggle="fieldset-entry">
-                          <div class="input-field col s10">
-                            <i class="material-icons prefix">pool</i>
-                            {{ activity.activity() }}
-                            <label for="email">Activities</label>
-                            {%for error in activity.activity.errors%}
-                                <div class="error">{{ error }}</div>
-                              {%endfor%}
-                          </div>
-                          <div class="input-field col s2">
-                            <button type="button" class="btn-floating waves-effect waves-light red accent-2" data-toggle="fieldset-remove-row" id="phone-{{loop.index0}}-remove">
-                              <i class="material-icons">remove</i>
-                              </button>
-                          </div>
-                        </div>
-                          {% endfor %}
-                          <div class="row">
-                            <div class="center-align">
-                              <button style="margin-left:3%" type="button" data-toggle="fieldset-add-row" class="btn-floating waves-effect waves-light green accent-2 left" data-target="#phone-fieldset">
-                                <i class="material-icons">add</i>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row" data-toggle="fieldset" id="place-fieldset">
-                          {%  for place in form.places %}
-                          <div class="row" data-toggle="fieldset-entry">
-                          <div class="input-field col s10">
-                            <i class="material-icons prefix">place</i>
-                            {{ place.place() }}
-                            <label for="email">Places</label>
-                            {%for error in place.place.errors%}
-                                <div class="error">{{ error }}</div>
-                              {%endfor%}
-                          </div>
-                          <div class="input-field col s2">
-                            <button type="button" class="btn-floating waves-effect waves-light red accent-2" data-toggle="fieldset-remove-row" id="place-{{loop.index0}}-remove">
-                              <i class="material-icons">remove</i>
-                              </button>
-                          </div>
-                        </div>
-                          {% endfor %}
-                          <div class="row">
-                            <div class="center-align">
-                              <button style="margin-left:3%" type="button" data-toggle="fieldset-add-row" class="btn-floating waves-effect waves-light green accent-2 left" data-target="#place-fieldset">
-                                <i class="material-icons">add</i>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row" data-toggle="fieldset" id="day-fieldset">
-                          {%  for day in form.days %}
-                          <div class="row" data-toggle="fieldset-entry">
-                          <div class="input-field col s10">
-                            <i class="material-icons prefix">title</i>
-                            {{ day.title() }}
-                            <label for="email">Title (e.g Day 1)</label>
-                            {%for error in day.title.errors%}
-                                <div class="error">{{ error }}</div>
-                              {%endfor%}
-                          </div>
-                          <div class="input-field col s2">
-                            <button type="button" class="btn-floating waves-effect waves-light red accent-2" data-toggle="fieldset-remove-row" id="day-{{loop.index0}}-remove">
-                              <i class="material-icons">remove</i>
-                              </button>
-                          </div>
-                          <div class="input-field col s12">
-                            <i class="material-icons prefix">note</i>
-                            {{ day.day_by_day(class="materialize-textarea") }}
-                            <label for="email">Day By Day Description</label>
-                            {%for error in day.day_by_day.errors%}
-                                <div class="error">{{ error }}</div>
-                              {%endfor%}
-                          </div>
-                        </div>
-                          {% endfor %}
-                          <div class="row">
-                            <div class="center-align">
-                              <button style="margin-left:3%" type="button" data-toggle="fieldset-add-row" class="btn-floating waves-effect waves-light green accent-2 left" data-target="#day-fieldset">
-                                <i class="material-icons">add</i>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row" data-toggle="fieldset" id="image-fieldset">
-                          {%  for image in form.images %}
-                          <div class="row" data-toggle="fieldset-entry">
-                            <div class="input-field col s10">
-                              <i class="material-icons prefix">add_to_photos</i>
-                              {{ image.image() }}
-                              {%for error in image.image.errors%}
-                                  <div class="error">{{ error }}</div>
-                                {%endfor%}
-                            </div>
-                          <div class="input-field col s2">
-                            <button type="button" class="btn-floating waves-effect waves-light red accent-2" data-toggle="fieldset-remove-row" id="image-{{loop.index0}}-remove">
-                              <i class="material-icons">remove</i>
-                              </button>
-                          </div>
-                        </div>
-                          {% endfor %}
-                          <div class="row">
-                            <div class="center-align">
-                              <button style="margin-left:3%" type="button" data-toggle="fieldset-add-row" class="btn-floating waves-effect waves-light green accent-2 left" data-target="#image-fieldset">
-                                <i class="material-icons">add</i>
-                              </button>
-                            </div>
-                          </div>
                         </div>
                         <div class="row">
                           <div class="row">
                             <div class="center-align">
-                              <button class="btn cyan waves-effect waves-light" type="submit">Submit
+                              <button class="btn cyan waves-effect waves-light right" type="submit">Next
                                 <i class="material-icons right">send</i>
                               </button>
                             </div>
@@ -266,52 +134,4 @@
 
 {% block scripts %}
    <script src="{{ url_for("static", filename="js/page.js") }}"></script>
-   <script>
-   $(document).ready(function() {
-         var csrftoken = "{{ csrf_token() }}"
-         $.ajaxSetup({
-           beforeSend: function(xhr, settings) {
-               if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
-                   xhr.setRequestHeader("X-CSRFToken", csrftoken)
-               }
-           }
-         })
-
-         $('select').on('contentChanged', function() {
-           $(this).material_select();
-         });
-
-         var dropdown = {
-             location: $('#list-location'),
-             package: $('#list-package')
-         };
-
-         updatePackage();
-
-         function updatePackage() {
-             var send = {
-                 location: dropdown.location.val()
-             };
-             dropdown.package.attr('disabled', 'disabled');
-             dropdown.package.empty();
-             dropdown.package.trigger('contentChanged');
-             $.getJSON("{{ url_for('publisher._get_pricing') }}", send, function(data) {
-                 data.forEach(function(item) {
-                     dropdown.package.append(
-                         $('<option>', {
-                             value: item[0],
-                             text: item[1]
-                         })
-                     );
-                   dropdown.package.trigger('contentChanged');
-                 });
-                 dropdown.package.removeAttr('disabled');
-                 dropdown.package.trigger('contentChanged');
-             });
-         }
-         dropdown.location.on('change', function() {
-             updatePackage();
-         });
-         });
-   </script>
 {% endblock %}

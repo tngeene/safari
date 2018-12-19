@@ -16,5 +16,5 @@ class Price(db.Model):
     createdAt = db.Column(db.DateTime(), default=datetime.utcnow)
     updatedAt = db.Column(db.DateTime(), default=datetime.utcnow, onupdate=datetime.utcnow)
     offers = db.relationship('Offer', backref='price')
-    listing = db.relationship('Listing', backref='price',lazy='dynamic')
+    listing = db.relationship('Listing', backref='price',uselist=False)
     includes = db.relationship('Include', backref='price',lazy='dynamic')

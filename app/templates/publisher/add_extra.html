@@ -1,0 +1,171 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+       <!-- START CONTENT -->
+        <section id="content">
+          <!--breadcrumbs start-->
+          <div id="breadcrumbs-wrapper">
+            <div class="container">
+              <div class="row">
+                <div class="col s10 m6 l6">
+                  <h5 class="breadcrumbs-title">{{'Add Extras' if not listing else 'Edit Extras' }}</h5>
+                  <ol class="breadcrumbs">
+                    <li><a href="{{url_for('publisher.dashboard')}}">Dashboard</a></li>
+                    <li><a href="{{url_for('publisher.destination')}}">Destinations</a></li>
+                    <li class="active">{{'New' if not listing else 'Edit' }}</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--breadcrumbs end-->
+
+          <!--start container-->
+          <div class="container">
+            <div class="section">
+              <div class="divider"></div>
+                <div class="row">
+                <div class="col s12 m12 l12">
+                  <div class="card-panel">
+                    <h4 class="header2">Extras</h4>
+                    <div class="center-align">
+                      <span class="btn green">Trip Info</span>
+                      <span class="btn green">Package</span>
+                      <span class="btn disabled">Extras</span>
+                      <span class="btn disabled">Policy</span>
+                      <span class="btn disabled">Images</span>
+                    </div>
+                    <div class="row">
+                      <form class="col s12" method="post" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+                        <div class="row">
+                          <div class="input-field col s12">
+                            <i class="material-icons prefix">note</i>
+                            {{ form.long_description(class="materialize-textarea") }}
+                            <label for="email">overview</label>
+                            {%for error in form.long_description.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s12">
+                            <i class="material-icons prefix">message</i>
+                            {{ form.add_ons(class="materialize-textarea") }}
+                            <label for="email">Add extras</label>
+                            {%for error in form.add_ons.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                        </div>
+                        <div class="row" data-toggle="fieldset" id="phone-fieldset">
+                          {%  for activity in form.activities %}
+                          <div class="row" data-toggle="fieldset-entry">
+                          <div class="input-field col s11">
+                            <i class="material-icons prefix">pool</i>
+                            {{ activity.activity() }}
+                            <label for="email">Activities</label>
+                            {%for error in activity.activity.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s1">
+                            <button type="button" class="btn-floating waves-effect waves-light red accent-2" data-toggle="fieldset-remove-row" id="phone-{{loop.index0}}-remove">
+                              <i class="material-icons">remove</i>
+                              </button>
+                          </div>
+                        </div>
+                          {% endfor %}
+                          <div class="row">
+                            <div class="center-align">
+                              <button style="margin-left:3%" type="button" data-toggle="fieldset-add-row" class="btn-floating waves-effect waves-light green accent-2 left" data-target="#phone-fieldset">
+                                <i class="material-icons">add</i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row" data-toggle="fieldset" id="place-fieldset">
+                          {%  for place in form.places %}
+                          <div class="row" data-toggle="fieldset-entry">
+                          <div class="input-field col s11">
+                            <i class="material-icons prefix">place</i>
+                            {{ place.place() }}
+                            <label for="email">Places</label>
+                            {%for error in place.place.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s1">
+                            <button type="button" class="btn-floating waves-effect waves-light red accent-2" data-toggle="fieldset-remove-row" id="place-{{loop.index0}}-remove">
+                              <i class="material-icons">remove</i>
+                              </button>
+                          </div>
+                        </div>
+                          {% endfor %}
+                          <div class="row">
+                            <div class="center-align">
+                              <button style="margin-left:3%" type="button" data-toggle="fieldset-add-row" class="btn-floating waves-effect waves-light green accent-2 left" data-target="#place-fieldset">
+                                <i class="material-icons">add</i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row" data-toggle="fieldset" id="day-fieldset">
+                          {%  for day in form.days %}
+                          <div class="row" data-toggle="fieldset-entry">
+                          <div class="input-field col s11">
+                            <i class="material-icons prefix">title</i>
+                            {{ day.title() }}
+                            <label for="email">Title (e.g Day 1)</label>
+                            {%for error in day.title.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                          <div class="input-field col s1">
+                            <button type="button" class="btn-floating waves-effect waves-light red accent-2" data-toggle="fieldset-remove-row" id="day-{{loop.index0}}-remove">
+                              <i class="material-icons">remove</i>
+                              </button>
+                          </div>
+                          <div class="input-field col s12">
+                            <i class="material-icons prefix">note</i>
+                            {{ day.day_by_day(class="materialize-textarea") }}
+                            <label for="email">Day By Day Description</label>
+                            {%for error in day.day_by_day.errors%}
+                                <div class="error">{{ error }}</div>
+                              {%endfor%}
+                          </div>
+                        </div>
+                          {% endfor %}
+                          <div class="row">
+                            <div class="center-align">
+                              <button style="margin-left:3%" type="button" data-toggle="fieldset-add-row" class="btn-floating waves-effect waves-light green accent-2 left" data-target="#day-fieldset">
+                                <i class="material-icons">add</i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="row">
+                            <a style="margin-top:10px;" href="{{ url_for('publisher.newPricing',id=listing.id) }}" class="btn cyan waves-effect waves-light left">back
+                              <i class="material-icons right">arrow_back</i>
+                            </a>
+                            <div class="center-align">
+                              <button class="btn cyan waves-effect waves-light right" type="submit">next
+                                <i class="material-icons right">send</i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+{% endblock%}
+
+{% block scripts %}
+   <script src="{{ url_for("static", filename="js/page.js") }}"></script>
+
+{% endblock %}

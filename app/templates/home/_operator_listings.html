@@ -7,7 +7,7 @@
                 </div>
                 <div class="title hotel-middle clearfix">
                     <h5><b>{{ "$ {:,.0f}".format( publisher_listing.price.total_price_adults) }} per person</b></h5> <br>
-                    <h5><b>{{ publisher_listing.price.name }}</b></h5>
+                    <h5><b>{{ publisher_listing.title }}</b></h5>
                     <p><b>Location: </b>{{publisher_listing.location}} <span class="bull">{{ publisher_listing.package}}<br><b> You visit: </b>{% for place in publisher_listing.places %}{{ place.place}}{{', ' if publisher_listing.places[loop.index]}}{% endfor %}</p>
                 </div>
             </div>
