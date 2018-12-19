@@ -31,23 +31,31 @@ class DayForm(NoCsrfForm):
 
 
 class ListingForm(Form):
+    title = StringField('title', validators=[Length(min=2, max=100)])
     location = SelectField(validators=[DataRequired()], choices=[], id="list-location")
-    price_type_id = SelectField(validators=[DataRequired()], choices=[], coerce=int, id="list-package")
-    package = SelectField(validators=[DataRequired()], choices=[('Budget', 'Budget'), ('Luxury', 'Luxury')])
     duration = StringField('duration', validators=[Length(min=2, max=80)])
     availability_from = DateField('availability_from', format='%d/%m/%Y')
     availability_to = DateField('availability_to', format='%d/%m/%Y')
     categories = SelectMultipleField(validators=[DataRequired()], choices=[], coerce=int)
-    long_description = TextAreaField('long description', validators=[Length(min=20, max=2000)])
-    activities = FieldList(FormField(ActivityForm), min_entries=1)
-    places = FieldList(FormField(PlaceForm), min_entries=1)
-    days = FieldList(FormField(DayForm), min_entries=1)
-    images = FieldList(FormField(ImageForm), min_entries=1)
     physical_condition = StringField('physical condition', validators=[Length(min=2, max=80)])
     connectivity = StringField('Connectivity', validators=[Length(min=2, max=80)])
-    add_ons = TextAreaField('long description', validators=[Length(min=0, max=2000)])
-    policy = TextAreaField('policy', validators=[Length(min=2, max=2000)])
+    package = SelectField(validators=[DataRequired()], choices=[('Budget', 'Budget'), ('Luxury', 'Luxury')])
     submit = SubmitField('save')
+
+
+class ExtrasForm(Form):
+    long_description = TextAreaField('long description', validators=[Length(min=20, max=2000)])
+    activities = FieldList(FormField(ActivityForm, default=lambda: Activity()), min_entries=1)
+    places = FieldList(FormField(PlaceForm, default=lambda: Place()), min_entries=1)
+    days = FieldList(FormField(DayForm, default=lambda: Day()), min_entries=1)
+    add_ons = TextAreaField('long description', validators=[Length(min=0, max=2000)])
+
+class PolicyForm(Form):
+    policy = TextAreaField('policy', validators=[Length(min=2, max=2000)])
+
+class ImageForm(Form):
+    images = FieldList(FormField(ImageForm), min_entries=1)
+
 
 
 class EditListingForm(Form):
@@ -56,9 +64,6 @@ class EditListingForm(Form):
     availability_from = DateField('availability_from', format='%d/%m/%Y')
     availability_to = DateField('availability_to', format='%d/%m/%Y')
     long_description = TextAreaField('long description', validators=[Length(min=20, max=2000)])
-    activities = FieldList(FormField(ActivityForm, default=lambda: Activity()), min_entries=1)
-    places = FieldList(FormField(PlaceForm, default=lambda: Place()), min_entries=1)
-    days = FieldList(FormField(DayForm, default=lambda: Day()), min_entries=1)
     package = SelectField(validators=[DataRequired()], choices=[('Budget', 'Budget'), ('Luxury', 'Luxury')])
     physical_condition = StringField('physical condition', validators=[Length(min=2, max=80)])
     connectivity = StringField('Connectivity', validators=[Length(min=2, max=80)])
@@ -83,8 +88,6 @@ class IncludesForm(NoCsrfForm):
 
 
 class PriceForm(Form):
-    name = StringField('name', validators=[Length(min=2, max=100)])
-    location = SelectField(validators=[DataRequired()], choices=[])
     total_price_adults = DecimalField(validators=[DataRequired()])
     total_price_children = DecimalField(validators=[DataRequired()])
     price_per_day_children = DecimalField(validators=[DataRequired()])
@@ -160,3 +163,22 @@ class EditPasswordForm(Form):
         if user is None or not user.verify_password(oldpassword.data):
             raise ValidationError('Please enter correct Password.')
         return
+
+class ListingForms(Form):
+    location = SelectField(validators=[DataRequired()], choices=[], id="list-location")
+    price_type_id = SelectField(validators=[DataRequired()], choices=[], coerce=int, id="list-package")
+    package = SelectField(validators=[DataRequired()], choices=[('Budget', 'Budget'), ('Luxury', 'Luxury')])
+    duration = StringField('duration', validators=[Length(min=2, max=80)])
+    availability_from = DateField('availability_from', format='%d/%m/%Y')
+    availability_to = DateField('availability_to', format='%d/%m/%Y')
+    categories = SelectMultipleField(validators=[DataRequired()], choices=[], coerce=int)
+    long_description = TextAreaField('long description', validators=[Length(min=20, max=2000)])
+    activities = FieldList(FormField(ActivityForm), min_entries=1)
+    places = FieldList(FormField(PlaceForm), min_entries=1)
+    days = FieldList(FormField(DayForm), min_entries=1)
+    images = FieldList(FormField(ImageForm), min_entries=1)
+    physical_condition = StringField('physical condition', validators=[Length(min=2, max=80)])
+    connectivity = StringField('Connectivity', validators=[Length(min=2, max=80)])
+    add_ons = TextAreaField('long description', validators=[Length(min=0, max=2000)])
+    policy = TextAreaField('policy', validators=[Length(min=2, max=2000)])
+    submit = SubmitField('save')

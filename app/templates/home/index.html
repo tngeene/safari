@@ -219,14 +219,14 @@
             <div class="row">
                 <div class="top-baner arrows">
                     <div class="swiper-container offers-slider" data-autoplay="5000" data-loop="1" data-speed="500" data-slides-per-view="responsive" data-mob-slides="1" data-xs-slides="2" data-sm-slides="2" data-md-slides="3" data-lg-slides="3" data-add-slides="3">
-                        <div class="swiper-wrapper">    
+                        <div class="swiper-wrapper">
                             {%for listing in popular_packages%}
                             <a href="{{url_for('home.listings_by_details', id=listing.id)}}">
                                 <div class="col-md-4">
                                     <div class="thumbnail">
                                         <img src="{% if listing.images[0] %}{{ url_for('static', filename='uploads/{}'.format(listing.images[0].image_url))}}{% else %}{{ url_for('static', filename='images/gallary/10.png')}}{% endif %}" alt="item-img" style="height: 225px !important; width: 100%;">
                                         <div class="caption">
-                                            <h4>{{listing.price.name}}</h4>
+                                            <h4>{{listing.title}}</h4>
                                             <div class="rate">
                                                 <span class="fa fa-star {{'color-yellow' if listing.rating >= 1 else 'color-grey'  }}"></span>
                                                 <span class="fa fa-star {{'color-yellow' if listing.rating >= 2 else 'color-grey'  }}"></span>
@@ -241,7 +241,7 @@
                                             </ul>
                                             <p>
                                                 <b>Location: </b>
-                                                {{listing.location}} 
+                                                {{listing.location}}
                                                 <span class="bull">{{ listing.package}}<br></span>
                                                 <b> You visit: </b>
                                                 {% for place in listing.places %}{{ place.place}}{{', ' if listing.places[loop.index]}}{% endfor %}
@@ -250,7 +250,7 @@
                                                 <span>view more</span>
                                             </a>
                                         </div>
-                                    </div>    
+                                    </div>
                                 </div>
                             </a>
                             {% else %}

@@ -7,13 +7,13 @@
                 <img src="{{ url_for('static', filename='uploads/{}'.format(publisher_listing.images[0].image_url))if publisher_listing.images[0] else url_for('static', filename='images/gallary/10.png') }}" alt="" style="height:250px !important; width:100%;">
                 <div class="caption" style="height: 300px !important;">
                     <h4>
-                        <b>{{ publisher_listing.price.name }}</b>
+                        <b>{{ publisher_listing.title }}</b>
                     </h4>
                     <h5>
                         <b>{{ "$ {:,.0f}".format( publisher_listing.price.total_price_adults) }} per person</b>
                     </h5> <br>
                     <p>
-                        <b>Location: </b>{{publisher_listing.location}} 
+                        <b>Location: </b>{{publisher_listing.location}}
                         <span class="bull">{{ publisher_listing.package}}<br> </span>
                         <b> You visit: </b>{% for place in publisher_listing.places %}{{ place.place}}{{', ' if publisher_listing.places[loop.index]}}{% endfor %}
                     </p>

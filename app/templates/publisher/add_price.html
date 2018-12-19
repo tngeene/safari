@@ -7,11 +7,11 @@
             <div class="container">
               <div class="row">
                 <div class="col s10 m6 l6">
-                  <h5 class="breadcrumbs-title">Add New Pricing</h5>
+                  <h5 class="breadcrumbs-title">{{'Add Pricing' if not listing.price else 'Edit Pricing' }}</h5>
                   <ol class="breadcrumbs">
                     <li><a href="{{url_for('publisher.dashboard')}}">Dashboard</a></li>
-                    <li><a href="{{url_for('publisher.package')}}">Packages</a></li>
-                    <li class="active">New</li>
+                    <li><a href="{{url_for('publisher.destination')}}">Destinations</a></li>
+                    <li class="active">{{'New' if not listing else 'Edit' }}</li>
                   </ol>
                 </div>
               </div>
@@ -25,19 +25,18 @@
                 <div class="row">
                 <div class="col s12 m12 l12">
                   <div class="card-panel">
-                    <h4 class="header2">New Pricing</h4>
+                    <h4 class="header2">Pricing</h4>
+                    <div class="center-align">
+                      <span class="btn green">Trip Info</span>
+                      <span class="btn disabled">Package</span>
+                      <span class="btn disabled">Extras</span>
+                      <span class="btn disabled">Policy</span>
+                      <span class="btn disabled">Images</span>
+                    </div>
                     <div class="row">
                       <form class="col s12" method="post">
                           {{ form.hidden_tag() }}
                         <div class="row">
-                         <div class="input-field col s12">
-                            <i class="material-icons prefix">title</i>
-                            {{ form.name }}
-                            <label for="email">Title</label>
-                             {%for error in form.name.errors%}
-                                <div class="error">{{ error }}</div>
-                              {%endfor%}
-                          </div>
                           <div class="input-field col s6">
                             <i class="material-icons prefix">attach_money</i>
                             {{ form.price_per_day_adults }}
@@ -72,14 +71,6 @@
                                 <div class="error">{{ error }}</div>
                               {%endfor%}
                           </div>
-                          <div class="input-field col s6">
-                            <i class="material-icons prefix">add_location</i>
-                            {{ form.location }}
-                            <label for="email">Destination</label>
-                              {%for error in form.location.errors%}
-                                <div class="error">{{ error }}</div>
-                              {%endfor%}
-                          </div>
                         </div>
                         <div class="row" data-toggle="fieldset" id="include-fieldset">
                           {%  for include in form.includes %}
@@ -107,9 +98,12 @@
                             </div>
                           </div>
                         </div>
-                          <div class="row">
+                          <div class="row" style="margin-top:10px;">
+                            <a href="{{ url_for('publisher.editListing',id=listing.id) }}" class="btn cyan waves-effect waves-light left">back
+                              <i class="material-icons left">arrow_back</i>
+                            </a>
                             <div class="center-align">
-                              <button class="btn cyan waves-effect waves-light" type="submit">Submit
+                              <button class="btn cyan waves-effect waves-light right" type="submit">next
                                 <i class="material-icons right">send</i>
                               </button>
                             </div>

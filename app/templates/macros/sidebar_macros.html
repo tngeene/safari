@@ -46,8 +46,7 @@
         {% set endpoints = [
           ('publisher.bookings', 'Bookings', 'people'),
           ('publisher.destination', 'Destinations', 'my_location'),
-          ('publisher.package', 'Packages', 'attach_money'),
-          ('publisher.profile', 'Profile', 'account_circle'),
+          ('publisher.profile', 'My Account', 'account_circle'),
           ('publisher.settings', 'Settings', 'settings'),
           ('home.index', 'View Site', 'home')
         ]%}
@@ -78,7 +77,7 @@
       {{ render_menu_items([item]) }}
     {% elif item | length == 4 %}
         <li class="bold">
-          <a class="collapsible-header  waves-effect waves-cyan" onClick="changeMenu(this)">
+          <a class="collapsible-header  light-blue" onClick="changeMenu(this)">
             <i class="material-icons">{{ item[2]}}</i>
             <span class="nav-text">{{ item[0] }}</span>
           </a>
@@ -94,7 +93,7 @@
 
 {% macro render_sidebar(current_user, dropdown=[]) %}
 <!-- START LEFT SIDEBAR NAV-->
-        <aside id="left-sidebar-nav" class="nav-expanded nav-lock nav-collapsible">
+        <aside id="left-sidebar-nav" class="nav-expanded nav-lock nav-collapsible nav-background">
           <div class="brand-sidebar">
             <h1 class="logo-wrapper">
               <a href="#" class="brand-logo darken-1">
