@@ -41,6 +41,8 @@
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="bg-white mb-3 py-3">
 				<h3 class="detail-title color-dark-2">{{ listings.title}}</h3>
 				<div class="rate-wrap">
 						<div class="rate">
@@ -51,7 +53,6 @@
 						<span class="fa fa-star {{'color-yellow' if listings.rating >= 5 else 'color-grey'  }}"></span>
 				</div>
 				<i>{{ listings.overal_ratings }} reviews</i>
-			</div>
 				<div class="row">
 					<div class="col-md-3">
 						<h3 class="text-success">{{ "$ {:,.0f}".format(listings.price.total_price_adults) }}</h3>
@@ -63,7 +64,7 @@
 					</div>
 				</div>
 				<hr>
-				<div class="row padd-90">
+				<div class="row">
 					<div class="col-md-4 ">
 						<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt=""> Duration
 						<p class=""><b>{{ listings.duration }}</b></p>
@@ -77,6 +78,9 @@
 						<p class=""><b>{{ moment(listings.availability_from).format('ll') }} to {{ moment(listings.availability_to).format('ll') }}</b></p>
 					</div>
 				</div>
+			</div>
+				
+
 				<div class="row">
 					<div class="col-md-12">
 						<div class="simple-tab type-2 tab-wrapper">
@@ -263,7 +267,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="details-btn">
+								<div class="details-btn text-center">
 									{{form.book(class="c-button bg-dr-blue-2")}}
 								</div>
 							</form>
