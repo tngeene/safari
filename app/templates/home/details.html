@@ -19,7 +19,7 @@
 			                <div class="swiper-wrapper">
 								{% for item in listings.images %}
 		                    	<div class="swiper-slide active" data-val="{{ loop.index - 1 }}">
-		                    		 <img class="img-responsive" src="{% if item %}{{ url_for('static', filename='uploads/{}'.format(item.image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" alt="">
+		                    		 <img class="img-responsive" src="{% if item %}{{ url_for('static', filename='uploads/{}'.format(item.image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" alt="" height="580px">
 		                    	</div>
 								{% endfor %}
 		                    </div>
@@ -33,7 +33,7 @@
 			                <div class="swiper-wrapper">
 								{% for item in listings.images %}
 		                    	<div class="swiper-slide {% if loop.index == 1 %} current active{% endif %}" data-val="{{ loop.index - 1 }}">
-		                    		 <img class="img-responsive img-full" src="{% if item %}{{ url_for('static', filename='uploads/{}'.format(item.image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" alt="">
+		                    		 <img class="img-responsive img-full" src="{% if item %}{{ url_for('static', filename='uploads/{}'.format(item.image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" alt="" height="100px">
 		                    	</div>
 								{% endfor %}
 							</div>
@@ -96,7 +96,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="tabs-content tabs-wrap-style clearfix">
+							<div class="tabs-content tabs-wrap-style clearfix bg-white">
 								<div class="tab-info active">
 									<div class="acc-body">
 											<h5>Overview</h5>
@@ -207,14 +207,14 @@
        		</div>
        		<div class="col-xs-12 col-md-4">
        			<div class="right-sidebar">
-       				<div class="detail-block bg-dr-blue">
+       				<div class="detail-block bg-white">
 						<div class="sidebar-block">
 							<h4 class="sidebar-title color-dark-2">booking details</h4>
 							<form action="{{url_for('customer.book', id=listings.id)}}" method="post">
 								{{form.hidden_tag()}}
 								<div class="search-inputs">
 									<div class="form-block clearfix">
-										<label class="color-white-2" for="departure">Departure Date</label>
+										<label class="" for="departure">Departure Date</label>
 										<div class="input-style-1 b-50 color-3">
 											<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt="">
 											{{form.departure_date(placeholder="Departure Date",class="datepicker",id="departure")}}
@@ -225,7 +225,7 @@
 									</div>
 									<div class="row">
 										<div class="form-block clearfix col-md-6">
-											<label class="color-white-2" for="adult">Adults</label>
+											<label class="" for="adult">Adults</label>
 											<div class="input-style-1 b-50 color-3">
 												{{form.adults(id="adult",value=1)}}
 												{%for error in form.adults.errors%}
@@ -234,7 +234,7 @@
 											</div>
 										</div>
 										<div class="form-block clearfix col-md-6">
-											<label class="color-white-2" for="kids">Children(under 12)</label>
+											<label class="" for="kids">Children(under 12)</label>
 											<div class="input-style-1 b-50 color-3">
 												{{form.kids(id="kids",value=1)}}
 												{%for error in form.kids.errors%}
@@ -247,16 +247,16 @@
 											<table class="table">
 											  <tbody>
 											    <tr>
-											      <td class="text-left color-white-3">Adult(<span id="ad">1</span>)</td>
-											      <td class="text-right color-white-3" id="v-adult">{{ "$ {:,.0f}".format(listings.price.total_price_adults) }}</td>
+											      <td class="text-left ">Adult(<span id="ad">1</span>)</td>
+											      <td class="text-right " id="v-adult">{{ "$ {:,.0f}".format(listings.price.total_price_adults) }}</td>
 											    </tr>
 											    <tr>
-											      <td class="text-left color-white-3">Child(<span id="ch">1</span>)</td>
-											      <td class="text-right color-white-3" id="v-child">{{ "$ {:,.0f}".format(listings.price.total_price_children) }}</td>
+											      <td class="text-left ">Child(<span id="ch">1</span>)</td>
+											      <td class="text-right " id="v-child">{{ "$ {:,.0f}".format(listings.price.total_price_children) }}</td>
 											    </tr>
 											    <tr>
-											      <td class="text-left color-white-3">Total</td>
-											      <td class="text-right color-white-3" id="v-total">{{ "$ {:,.0f}".format(listings.price.total_price_children + listings.price.total_price_adults) }}</td>
+											      <td class="text-left ">Total</td>
+											      <td class="text-right " id="v-total">{{ "$ {:,.0f}".format(listings.price.total_price_children + listings.price.total_price_adults) }}</td>
 											    </tr>
 											  </tbody>
 											</table>

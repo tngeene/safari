@@ -3629,7 +3629,7 @@ ul.dot-blue-2 li:before { color: #022c54; }
 
 .detail-content img, .acc-body img { max-width: 100%; margin-bottom: 25px; border-radius: 5px;}
 
-.detail-content .swiper-slide img, .acc-body .swiper-slide img { margin-bottom: 0px; }
+.detail-content .swiper-slide img, .acc-body .swiper-slide img { margin-bottom: 0px;}
 
 .detail-content .embed-responsive, .acc-body .embed-responsive { margin-bottom: 25px; }
 
