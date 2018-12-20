@@ -116,3 +116,7 @@
 .small {
     font-size: 12px !important;
 }
+
+.no-border {
+    border: none !important;
+}

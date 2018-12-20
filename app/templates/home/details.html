@@ -41,49 +41,48 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="bg-white mb-3 py-3">
-				<h3 class="detail-title color-dark-2">{{ listings.title}}</h3>
-				<div class="rate-wrap">
-						<div class="rate">
-						<span class="fa fa-star {{'color-yellow' if listings.rating >= 1 else 'color-grey'  }}"></span>
-						<span class="fa fa-star {{'color-yellow' if listings.rating >= 2 else 'color-grey'  }}"></span>
-						<span class="fa fa-star {{'color-yellow' if listings.rating >= 3 else 'color-grey'  }}"></span>
-						<span class="fa fa-star {{'color-yellow' if listings.rating >= 4 else 'color-grey'  }}"></span>
-						<span class="fa fa-star {{'color-yellow' if listings.rating >= 5 else 'color-grey'  }}"></span>
+				<div class="bg-white p-2">
+					<h3 class="detail-title color-dark-2">{{ listings.title}}</h3>
+					<div class="rate-wrap">
+							<div class="rate">
+							<span class="fa fa-star {{'color-yellow' if listings.rating >= 1 else 'color-grey'  }}"></span>
+							<span class="fa fa-star {{'color-yellow' if listings.rating >= 2 else 'color-grey'  }}"></span>
+							<span class="fa fa-star {{'color-yellow' if listings.rating >= 3 else 'color-grey'  }}"></span>
+							<span class="fa fa-star {{'color-yellow' if listings.rating >= 4 else 'color-grey'  }}"></span>
+							<span class="fa fa-star {{'color-yellow' if listings.rating >= 5 else 'color-grey'  }}"></span>
+					</div>
+					<i>{{ listings.overal_ratings }} reviews</i>
+					<div class="row">
+						<div class="col-md-3">
+							<h3 class="text-success">{{ "$ {:,.0f}".format(listings.price.total_price_adults) }}</h3>
+							<p>(per adult)</p>
+						</div>
+						<div class="col-md-3">
+							<h3 class="text-success">{{ "$ {:,.0f}".format(listings.price.total_price_children) }}</h3>
+							<p>(per child)</p>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-4 ">
+							<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt=""> Duration
+							<p class=""><b>{{ listings.duration }}</b></p>
+						</div>
+						<div class="col-md-4 ">
+							<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt=""> Location
+							<p class=""><b>{{ listings.location }}</b></p>
+						</div>
+						<div class="col-md-4 ">
+							<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt=""> Availability
+							<p class=""><b>{{ moment(listings.availability_from).format('ll') }} to {{ moment(listings.availability_to).format('ll') }}</b></p>
+						</div>
+					</div>
 				</div>
-				<i>{{ listings.overal_ratings }} reviews</i>
-				<div class="row">
-					<div class="col-md-3">
-						<h3 class="text-success">{{ "$ {:,.0f}".format(listings.price.total_price_adults) }}</h3>
-						<p>(per adult)</p>
-					</div>
-					<div class="col-md-3">
-						<h3 class="text-success">{{ "$ {:,.0f}".format(listings.price.total_price_children) }}</h3>
-						<p>(per child)</p>
-					</div>
 				</div>
-				<hr>
-				<div class="row">
-					<div class="col-md-4 ">
-						<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt=""> Duration
-						<p class=""><b>{{ listings.duration }}</b></p>
-					</div>
-					<div class="col-md-4 ">
-						<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt=""> Location
-						<p class=""><b>{{ listings.location }}</b></p>
-					</div>
-					<div class="col-md-4 ">
-						<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt=""> Availability
-						<p class=""><b>{{ moment(listings.availability_from).format('ll') }} to {{ moment(listings.availability_to).format('ll') }}</b></p>
-					</div>
-				</div>
-			</div>
-				
 
 				<div class="row">
 					<div class="col-md-12">
-						<div class="simple-tab type-2 tab-wrapper">
+						<div class="simple-tab type-2 tab-wrapper bg-white">
 							<div class="tab-nav-wrapper">
 								<div  class="nav-tab  clearfix">
 									<div class="nav-tab-item active">
@@ -100,7 +99,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="tabs-content tabs-wrap-style clearfix bg-white">
+							<div class="tabs-content tabs-wrap-style clearfix bg-white no-border">
 								<div class="tab-info active">
 									<div class="acc-body">
 											<h5>Overview</h5>
@@ -208,7 +207,10 @@
 						</div>
 					</div>
 			  	</div>
-       		</div>
+
+			</div>
+
+
        		<div class="col-xs-12 col-md-4">
        			<div class="right-sidebar">
        				<div class="detail-block bg-white">
