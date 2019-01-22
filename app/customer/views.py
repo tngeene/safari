@@ -34,15 +34,10 @@ customer = Blueprint('customer', __name__)
 def dashboard():
     """Admin dashboard page."""
 
-    pending = Booking.query.filter_by(state='pending').count()
-    paid = Booking.query.filter_by(state='paid').count()
-    cancelled = Booking.query.filter_by(state='cancelled').count()
-    accepted = Booking.query.filter_by(state='accepted').count()
+    cancelled = current_user.bookings.filter_by(state='cancelled').count()
+    accepted = current_user.bookings.filter_by(state='accepted').count()
 
-    bookings = Booking.query.filter_by(user=current_user).all()
-
-    return render_template('customer/index.html', bookings=bookings, pending=pending,
-                           paid=paid, cancelled=cancelled, accepted=accepted)
+    return render_template('customer/index.html', cancelled=cancelled, accepted=accepted)
 
 
 @customer.route('/book/<id>', methods=['post', 'get'])
