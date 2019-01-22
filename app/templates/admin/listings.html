@@ -33,14 +33,15 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Details</th>
+                                <!-- <th>Details</th> -->
                                 <th>Title</th>
                                 <th>Publisher Name</th>
                                 <th>Location</th>
-                                <th>Status</th>
                                 <th>Duration</th>
                                 <th>Rating</th>
                                 <th>Number of Reviews</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
 
@@ -48,16 +49,25 @@
                             {%for listing in listings%}
                             <tr>
                                 <td>{{loop.index}}</td>
-                                <td><a class="waves-effect waves-light btn modal-trigger gradient-45deg-indigo-blue"
+                                <!-- <td><a class="waves-effect waves-light btn modal-trigger gradient-45deg-indigo-blue"
                                        onclick="listing_details('{{ listing.id }}')"
-                                       href="#modal2">Details</a></td>
-                                <td><a href="#">{{listing.title}}</a></td>
-                                <td>{{listing.publisher.full_name()}}</td>
+                                       href="#modal2">Details</a></td> -->
+                                <td><a href="{{url_for('home.listings_by_details',id=listing.id)}}">{{listing.title}}</a></td>
+                                <td><a href="{{url_for('home.tour_operator_details',publisher_id=listing.publisher.id)}}">{{listing.publisher.full_name()}}</a></td>
                                 <td>{{listing.location}}</td>
-                                <td>{%if listing.status == 1%}Approved{% else %} Not Approved{%endif%}</td>
                                 <td>{{listing.duration}}</td>
                                 <td>{%if listing.rating%}{{listing.rating}}{% else %} 0{%endif%}</td>
                                 <td>{%if listing.overal_rating%}{{listing.overal_rating}}{% else %} 0{%endif%}</td>
+                                <td class="{{ 'green-text' if listing.status else 'red-text' }}">{{ 'Approved' if listing.status else 'Not Approved' }}</td>
+                                <td>{% if listing.status == True %}
+                                <a href="{{ url_for('admin.approve_listing', listing_id=listing.id) }}"
+                                   class="waves-effect waves-light  btn gradient-45deg-red-pink box-shadow-none border-round mr-1">Decline</a>
+                                {% else %}
+
+                                <a href="{{ url_for('admin.approve_listing', listing_id=listing.id) }}"
+                                   class="waves-effect waves-light  btn gradient-45deg-green-teal box-shadow-none border-round mr-1">Approve</a>
+                                {%endif%}
+                              </td>
                             </tr>
                              {% endfor %}
                             </tbody>

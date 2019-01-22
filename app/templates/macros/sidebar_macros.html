@@ -48,7 +48,8 @@
           ('publisher.destination', 'Destinations', 'my_location'),
           ('publisher.profile', 'My Account', 'account_circle'),
           ('publisher.settings', 'Settings', 'settings'),
-          ('home.index', 'View Site', 'home')
+          ('home.index', 'View Site', 'home'),
+          ('account.logout', 'Logout', 'lock')
         ]%}
     {% elif current_user.is_authenticated and current_user.role.index == 'customer'%}
         {% set endpoints = [
@@ -57,7 +58,7 @@
           ('customer.profile', 'Profile', 'account_circle'),
           ('customer.settings', 'Settings', 'settings'),
           ('home.index', 'View Site', 'home'),
-          ('account.logout', 'Logout', 'keyboard_tab')
+          ('account.logout', 'Logout', 'lock')
         ]%}
     {% endif %}
 

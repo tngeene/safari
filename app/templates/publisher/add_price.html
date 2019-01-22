@@ -29,7 +29,7 @@
                     <div class="center-align">
                       <span class="btn green">Trip Info</span>
                       <span class="btn disabled">Package</span>
-                      <span class="btn disabled">Extras</span>
+                      <span class="btn disabled">Activities and Places</span>
                       <span class="btn disabled">Policy</span>
                       <span class="btn disabled">Images</span>
                     </div>
@@ -39,7 +39,7 @@
                         <div class="row">
                           <div class="input-field col s6">
                             <i class="material-icons prefix">attach_money</i>
-                            {{ form.price_per_day_adults }}
+                            {{ form.price_per_day_adults(id="day-adult") }}
                             <label for="email">Price Per Day Adult</label>
                               {%for error in form.price_per_day_adults.errors%}
                                 <div class="error">{{ error }}</div>
@@ -47,7 +47,7 @@
                           </div>
                           <div class="input-field col s6">
                             <i class="material-icons prefix">attach_money</i>
-                            {{ form.price_per_day_children }}
+                            {{ form.price_per_day_children(id="day-child") }}
                             <label for="email">Price Per Day Child</label>
                               {%for error in form.price_per_day_children.errors%}
                                 <div class="error">{{ error }}</div>
@@ -57,16 +57,16 @@
                         <div class="row">
                           <div class="input-field col s6">
                             <i class="material-icons prefix">attach_money</i>
-                            {{ form.total_price_adults }}
-                            <label for="email">Total Price Adult</label>
+                            {{ form.total_price_adults(readonly=true,id="total-adult") }}
+                            <label for="email" class="active">Total Price Adult</label>
                               {%for error in form.total_price_adults.errors%}
                                 <div class="error">{{ error }}</div>
                               {%endfor%}
                           </div>
                           <div class="input-field col s6">
                             <i class="material-icons prefix">attach_money</i>
-                            {{ form.total_price_children }}
-                            <label for="email">Total Price Child</label>
+                            {{ form.total_price_children(readonly=true,id="total-child") }}
+                            <label for="email" class="active">Total Price Child</label>
                               {%for error in form.total_price_children.errors%}
                                 <div class="error">{{ error }}</div>
                               {%endfor%}
@@ -121,4 +121,59 @@
 {% endblock%}
 {% block scripts %}
    <script src="{{ url_for("static", filename="js/page.js") }}"></script>
+   <script>
+   $(document).ready(function() {
+       var total={
+         day_adult:$('#day-adult'),
+         day_child:$('#day-child'),
+         total_adult:$('#total-adult'),
+         total_child:$('#total-child'),
+         duration:{{ listing.duration }},
+       }
+
+
+       function isInt(value) {
+           if (isNaN(value)) {
+             return false;
+           }
+           var x = parseFloat(value);
+           return (x | 0) === x;
+         }
+
+       function sumAdult(){
+         var val = {
+           adult:total.day_adult.val(),
+         }
+
+         if(isInt(val.adult) == true){
+           var adult_tot = (val.adult * total.duration);
+
+           total.total_adult.val(adult_tot);
+           Materialize.updateTextFields();
+       }
+     }
+
+     function sumChild(){
+       var val = {
+         child:total.day_child.val(),
+       }
+
+       if(isInt(val.child) == true){
+         var child_tot = (val.child * total.duration);
+
+         total.total_child.val(child_tot);
+         Materialize.updateTextFields();
+     }
+   }
+
+     total.day_adult.keyup(function(){
+       sumAdult();
+     });
+
+     total.day_child.keyup(function(){
+       sumChild();
+     });
+
+   });
+   </script>
 {% endblock %}

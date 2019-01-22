@@ -32,7 +32,7 @@
                       <tbody>
                         {%for booking in bookings%}
                         <tr>
-                          <td>{{booking.listing.price.name}} <a href="{{url_for('customer.review',what='listing', id=booking.listing.price.id)}}"><span>   </span> Review</a></td>
+                          <td>{{booking.listing.title}} <a href="{{url_for('customer.review',what='listing', id=booking.listing.price.id)}}"><span>   </span> Review</a></td>
                           <td>{{booking.listing.publisher.publisher.company_name}}<a href="{{url_for('customer.review',what='publisher', id=booking.listing.publisher.publisher.id)}}"><span>   </span>Review</a></td>
                           <td>{{booking.listing.location}}</td>
                           <td>{{booking.listing.availability_from}}</td>

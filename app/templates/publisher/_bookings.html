@@ -1,0 +1,61 @@
+<table  class="responsive-table display data-table" cellspacing="0">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Customer Name</th>
+      <th>Listing</th>
+      <th>Departure Date</th>
+      <th>Adults</th>
+      <th>Children</th>
+      <th>Price Due</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th>#</th>
+      <th>Customer Name</th>
+      <th>Listing</th>
+      <th>Departure Date</th>
+      <th>Adults</th>
+      <th>Children</th>
+      <th>Price Due</th>
+      <th>Action</th>
+    </tr>
+  </tfoot>
+  <tbody>
+    {%  for booking in bookings %}
+    <tr>
+      <td>{{ loop.index }}</td>
+      <td><a href="{{ url_for('publisher.get_profile',id=booking.user.id) }}">{{booking.user.full_name()}}</a></td>
+      <td>{{booking.listing.title}}</td>
+      <td>{{booking.orders.departure_date.strftime('%d-%m-%Y')}}</td>
+      <td>{{booking.orders.adults}}</td>
+      <td>{{booking.orders.children}}</td>
+      <td>{{  "$ {:,.0f}".format(booking.orders.grand_total)}}</td>
+      <td>
+        {% if booking.state == 'pending' %}
+        <a class='dropdown-button btn waves-effect waves-light amber darken-4' href='#' data-activates='dropdown{{ booking.id }}'>Pending</a>
+          <ul id='dropdown{{ booking.id }}' class='dropdown-content'>
+            <li><a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='accepted') }}">Accept</a></li>
+            <li><a onclick="cancelBooking('{{booking.id}}')" href="#">Cancel</a></li>
+          </ul>
+          {% elif booking.state == 'accepted' %}
+          <a class='dropdown-button btn waves-effect waves-light green darken-1' href='#' data-activates='dropdown{{ booking.id }}'>Accepted</a>
+            <ul id='dropdown{{ booking.id }}' class='dropdown-content'>
+              <li><a onclick="cancelBooking('{{booking.id}}')" href="#">Cancel</a></li>
+            </ul>
+          {% elif booking.state == 'cancelled' %}
+          <a class='dropdown-button btn waves-effect waves-light red accent-2' href='#' onclick='swal("Reason for Cancellation", "{{ booking.reason }}")'>Cancelled</a>
+          {% endif %}
+      </td><!-- Dropdown Trigger -->
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% block scripts %}
+<script>
+  $('.data-table').DataTable();
+  </script>
+{% endblock %}

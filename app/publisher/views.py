@@ -5,25 +5,36 @@ from flask import (
     url_for,
     flash,
     jsonify,
-    request
+    request,
+    send_from_directory
 )
 from flask_login import (
     current_user,
     login_required,
+    logout_user
 )
 
 from app.auth.admin_decorators import publisher_login_required,check_confirmed
 from app.publisher.forms import *
+import os, random, string, PIL, simplejson, traceback
+from PIL import Image
+from werkzeug import secure_filename
+from app.lib.upload_file import uploadfile
 
 publisher = Blueprint('publisher', __name__)
 photos = UploadSet('photos', IMAGES)
 
 from app.publisher.countries import get_countries, get_arcode
 
+ALLOWED_EXTENSIONS = set(['txt', 'gif', 'png', 'jpg', 'jpeg', 'bmp', 'rar', 'zip', '7zip', 'doc', 'docx'])
 
 @publisher.before_app_request
 def before_request():
     if current_user.is_authenticated:
+        if not current_user.status:
+            logout_user()
+            flash('You have been suspended, Please contact Adminstrator!','danger')
+            return redirect(url_for('account.login'))
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
         if current_user.role.index == 'publisher' and current_user.confirmed and not current_user.publisher\
@@ -42,7 +53,14 @@ def dashboard():
     listing_count = current_user.listings.count()
     booking_count = current_user.bookings_count()
     destination_count = current_user.listings.group_by(Listing.location).count()
-    return render_template('publisher/index.html',listing_count=listing_count,booking_count=booking_count,destination_count=destination_count)
+    bookings = Booking.query.join(
+        Listing, (Listing.id == Booking.listing_id)).filter(
+            Listing.publisher_id == current_user.id).order_by(Booking.createdAt.desc()).limit(5)
+
+    cancelled = Booking.query.join(
+        Listing, (Listing.id == Booking.listing_id)).filter(
+            Listing.publisher_id == current_user.id,Booking.state == 'cancelled').order_by(Booking.createdAt.desc()).limit(5)
+    return render_template('publisher/index.html',listing_count=listing_count,booking_count=booking_count,destination_count=destination_count,bookings=bookings,cancelled=cancelled)
 
 
 @publisher.route('/listings/<country>')
@@ -62,6 +80,7 @@ def listing(country):
 def newListing():
     form = ListingForm()
     form.categories.choices = [(row.id, row.name) for row in Category.query.order_by(Category.createdAt.desc()).all()]
+    form.categories.choices.insert(0, (0,'--Select Category--'))
     form.location.choices = get_countries()
     if form.validate_on_submit():
         listing = Listing(title=form.title.data,location=form.location.data, duration=form.duration.data,
@@ -88,6 +107,7 @@ def editListing(id):
     form = ListingForm(obj=listing)
     form.location.choices = get_countries()
     form.categories.choices = [(row.id, row.name) for row in Category.query.order_by(Category.createdAt.desc()).all()]
+    form.categories.choices.insert(0, (0,'--Select Category--'))
     if form.validate_on_submit():
         listing.title=form.title.data,
         listing.location=form.location.data,
@@ -301,6 +321,24 @@ def confirm_booking(id,state):
     flash('Status Updated', 'green')
     return redirect(url_for('publisher.bookings'))
 
+@publisher.route('/cancel_booking',methods=['POST'])
+@login_required
+@publisher_login_required
+@check_confirmed
+def cancel_booking():
+    id = request.args.get('id', 0, type=int)
+    if request.method == 'POST':
+        booking = Booking.query.filter_by(id=id).first_or_404()
+        if booking.listing.publisher != current_user:
+            return 401
+        booking.state = 'cancelled'
+        booking.reason = request.form.get('reason')
+        db.session.commit()
+    bookings = Booking.query.join(
+        Listing, (Listing.id == Booking.listing_id)).filter(
+            Listing.publisher_id == current_user.id).order_by(Booking.createdAt.desc()).all()
+    return render_template('publisher/_bookings.html', bookings=bookings)
+
 
 @publisher.route('/send_message/<id>', methods=['GET', 'POST'])
 @login_required
@@ -326,7 +364,7 @@ def messages():
     current_user.last_message_read_time = datetime.utcnow()
     current_user.add_notification('unread_message_count', 0)
     db.session.commit()
-    page = request.args.get('page', 1, type=int)
+    page = request.args.get('page', 0, type=int)
     messages = current_user.messages_received.order_by(
         Message.timestamp.desc()).group_by(Message.sender_id)
     return render_template('publisher/messages.html', messages=messages)
@@ -385,6 +423,14 @@ def profile():
         flash('Category added successfully', 'green')
         return redirect(url_for('publisher.category'))
     return render_template('publisher/profile.html', form=form)
+
+@publisher.route('/view_profile/<id>')
+@login_required
+@publisher_login_required
+@check_confirmed
+def get_profile(id):
+    user=User.query.get_or_404(id)
+    return render_template('publisher/_profile_modal.html', user=user)
 
 
 @publisher.route('/edit_profile', methods=('GET', 'POST'))
@@ -450,3 +496,125 @@ def _get_pricing():
     pricing = [(row.id, row.name) for row in
                Price.query.filter_by(location=location).order_by(Price.createdAt.desc()).all()]
     return jsonify(pricing)
+
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+def gen_file_name(filename):
+    """
+    If file was exist already, rename it and return a new name
+    """
+
+    i = 1
+    while os.path.exists(os.path.join(current_app.config['UPLOAD_FOLDER'], filename)):
+        name, extension = os.path.splitext(filename)
+        filename = '%s_%s%s' % (name, str(i), extension)
+        i += 1
+
+    return filename
+
+
+def create_thumbnail(image):
+    try:
+        base_width = 100
+        img = Image.open(os.path.join(current_app.config['UPLOAD_FOLDER'], image))
+        w_percent = (base_width / float(img.size[0]))
+        h_size = int((float(img.size[1]) * float(w_percent)))
+        img = img.resize((base_width, h_size), PIL.Image.ANTIALIAS)
+        img.save(os.path.join(current_app.config['THUMBNAIL_FOLDER'], image))
+
+        return True
+
+    except:
+        print (traceback.format_exc())
+        return False
+
+
+@publisher.route("/upload/<p_table>/<c_table>/<id>", methods=['GET', 'POST'])
+def upload(p_table,c_table,id):
+    if request.method == 'POST':
+        files = request.files['file']
+
+        if files:
+            filename = secure_filename(files.filename)
+            filename = gen_file_name(filename)
+            mime_type = files.content_type
+            p_model=User.get_class_by_tablename(p_table)
+
+            if not allowed_file(files.filename):
+                result = uploadfile(name=filename,table=c_table, type=mime_type, size=0, not_allowed_msg="File type not allowed")
+
+            else:
+                # save file to disk
+                uploaded_file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+                files.save(uploaded_file_path)
+                p_model=User.get_class_by_tablename(p_table)
+                c_model=User.get_class_by_tablename(c_table)
+                parent_table = p_model.query.filter_by(id=id).first_or_404()
+                if parent_table.images.count() >= 5:
+                    return 'You cannot add more than 5 images',400
+                new_image = c_model(image_url=filename, listing_id=parent_table.id)
+                db.session.add(new_image)
+                db.session.commit()
+
+                # create thumbnail after saving
+                if mime_type.startswith('image'):
+                    create_thumbnail(filename)
+
+                # get file size after saving
+                size = os.path.getsize(uploaded_file_path)
+
+                # return json for js call back
+                result = uploadfile(name=filename,table=c_table, type=mime_type, size=size)
+
+            return simplejson.dumps({"files": [result.get_file()]})
+
+    if request.method == 'GET':
+        # get all file in ./data directory
+        p_model=User.get_class_by_tablename(p_table)
+        c_model=User.get_class_by_tablename(c_table)
+        parent_table = p_model.query.filter_by(id=id).first_or_404()
+        files = [f.image_url for f in c_model.query.filter_by(listing_id=parent_table.id).all() if os.path.isfile(os.path.join(current_app.config['UPLOAD_FOLDER'],f.image_url))]
+        file_display = []
+
+        for f in files:
+            size = os.path.getsize(os.path.join(current_app.config['UPLOAD_FOLDER'], f))
+            file_saved = uploadfile(name=f, size=size,table=c_table)
+            file_display.append(file_saved.get_file())
+
+        return simplejson.dumps({"files": file_display})
+
+    return redirect(url_for('index'))
+
+
+@publisher.route("/delete_image/<table>/<string:filename>", methods=['DELETE'])
+def delete_image(table,filename):
+    file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+    file_thumb_path = os.path.join(current_app.config['THUMBNAIL_FOLDER'], filename)
+    c_model=User.get_class_by_tablename(table)
+    table = c_model.query.filter_by(image_url=filename).first_or_404()
+    db.session.delete(table)
+    db.session.commit()
+    if os.path.exists(file_path):
+        try:
+            os.remove(file_path)
+
+            if os.path.exists(file_thumb_path):
+                os.remove(file_thumb_path)
+
+            return simplejson.dumps({filename: 'True'})
+        except:
+            return simplejson.dumps({filename: 'False'})
+
+
+# serve static files
+@publisher.route("/thumbnail/<string:filename>", methods=['GET'])
+def get_thumbnail(filename):
+    return send_from_directory(current_app.config['THUMBNAIL_FOLDER'], filename=filename)
+
+
+@publisher.route("/data/<string:filename>", methods=['GET'])
+def get_file(filename):
+    return send_from_directory(os.path.join(current_app.config['UPLOAD_FOLDER']), filename=filename)

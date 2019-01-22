@@ -33,7 +33,7 @@
           </p><br>{% if not item.images[0] %}
             <span class="red-text">Draft</span>
             {% else %}
-          <a href="{{url_for('publisher.publishListing',id=item.id)}}">{% if item.published == false %} Publish {% else %} Unpublish{% endif %}</a>
+             <a href="{{url_for('home.listings_by_details',id=item.id)}}">Preview on site</a> | <a href="{{url_for('publisher.publishListing',id=item.id)}}">{% if item.published == false %} Publish {% else %} Unpublish{% endif %}</a>
           {% endif %}
         </div>
       </div>

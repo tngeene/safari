@@ -28,30 +28,50 @@
                     <table id="data-table-simple" class="responsive-table display" cellspacing="0">
                        <thead>
                         <tr>
-                          <th>Customer First Name</th>
-                          <th>Customer Last Name</th>
-                          <th>Customer Email</th>
+                          <th>#</th>
+                          <th>Customer Name</th>
                           <th>Package Title</th>
                           <th>Package Publisher</th>
+                          <th>Departure Date</th>
+                          <th>Adults</th>
+                          <th>Children</th>
+                          <th>Price Due</th>
+                          <th>status</th>
                         </tr>
                       </thead>
                       <tfoot>
                         <tr>
-                          <th>Customer First Name</th>
-                          <th>Customer Last Name</th>
-                          <th>Customer Email</th>
+                          <th>#</th>
+                          <th>Customer Name</th>
                           <th>Package Title</th>
                           <th>Package Publisher</th>
+                          <th>Departure Date</th>
+                          <th>Adults</th>
+                          <th>Children</th>
+                          <th>Price Due</th>
+                          <th>status</th>
                         </tr>
                       </tfoot>
                       <tbody>
                       {% for booking in bookings %}
                         <tr>
-                          <td>{{booking.user.first_name}}</td>
-                          <td>{{booking.user.last_name}}</td>
-                          <td>{{booking.user.email}}</td>
-                          <td>{{booking.listing.title}}</td>
-                          <td>{{booking.listing.publisher.company_name}}</td>
+                            <td>{{loop.index}}</td>
+                          <td>{{booking.user.full_name()}}</td>
+                          <td><a href="{{url_for('home.listings_by_details',id=booking.listing.id)}}">{{booking.listing.title}}</a></td>
+                          <td><a href="{{url_for('home.tour_operator_details',publisher_id=booking.listing.publisher.id)}}">{{booking.listing.publisher.publisher.company_name}}</a></td>
+                          <td>{{moment(booking.orders.departure_date).format("MMM Do YYYY")}}</td>
+                          <td>{{booking.orders.adults}}</td>
+                          <td>{{booking.orders.children}}</td>
+                          <td>{{  "$ {:,.0f}".format(booking.orders.grand_total)}}</td>
+                          <td>
+                            {% if booking.state == 'pending' %}
+                            <span class='orange-text'>Pending</a>
+                              {% elif booking.state == 'accepted' %}
+                              <span class='green-text'>Accepted</a>
+                              {% elif booking.state == 'cancelled' %}
+                              <span class='red-text'>Cancelled</a>
+                              {% endif %}
+                          </td><!-- Dropdown Trigger -->
                         </tr>
                       {% endfor %}
                       </tbody>
@@ -65,4 +85,3 @@
         </section>
 
  {% endblock %}
-

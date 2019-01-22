@@ -33,12 +33,12 @@ class DayForm(NoCsrfForm):
 class ListingForm(Form):
     title = StringField('title', validators=[Length(min=2, max=100)])
     location = SelectField(validators=[DataRequired()], choices=[], id="list-location")
-    duration = StringField('duration', validators=[Length(min=2, max=80)])
+    duration = SelectField(validators=[DataRequired()], coerce=int, choices=[(row,row) for row in range(1,31)])
     availability_from = DateField('availability_from', format='%d/%m/%Y')
     availability_to = DateField('availability_to', format='%d/%m/%Y')
-    categories = SelectMultipleField(validators=[DataRequired()], choices=[], coerce=int)
-    physical_condition = StringField('physical condition', validators=[Length(min=2, max=80)])
-    connectivity = StringField('Connectivity', validators=[Length(min=2, max=80)])
+    categories = SelectMultipleField(validators=[DataRequired()], choices=[], coerce=int,id="category-id")
+    physical_condition = SelectField(validators=[DataRequired()], choices=[('Good', 'Good'),('Fair', 'Fair'),('Bad', 'Bad')])
+    connectivity = SelectField(validators=[DataRequired()], choices=[('Normal physcial condition', 'Normal physcial condition'), ('Not fit for people with special conditions', 'Not fit for people with special conditions')])
     package = SelectField(validators=[DataRequired()], choices=[('Budget', 'Budget'), ('Luxury', 'Luxury')])
     submit = SubmitField('save')
 
@@ -59,16 +59,15 @@ class ImageForm(Form):
 
 
 class EditListingForm(Form):
-    location = SelectField(validators=[DataRequired()], choices=[])
-    duration = StringField('duration', validators=[Length(min=2, max=80)])
+    title = StringField('title', validators=[Length(min=2, max=100)])
+    location = SelectField(validators=[DataRequired()], choices=[], id="list-location")
+    duration = SelectField(validators=[DataRequired()], coerce=int, choices=[(row,row) for row in range(1,31)])
     availability_from = DateField('availability_from', format='%d/%m/%Y')
     availability_to = DateField('availability_to', format='%d/%m/%Y')
-    long_description = TextAreaField('long description', validators=[Length(min=20, max=2000)])
+    categories = SelectMultipleField(validators=[DataRequired()], choices=[], coerce=int,id="category-id")
+    physical_condition = SelectField(validators=[DataRequired()], choices=[('Good', 'Good'),('Fair', 'Fair'),('Bad', 'Bad')])
+    connectivity = SelectField(validators=[DataRequired()], choices=[('Normal physcial condition', 'Normal physcial condition'), ('Not fit for people with special conditions', 'Not fit for people with special conditions')])
     package = SelectField(validators=[DataRequired()], choices=[('Budget', 'Budget'), ('Luxury', 'Luxury')])
-    physical_condition = StringField('physical condition', validators=[Length(min=2, max=80)])
-    connectivity = StringField('Connectivity', validators=[Length(min=2, max=80)])
-    add_ons = TextAreaField('long description', validators=[Length(min=0, max=2000)])
-    policy = TextAreaField('policy', validators=[Length(min=2, max=2000)])
     submit = SubmitField('save')
 
 

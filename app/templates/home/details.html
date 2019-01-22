@@ -33,7 +33,7 @@
 			                <div class="swiper-wrapper">
 								{% for item in listings.images %}
 		                    	<div class="swiper-slide {% if loop.index == 1 %} current active{% endif %}" data-val="{{ loop.index - 1 }}">
-		                    		 <img class="img-responsive img-full" src="{% if item %}{{ url_for('static', filename='uploads/{}'.format(item.image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" alt="">
+		                    		 <img class="img-responsive img-full" src="{% if item %}{{ url_for('static', filename='uploads/thumbnail/{}'.format(item.image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" alt="">
 		                    	</div>
 								{% endfor %}
 							</div>
@@ -66,7 +66,7 @@
 				<div class="row padd-90">
 					<div class="col-md-4 ">
 						<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt=""> Duration
-						<p class=""><b>{{ listings.duration }}</b></p>
+						<p class=""><b>{{ listings.duration }} Days</b></p>
 					</div>
 					<div class="col-md-4 ">
 						<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt=""> Location

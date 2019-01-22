@@ -15,71 +15,18 @@
                 <h4 class="header">Bookings</h4>
                 <div class="row">
                   <div class="col s12">
-                    <table id="data-table-simple" class="responsive-table display" cellspacing="0">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Customer Name</th>
-                          <th>Listing</th>
-                          <th>Departure Date</th>
-                          <th>Adults</th>
-                          <th>Children</th>
-                          <th>Price Due</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tfoot>
-                        <tr>
-                          <th>#</th>
-                          <th>Customer Name</th>
-                          <th>Listing</th>
-                          <th>Departure Date</th>
-                          <th>Adults</th>
-                          <th>Children</th>
-                          <th>Price Due</th>
-                          <th>Action</th>
-                        </tr>
-                      </tfoot>
-                      <tbody>
-                        {%  for booking in bookings %}
-                        <tr>
-                          <td>{{ loop.index }}</td>
-                          <td>{{booking.user.full_name()}}</td>
-                          <td>{{booking.listing.price.name}}</td>
-                          <td>{{booking.orders.departure_date}}</td>
-                          <td>{{booking.orders.adults}}</td>
-                          <td>{{booking.orders.children}}</td>
-                          <td>{{  "$ {:,.0f}".format(booking.orders.grand_total)}}</td>
-                          <td>
-                            {% if booking.state == 'pending' %}
-                            <a class='dropdown-button btn waves-effect waves-light amber darken-4' href='#' data-activates='dropdown{{ booking.id }}'>Pending</a>
-                              <ul id='dropdown{{ booking.id }}' class='dropdown-content'>
-                                <li><a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='accepted') }}">Accept</a></li>
-                                <li><a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='cancelled') }}">Cancel</a></li>
-                              </ul>
-                              {% elif booking.state == 'accepted' %}
-                              <a class='dropdown-button btn waves-effect waves-light green darken-1' href='#' data-activates='dropdown{{ booking.id }}'>Accepted</a>
-                                <ul id='dropdown{{ booking.id }}' class='dropdown-content'>
-                                  <li><a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='cancelled') }}">Cancel</a></li>
-                                </ul>
-                              {% elif booking.state == 'cancelled' %}
-                              <a class='dropdown-button btn waves-effect waves-light red accent-2' href='#' data-activates='dropdown{{ booking.id }}'>Cancelled</a>
-                              <ul id='dropdown{{ booking.id }}' class='dropdown-content'>
-                                <li><a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='accepted') }}">Accept</a></li>
-                              </ul>
-                              {% endif %}
-                          <td><!-- Dropdown Trigger -->
-                          </td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
+                    <div id="placehold">
+                    {% include 'publisher/_bookings.html' %}
+                  </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <!--end container-->
+
         </section>
+          <div id='profile-placehold'>
+          </div>
 <!-- END CONTENT -->
 {% endblock%}

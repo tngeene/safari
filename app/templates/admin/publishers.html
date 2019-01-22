@@ -23,28 +23,38 @@
                 <div id="table-datatables">
                     <h4 class="header">All Publishers</h4>
                     <div class="row">
-
                         <div class="col s12">
                             <table id="data-table-simple" class="responsive-table display" cellspacing="0">
-                                <thead>
+                              <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Company Name</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
+                                  <th>#</th>
+                                  <th>Company</th>
+                                  <th>Email</th>
+                                  <th>Total Listings</th>
+                                  <th>Status</th>
+                                  <th>Action</th>
                                 </tr>
-                                </thead>
+                              </thead>
+                              <tbody>
+                                {%  for publisher in publishers %}
+                                <tr>
+                                  <td>{{ loop.index }}</td>
+                                  <td><a href="{{url_for('home.tour_operator_details',publisher_id=publisher.user.id)}}">{{publisher.company_name}}</a></td>
+                                  <td>{{publisher.emails[0].email}}</td>
+                                  <td>{{publisher.user.listings.count()}}</td>
+                                  <td class="{{ 'green-text' if publisher.user.status else 'red-text' }}">{{ 'Active' if publisher.user.status else 'Deactivated' }}</td>
+                                  <td>{% if publisher.user.status %}
+                                    <a href="{{ url_for('admin.suspend', user_id=publisher.user.id,sender='publisher') }}"
+                                     class="waves-effect waves-light  btn gradient-45deg-red-pink box-shadow-none border-round mr-1">Suspend</a>
+                                  {% else %}
 
-                                <tbody>
-                                {%for publisher in publishers%}
-                                <tr onclick="window.location.href = '{{ url_for('admin.user_info', user_id=publisher.id) }}';">
-                                    <td>{{publisher.full_name()}}</td>
-                                    <td>{{publisher.company_name}}</td>
-                                    <td>{{publisher.email}}</td>
-                                    <td>{%if publisher.status == True%} Active {%else%} Suspended {%endif%}</td>
+                                  <a href="{{ url_for('admin.suspend', user_id=publisher.user.id,sender='publisher') }}"
+                                     class="waves-effect waves-light  btn gradient-45deg-green-teal box-shadow-none border-round mr-1">Activate</a>
+                                  {%endif%}
+                                </td>
                                 </tr>
-                                {%endfor%}
-                                </tbody>
+                                {% endfor %}
+                              </tbody>
                             </table>
                         </div>
                     </div>
@@ -56,4 +66,3 @@
     </section>
 
 {% endblock %}
-

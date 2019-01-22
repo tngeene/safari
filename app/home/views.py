@@ -28,7 +28,8 @@ def index():
                         db.session.query(Listing.id, func.count(Booking.listing_id).label('total')).join(
                             Booking).group_by(Listing).order_by('total DESC').all()]
         popular_packages = Listing.query.filter(Listing.id.in_(popular_list)).filter(Listing.status == True).limit(6)
-    popular_operators = Publisher.query.order_by(Publisher.overal_ratings).limit(12)
+    popular_operators = Publisher.query.join(
+                                        User, (User.id == Publisher.user_id)).filter(User.status == True).order_by(Publisher.overal_ratings.desc()).limit(12)
     """Admin dashboard page."""
     return render_template('home/index.html', form=form,
                            popular_packages=popular_packages, popular_operators=popular_operators)
@@ -127,8 +128,8 @@ def booking(id):
 @home.route('/tour-operators')
 def tour_operators_list():
     page = request.args.get('page', 1, type=int)
-    publishers = Publisher.query.order_by(Publisher.overal_ratings.desc()).paginate(page, current_app.config[
-        'POSTS_PER_PAGE'], False)
+    publishers = Publisher.query.join(
+        User, (User.id == Publisher.user_id)).filter(User.status == True).order_by(Publisher.overal_ratings.desc()).paginate(page, current_app.config['POSTS_PER_PAGE'], False)
     next_url = url_for('home.tour_operators', page=publishers.next_num) if publishers.has_next else None
     prev_url = url_for('home.tour_operators', page=publishers.prev_num) if publishers.has_prev else None
     offices = Publocations.query.group_by(Publocations.country)
@@ -283,7 +284,7 @@ def _get_ratings():
 def _get_office():
     data = request.args
     page = request.args.get('page', 1, type=int)
-    publishers = get_operators(data, page)
+    publishers = User.get_operators(data, page)
     next_url = url_for('home.tour_operators', page=publishers.next_num) if publishers.has_next else None
     prev_url = url_for('home.tour_operators', page=publishers.prev_num) if publishers.has_prev else None
     arcodes = get_arcode()
@@ -295,7 +296,7 @@ def _get_office():
 def _get_tour_ratings():
     data = request.args
     page = request.args.get('page', 1, type=int)
-    publishers = get_tour_ratings(data, page)
+    publishers = User.get_tour_ratings(data, page)
     next_url = url_for('home.tour_operators', page=publishers.next_num) if publishers.has_next else None
     prev_url = url_for('home.tour_operators', page=publishers.prev_num) if publishers.has_prev else None
     arcodes = get_arcode()

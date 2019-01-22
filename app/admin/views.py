@@ -16,6 +16,7 @@ from app.email import send_email
 from app.auth.email import send_confirm_email
 from app.auth.email import send_password_reset_email
 from app.auth.admin_decorators import check_confirmed
+from sqlalchemy import func
 
 admin = Blueprint('admin', __name__)
 photos = UploadSet('photos', IMAGES)
@@ -27,22 +28,21 @@ photos = UploadSet('photos', IMAGES)
 @check_confirmed
 def dashboard():
     """Admin dashboard page."""
-    bookings = Booking.query.all()
-    listings = Listing.query.all()
+    bookings = Booking.query.order_by(Booking.createdAt.desc()).limit(5)
+    listings = Listing.query.filter_by(published = True).order_by(Listing.createdAt.desc()).limit(5)
     croles = Role.query.filter_by(index='customer').first_or_404()
-    customers = croles.users
-    proles = Role.query.filter_by(index='publisher').first_or_404()
-    publishers = proles.users
+    customers = croles.users.order_by(User.createdAt.desc()).limit(5)
+    publishers = Publisher.query.order_by(Publisher.createdAt.desc()).limit(5)
     bookingsCount = Booking.query.count()
-    listingsCount = Listing.query.count()
+    listingsCount = Listing.query.filter_by(published = True).count()
     publishersCount = publishers.count()
     customersCount = customers.count()
-    titles= [listing.title for listing in listings]
-    list=[]
-    for listing in listings:
-        count = Booking.query.filter_by(listing_id=listing.id).count()
-        list.append(count)
-    return render_template('admin/index.html', bookings=bookings, list=list, listings=listings, titles=titles,
+    # titles= [listing.title for listing in listings]
+
+    # for listing in listings:
+    #     count = Booking.query.filter_by(listing_id=listing.id).count()
+    #     list.append(count)
+    return render_template('admin/index.html', bookings=bookings, listings=listings,
                            bookingsCount=bookingsCount, listingsCount=listingsCount, publishersCount=publishersCount,
                            customersCount=customersCount, publishers=publishers, customers=customers)
 
@@ -53,8 +53,7 @@ def dashboard():
 @check_confirmed
 def publishers():
     """Publisher dashboard page."""
-    roles=Role.query.filter_by(index='publisher').first_or_404()
-    publishers = roles.users
+    publishers = Publisher.query.order_by(Publisher.createdAt.desc()).all()
     return render_template('admin/publishers.html', publishers=publishers)
 
 
@@ -73,7 +72,7 @@ def payments():
 def customers():
     """Admin dashboard page."""
     roles = Role.query.filter_by(index='customer').first_or_404()
-    customers = roles.users
+    customers = roles.users.order_by(User.createdAt.desc())
     return render_template('admin/customers.html', customers=customers)
 
 
@@ -83,7 +82,7 @@ def customers():
 @check_confirmed
 def bookings():
     """Admin dashboard page."""
-    bookings = Booking.query.all()
+    bookings = Booking.query.order_by(Booking.createdAt.desc()).all()
     return render_template('admin/bookings.html', bookings=bookings)
 
 
@@ -92,7 +91,7 @@ def bookings():
 @admin_required
 def listings():
     """All Listings Page."""
-    listings = Listing.query.all()
+    listings = Listing.query.filter_by(published=True).order_by(Listing.createdAt.desc()).all()
 
     return render_template('admin/listings.html', listings=listings)
 
@@ -318,11 +317,11 @@ def approve_listing(listing_id):
     return redirect(url_for('admin.listings'))
 
 
-@admin.route('/publisher/<int:user_id>/_suspend')
+@admin.route('/publisher/<int:user_id>/_suspend/<sender>')
 @login_required
 @admin_required
 @check_confirmed
-def suspend(user_id):
+def suspend(user_id,sender):
     """Suspend a user's account."""
     user = User.query.filter_by(id=user_id).first()
     if current_user.id == user_id:
@@ -331,11 +330,18 @@ def suspend(user_id):
     else:
         if user.status == 1:
             user.status = 0
+            if user.role.index == 'publisher':
+                for listing in user.listings:
+                    listing.status = 0
+                    listing.published = 0
         else:
             user.status = 1
         db.session.commit()
         flash('Successfully suspended user %s.' % user.full_name(), 'green')
-    return redirect(url_for('admin.user_info', user_id=user.id))
+    if sender == 'publisher':
+        return redirect(url_for('admin.publishers'))
+    else:
+        return redirect(url_for('admin.customers'))
 
 
 @admin.route('/countries/view_all')
@@ -346,6 +352,15 @@ def countries():
     allcountries = Country.query.all()
 
     return render_template('admin/all_countries.html', allcountries=allcountries)
+
+@admin.route('/countries/<id>')
+@login_required
+@admin_required
+@check_confirmed
+def view_country(id):
+    country = Country.query.get_or_404(id)
+    parks=Park.query.filter_by(country=country).order_by(Park.createdAt.desc()).all()
+    return render_template('admin/all_parks.html', parks=parks,country=country)
 
 
 @admin.route('/countries/add', methods=['GET', 'POST'])
@@ -390,7 +405,7 @@ def edit_country(id):
         form.populate_obj(country)
         db.session.commit()
         flash('Country edited successfully', 'green')
-        return redirect(url_for('admin.countries', country=country))
+        return redirect(url_for('admin.countries'))
     return render_template('admin/edit_country.html', form=form, country=country)
 
 
@@ -406,14 +421,15 @@ def delete_country(id):
     return redirect(url_for('admin.countries'))
 
 
-@admin.route('/birds/view_all')
+@admin.route('/birds/<id>')
 @login_required
 @admin_required
 @check_confirmed
-def birds():
-    allbirds = Bird.query.all()
+def birds(id):
+    park=Park.query.get_or_404(id)
+    allbirds = Bird.query.filter_by(park=park).all()
 
-    return render_template('admin/all_birds.html', allbirds=allbirds)
+    return render_template('admin/all_birds.html', allbirds=allbirds,park=park)
 
 
 @admin.route('/birds/add', methods=['GET', 'POST'])
@@ -439,7 +455,7 @@ def add_bird():
         db.session.add(newbird)
         db.session.commit()
         flash('New Bird created', 'green')
-        return redirect(url_for('admin.birds'))
+        return redirect(url_for('admin.birds',id=newbird.park.id))
     return render_template('admin/new_bird.html', allbirds=allbirds, form=form)
 
 
@@ -450,8 +466,7 @@ def add_bird():
 def edit_bird(id):
     bird = Bird.query.filter_by(id=id).first_or_404()
     form = EditBirdForm(obj=bird)
-    park_id = bird.park.id
-    park_name = bird.park.name
+    form.park_id.choices = [(row.id, row.name) for row in Park.query.all()]
     if form.validate_on_submit():
         image = form.image_url.data
         if image:
@@ -461,8 +476,8 @@ def edit_bird(id):
         form.populate_obj(bird)
         db.session.commit()
         flash('Bird edited successfully', 'green')
-        return redirect(url_for('admin.birds', bird=bird))
-    return render_template('admin/edit_bird.html', form=form, bird=bird, park_id=park_id, park_name=park_name)
+        return redirect(url_for('admin.birds', id=bird.park.id))
+    return render_template('admin/edit_bird.html', form=form)
 
 
 @admin.route('/birds/delete/<id>', methods=['POST'])
@@ -471,19 +486,20 @@ def edit_bird(id):
 @check_confirmed
 def delete_bird(id):
     bird = Bird.query.filter_by(id=id).first_or_404()
+    park=bird.park
     db.session.delete(bird)
     db.session.commit()
     flash('Bird Deleted successfully', 'green')
-    return redirect(url_for('admin.birds'))
+    return redirect(url_for('admin.birds',id=park.id))
 
 
-@admin.route('/wildlife/view_all')
+@admin.route('/wildlife/<id>')
 @login_required
 @admin_required
-def wildlife():
-    allwildlife = Wildlife.query.all()
-
-    return render_template('admin/all_wildlife.html', allwildlife=allwildlife)
+def wildlife(id):
+    park=Park.query.get_or_404(id)
+    allwildlife = Wildlife.query.filter_by(park=park).all()
+    return render_template('admin/all_wildlife.html', allwildlife=allwildlife,park=park)
 
 
 @admin.route('/wildlife/add', methods=['GET', 'POST'])
@@ -510,7 +526,7 @@ def add_wildlife():
         db.session.add(newwildlife)
         db.session.commit()
         flash('New Wildlife created', 'green')
-        return redirect(url_for('admin.wildlife'))
+        return redirect(url_for('admin.wildlife',id=park.id))
     return render_template('admin/new_wildlife.html', allwildlife=allwildlife, form=form)
 
 
@@ -521,9 +537,9 @@ def add_wildlife():
 def edit_wildlife(id):
     wildlife = Wildlife.query.filter_by(id=id).first_or_404()
     form = EditWildlifeForm(obj=wildlife)
-    park_id = wildlife.park.id
-    park_name = wildlife.park.name
+    form.park_id.choices = [(row.id, row.name) for row in Park.query.all()]
     if form.validate_on_submit():
+        park = Park.query.filter_by(id=form.park_id.data).first_or_404()
         image = form.image_url.data
         if image:
             image = photos.save(form.image_url.data)
@@ -532,8 +548,8 @@ def edit_wildlife(id):
         form.populate_obj(wildlife)
         db.session.commit()
         flash('Wildlife edited successfully', 'green')
-        return redirect(url_for('admin.wildlife', wildlife=wildlife))
-    return render_template('admin/edit_wildlife.html', form=form, wildlife=wildlife, park_id=park_id, park_name=park_name)
+        return redirect(url_for('admin.wildlife', id=park.id))
+    return render_template('admin/edit_wildlife.html', form=form, wildlife=wildlife)
 
 
 @admin.route('/wildlife/delete/<id>', methods=['POST'])
@@ -542,10 +558,11 @@ def edit_wildlife(id):
 @check_confirmed
 def delete_wildlife(id):
     wildlife = Wildlife.query.filter_by(id=id).first_or_404()
+    park=wildlife.park
     db.session.delete(wildlife)
     db.session.commit()
     flash('Wildlife Deleted successfully', 'green')
-    return redirect(url_for('admin.wildlife'))
+    return redirect(url_for('admin.wildlife', id=park.id))
 
 
 @admin.route('/parks/view_all')
@@ -557,6 +574,15 @@ def parks():
 
     return render_template('admin/all_parks.html', allparks=allparks)
 
+@admin.route('/parks/<id>')
+@login_required
+@admin_required
+@check_confirmed
+def view_park(id):
+    park=Park.query.get_or_404(id)
+    return render_template('admin/park.html', park=park)
+
+
 
 @admin.route('/parks/add', methods=['GET', 'POST'])
 @login_required
@@ -566,12 +592,12 @@ def add_park():
     allparks = Park.query.all()
     """Create new park."""
     form = AddParkForm()
-    form.country.choices = [(row.id, row.name) for row in Country.query.all()]
+    form.country_id.choices = [(row.id, row.name) for row in Country.query.all()]
     if form.validate_on_submit():
-        image = form.image.data
+        image = form.image_url.data
         if image:
-            image = photos.save(form.image.data)
-        country = Country.query.filter_by(id=form.country.data).first_or_404()
+            image = photos.save(form.image_url.data)
+        country = Country.query.filter_by(id=form.country_id.data).first_or_404()
         newpark = Park(
             name=form.name.data,
             description=form.description.data,
@@ -583,7 +609,7 @@ def add_park():
         db.session.add(newpark)
         db.session.commit()
         flash('New Wildlife created', 'form-success')
-        return redirect(url_for('admin.parks'))
+        return redirect(url_for('admin.view_country',id=country.id))
     return render_template('admin/new_park.html', allparks=allparks, form=form)
 
 
@@ -594,6 +620,7 @@ def add_park():
 def edit_park(id):
     park = Park.query.filter_by(id=id).first_or_404()
     form = EditParkForm(obj=park)
+    form.country_id.choices = [(row.id, row.name) for row in Country.query.all()]
     country_id = park.country.id
     country_name = park.country.name
     if form.validate_on_submit():
@@ -605,8 +632,8 @@ def edit_park(id):
         form.populate_obj(park)
         db.session.commit()
         flash('Park edited successfully', 'green')
-        return redirect(url_for('admin.parks', park=park))
-    return render_template('admin/edit_park.html', form=form, park=park, country_id=country_id, country_name=country_name)
+        return redirect(url_for('admin.view_country',id=park.country.id))
+    return render_template('admin/new_park.html', form=form, park=park, country_id=country_id, country_name=country_name)
 
 
 @admin.route('/parks/delete/<id>', methods=['POST'])
@@ -615,10 +642,11 @@ def edit_park(id):
 @check_confirmed
 def delete_park(id):
     park = Park.query.filter_by(id=id).first_or_404()
+    country=park.country
     db.session.delete(park)
     db.session.commit()
     flash('Park Deleted successfully', 'green')
-    return redirect(url_for('admin.parks'))
+    return redirect(url_for('admin.view_country',id=country.id))
 
 
 @admin.route('/settings', methods=('GET', 'POST'))
