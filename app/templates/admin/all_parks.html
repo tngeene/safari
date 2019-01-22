@@ -45,9 +45,9 @@
             <div class="row">
                 <div class="col s12 m12 l12">
                     <div class="card-panel">
-                        <h4 class="header2">All park</h4>
+                        <h4 class="header2">Parks in {{ country.name }}</h4>
                         <div class="row">
-                            {% for park in allparks %}
+                            {% for park in parks %}
                             <div class="col s12 m3">
                                 <div class="card blue-grey darken-4"
                                      style="
@@ -60,11 +60,13 @@
                                        );
                                     width: 100%;
                                     background-size: cover;">
+                                    <a href="{{ url_for('admin.view_park',id=park.id) }}">
                                     <div class="card-content white-text">
                                         <span class="card-title font-weight-400 mb-10">{{park.name}}</span>
                                         <p>{{park.frequency}}
                                             <br> Located in {{park.country.name}}</p>
                                     </div>
+                                  </a>
                                     <ul class="card-action-buttons">
                                         <li style="display: inline-block;padding-left: 10px;">
                                             <a href="{{url_for('admin.edit_park',id=park.id)}}"
@@ -92,35 +94,6 @@
             </div>
         </div>
 
-        <!-- Floating Action Button -->
-        <div class="fixed-action-btn " style="bottom: 50px; right: 19px;">
-            <a class="btn-floating btn-large">
-                <i class="material-icons">add</i>
-            </a>
-            <ul>
-                <li>
-                    <a href="css-helpers.html" class="btn-floating blue">
-                        <i class="material-icons">help_outline</i>
-                    </a>
-                </li>
-                <li>
-                    <a href="cards-extended.html" class="btn-floating green">
-                        <i class="material-icons">widgets</i>
-                    </a>
-                </li>
-                <li>
-                    <a href="app-calendar.html" class="btn-floating amber">
-                        <i class="material-icons">today</i>
-                    </a>
-                </li>
-                <li>
-                    <a href="app-email.html" class="btn-floating red">
-                        <i class="material-icons">mail_outline</i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <!-- Floating Action Button -->
     </div>
     <!--end container-->
 </section>

@@ -49,27 +49,3 @@ class Publocations(db.Model):
 
     def get_count(self):
         return Publocations.query.filter_by(publisher_id=self.publisher_id).group_by(Publocations.publisher_id).count()
-
-
-def get_operators(data,page):
-    list=[]
-    published_list=[]
-    for field in [(row.country) for row in Publocations.query.group_by(Publocations.country)]:
-        if field in data:
-            list.append(data[field])
-    publishers = Publisher.query
-    if list:
-        publishers = Publisher.query.join(
-            Publocations, (Publocations.publisher_id == Publisher.id)).filter(
-                Publocations.country.in_(list))
-    return publishers.order_by(Publisher.overal_ratings.desc()).paginate(page,current_app.config['POSTS_PER_PAGE'],False)
-
-def get_tour_ratings(data,page):
-    list=[]
-    for field in ['first','second','third','fourth','fifth']:
-        if field in data:
-            list.append(int(data[field]))
-    publishers = Publisher.query
-    if list:
-        publishers =Publisher.query.filter(Publisher.rating.in_(list))
-    return publishers.order_by(Publisher.overal_ratings.desc()).paginate(page,current_app.config['POSTS_PER_PAGE'],False)

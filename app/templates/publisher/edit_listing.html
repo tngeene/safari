@@ -226,4 +226,7 @@
 
 {% block scripts %}
    <script src="{{ url_for("static", filename="js/page.js") }}"></script>
+   <script>
+        document.getElementById('category-id').firstChild.setAttribute("disabled", "true");
+   </script>
 {% endblock %}

@@ -7,7 +7,7 @@
             <div class="container">
               <div class="row">
                 <div class="col s10 m6 l6">
-                  <h5 class="breadcrumbs-title">{{'Add Extras' if not listing else 'Edit Extras' }}</h5>
+                  <h5 class="breadcrumbs-title">{{'Add Activities and Places' if not listing else 'Edit Activities and Places' }}</h5>
                   <ol class="breadcrumbs">
                     <li><a href="{{url_for('publisher.dashboard')}}">Dashboard</a></li>
                     <li><a href="{{url_for('publisher.destination')}}">Destinations</a></li>
@@ -26,11 +26,11 @@
                 <div class="row">
                 <div class="col s12 m12 l12">
                   <div class="card-panel">
-                    <h4 class="header2">Extras</h4>
+                    <h4 class="header2">Activities and Places</h4>
                     <div class="center-align">
                       <span class="btn green">Trip Info</span>
                       <span class="btn green">Package</span>
-                      <span class="btn disabled">Extras</span>
+                      <span class="btn disabled">Activities and Places</span>
                       <span class="btn disabled">Policy</span>
                       <span class="btn disabled">Images</span>
                     </div>
@@ -41,7 +41,7 @@
                           <div class="input-field col s12">
                             <i class="material-icons prefix">note</i>
                             {{ form.long_description(class="materialize-textarea") }}
-                            <label for="email">overview</label>
+                            <label for="email">Overview of the safari</label>
                             {%for error in form.long_description.errors%}
                                 <div class="error">{{ error }}</div>
                               {%endfor%}
@@ -61,7 +61,7 @@
                           <div class="input-field col s11">
                             <i class="material-icons prefix">pool</i>
                             {{ activity.activity() }}
-                            <label for="email">Activities</label>
+                            <label for="email">Available activities for the traveller</label>
                             {%for error in activity.activity.errors%}
                                 <div class="error">{{ error }}</div>
                               {%endfor%}
@@ -87,7 +87,7 @@
                           <div class="input-field col s11">
                             <i class="material-icons prefix">place</i>
                             {{ place.place() }}
-                            <label for="email">Places</label>
+                            <label for="email">Places the traveller will visit</label>
                             {%for error in place.place.errors%}
                                 <div class="error">{{ error }}</div>
                               {%endfor%}
@@ -107,6 +107,7 @@
                             </div>
                           </div>
                         </div>
+
                         <div class="row" data-toggle="fieldset" id="day-fieldset">
                           {%  for day in form.days %}
                           <div class="row" data-toggle="fieldset-entry">
@@ -126,7 +127,7 @@
                           <div class="input-field col s12">
                             <i class="material-icons prefix">note</i>
                             {{ day.day_by_day(class="materialize-textarea") }}
-                            <label for="email">Day By Day Description</label>
+                            <label for="email">Day by Day Itinerary</label>
                             {%for error in day.day_by_day.errors%}
                                 <div class="error">{{ error }}</div>
                               {%endfor%}
@@ -144,7 +145,7 @@
                         <div class="row">
                           <div class="row">
                             <a style="margin-top:10px;" href="{{ url_for('publisher.newPricing',id=listing.id) }}" class="btn cyan waves-effect waves-light left">back
-                              <i class="material-icons right">arrow_back</i>
+                              <i class="material-icons left">arrow_back</i>
                             </a>
                             <div class="center-align">
                               <button class="btn cyan waves-effect waves-light right" type="submit">next

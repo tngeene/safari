@@ -48,16 +48,15 @@
                         <h4 class="header2">All Countries</h4>
                         <div class="row">
                             {% for country in allcountries%}
-                            <div class="col s12 m12">
-                                <div class="item">
+                            <div class="col s12 m3">
                                     <div class="card">
                                         <div class="card-header">
                                             <div class="card-title" style="padding:20px">
-                                                <span class="card-title font-weight-400 mb-10">{{country.name}}</span>
+                                                <span class="card-title font-weight-400 mb-10"> <a href="{{ url_for('admin.view_country',id=country.id) }}"> {{country.name}}</a></span>
                                             </div>
                                         </div>
                                         <div class="card-image waves-effect waves-block waves-light">
-                                            <a href="#">
+                                            <a href="{{ url_for('admin.view_country',id=country.id) }}">
                                                 <img src="
                                         {% if country.image_url %}
                                             {{ url_for('static', filename='uploads/{}'.format(country.image_url))}}
@@ -66,7 +65,7 @@
                                        {% endif %}" alt="item-img">
                                             </a>
                                         </div>
-                                        <ul class="card-action-buttons">
+                                        <ul class="card-action-buttons" style="display: flex;">
                                             <li>
                                                 <a href="{{url_for('admin.edit_country',id=country.id)}}"
                                                    class="btn-floating waves-effect waves-light cyan">
@@ -88,49 +87,19 @@
                                             <div class="row">
                                                 <div class="col s12">
                                                     <p class="card-title grey-text text-darken-4">
-                                                        {{country.description}}
-                                                        <br> Best time to visit is {{country.best_time_to_visit}}</p>
+                                                        climate: {{country.climate}}
+                                                        <br> Best time to visit: {{country.best_time_to_visit}}</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                {% endfor %}
+
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Floating Action Button -->
-            <div class="fixed-action-btn " style="bottom: 50px; right: 19px;">
-                <a class="btn-floating btn-large">
-                    <i class="material-icons">add</i>
-                </a>
-                <ul>
-                    <li>
-                        <a href="css-helpers.html" class="btn-floating blue">
-                            <i class="material-icons">help_outline</i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="cards-extended.html" class="btn-floating green">
-                            <i class="material-icons">widgets</i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="app-calendar.html" class="btn-floating amber">
-                            <i class="material-icons">today</i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="app-email.html" class="btn-floating red">
-                            <i class="material-icons">mail_outline</i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <!-- Floating Action Button -->
         </div>
     </div>
     <!--end container-->

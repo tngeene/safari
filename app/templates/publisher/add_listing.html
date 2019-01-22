@@ -30,7 +30,7 @@
                     <div class="center-align">
                       <span class="btn disabled">Trip Info</span>
                       <span class="btn disabled">Package</span>
-                      <span class="btn disabled">Extras</span>
+                      <span class="btn disabled">Activities and Places</span>
                       <span class="btn disabled">Policy</span>
                       <span class="btn disabled">Images</span>
                     </div>
@@ -134,4 +134,7 @@
 
 {% block scripts %}
    <script src="{{ url_for("static", filename="js/page.js") }}"></script>
+   <script>
+        document.getElementById('category-id').firstChild.setAttribute("disabled", "true");
+   </script>
 {% endblock %}

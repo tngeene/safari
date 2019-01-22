@@ -61,6 +61,9 @@ class Config:
 
     UPLOADED_PHOTOS_DEST = os.path.join(basedir, 'app/static/uploads')
 
+    UPLOAD_FOLDER=os.path.join(basedir, 'app/static/uploads')
+    THUMBNAIL_FOLDER=os.path.join(basedir, 'app/static/uploads/thumbnail')
+
     # Parse the REDIS_URL to set RQ config variables
     if PYTHON_VERSION == 3:
         urllib.parse.uses_netloc.append('redis')

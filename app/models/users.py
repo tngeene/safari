@@ -328,6 +328,45 @@ class User(UserMixin, db.Model):
         data = {'max': maximum, 'min': minimum}
         return data
 
+    @staticmethod
+    def get_class_by_tablename(tablename):
+      """Return class reference mapped to table.
+
+      :param tablename: String with name of table.
+      :return: Class reference or None.
+      """
+      for c in db.Model._decl_class_registry.values():
+        if hasattr(c, '__tablename__') and c.__tablename__ == tablename:
+          return c
+
+    @staticmethod
+    def get_tour_ratings(data,page):
+        list=[]
+        for field in ['first','second','third','fourth','fifth']:
+            if field in data:
+                list.append(int(data[field]))
+        publishers = Publisher.query.join(
+                                            User, (User.id == Publisher.user_id)).filter(User.status == True)
+        if list:
+            publishers = Publisher.query.join(
+                                                User, (User.id == Publisher.user_id)).filter(User.status == True).filter(Publisher.rating.in_(list))
+        return publishers.order_by(Publisher.overal_ratings.desc()).paginate(page,current_app.config['POSTS_PER_PAGE'],False)
+
+    @staticmethod
+    def get_operators(data,page):
+        list=[]
+        published_list=[]
+        for field in [(row.country) for row in Publocations.query.group_by(Publocations.country)]:
+            if field in data:
+                list.append(data[field])
+        publishers = Publisher.query.join(
+                                            User, (User.id == Publisher.user_id)).filter(User.status == True)
+        if list:
+            publishers = Publisher.query.join(
+                Publocations, (Publocations.publisher_id == Publisher.id)).join(
+                                User, (User.id == Publisher.user_id)).filter(User.status == True).filter(Publocations.country.in_(list))
+        return publishers.order_by(Publisher.overal_ratings.desc()).paginate(page,current_app.config['POSTS_PER_PAGE'],False)
+
 
 class AnonymousUser(AnonymousUserMixin):
     def can(self, _):

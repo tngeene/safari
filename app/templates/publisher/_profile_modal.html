@@ -1,0 +1,42 @@
+{% extends 'layouts/base.html' %}
+{% block custom_head_tags %}
+   {{ super() }}
+
+{% endblock %}
+{% block content %}
+ <!-- START CONTENT -->
+    <section id="content">
+          <!--start container-->
+          <div class="container">
+            <div class="section">
+              <div class="divider"></div>
+              <ul id="profile-page-about-feed" class="collection z-depth-1">
+                <li class="collection-item avatar">
+                  <img src="{{ user.avatar(80) }}" alt="" class="circle deep-orange accent-2">
+                  <span class="title">Name</span>
+                  <p>{{ user.full_name() }}
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle teal accent-4">contact_mail</i>
+                  <span class="title">Email</span>
+                  <p>{{ user.email }}
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle cyan">location_city</i>
+                  <span class="title">Address</span>
+                  <p>{{ user.address }}
+                  </p>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+          <!--end container-->
+
+        </section>
+          <div id='profile-placehold'>
+          </div>
+<!-- END CONTENT -->
+{% endblock%}

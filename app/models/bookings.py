@@ -11,6 +11,7 @@ class Booking(db.Model):
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
     status = db.Column(db.Boolean(), index=True, default=False)
     state = db.Column(db.String(120), default='pending')
+    reason = db.Column(db.String(300), default='')
     timestamp = db.Column(db.DateTime(), default=datetime.utcnow)
     createdAt = db.Column(db.DateTime(), default=datetime.utcnow)
     updatedAt = db.Column(db.DateTime(), default=datetime.utcnow, onupdate=datetime.utcnow)

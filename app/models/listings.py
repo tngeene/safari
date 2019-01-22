@@ -21,7 +21,7 @@ class Listing(db.Model):
     long_description = db.Column(db.String(2000), default='')
     publisher_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     location = db.Column(db.String(80), index=True)
-    duration = db.Column(db.String(120), index=True)
+    duration = db.Column(db.Integer)
     package = db.Column(db.String(64), index=True)
     rating = db.Column(db.Integer(), default=0)
     overal_ratings = db.Column(db.Integer(), default=0)

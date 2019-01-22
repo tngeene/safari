@@ -52,7 +52,7 @@
                                 <a href="{{url_for('admin.bookings')}}">
                                     <p class="card-stats-title">
                                         <i class="material-icons">book</i> Bookings</p>
-                                    <h4 class="card-stats-number">$806.52</h4>
+                                    <h4 class="card-stats-number">{{bookingsCount}}</h4>
                                 </a>
                             </div>
                             <div class="card-action teal darken-1">
@@ -77,289 +77,96 @@
                 </div>
             </div>
             <!--card stats end-->
-            <!--chart dashboard start-->
-            <div id="chart-dashboard">
-              <div class="row">
-                <div class="col s12 m12 l12">
-                  <div class="card">
-                    <div class="card-move-up waves-effect waves-block waves-light">
-                      <div class="move-up cyan darken-1">
-                        <div>
-                          <span class="chart-title white-text">Listings</span>
-                          <div class="chart-revenue cyan darken-2 white-text">
-                            <p class="chart-revenue-total">$4,500.85</p>
-                            <p class="chart-revenue-per">
-                              <i class="material-icons">arrow_drop_up</i> 21.80 %</p>
-                          </div>
-                          <div class="switch chart-revenue-switch right">
-                            <label class="cyan-text text-lighten-5">
-                              Month
-                              <input type="checkbox">
-                              <span class="lever"></span> Year
-                            </label>
-                          </div>
-                        </div>
-                        <div class="trending-line-chart-wrapper">
-                          <canvas id="trending-line-chart" height="70"></canvas>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-content">
-                      <a class="btn-floating btn-move-up waves-effect waves-light red accent-2 z-depth-4 right">
-                        <i class="material-icons activator">filter_list</i>
-                      </a>
-                      <div class="col s12 m3 l3">
-                        <div id="doughnut-chart-wrapper">
-                          <canvas id="doughnut-chart" height="200"></canvas>
-                          <div class="doughnut-chart-status">4500
-                            <p class="ultra-small center-align">Sold</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col s12 m2 l2">
-                        <ul class="doughnut-chart-legend">
-                          <li class="mobile ultra-small">
-                            <span class="legend-color"></span>Kenya</li>
-                          <li class="kitchen ultra-small">
-                            <span class="legend-color"></span>Uganda</li>
-                          <li class="home ultra-small">
-                            <span class="legend-color"></span>Tanzania</li>
-                        </ul>
-                      </div>
-                      <div class="col s12 m5 l6">
-                        <div class="trending-bar-chart-wrapper">
-                          <canvas id="trending-bar-chart" height="90"></canvas>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-reveal">
-                      <span class="card-title grey-text text-darken-4">Revenue by Month
-                        <i class="material-icons right">close</i>
-                      </span>
-                      <table class="responsive-table">
-                        <thead>
-                          <tr>
-                            <th data-field="id">ID</th>
-                            <th data-field="month">Month</th>
-                            <th data-field="item-sold">Item Sold</th>
-                            <th data-field="item-price">Item Price</th>
-                            <th data-field="total-profit">Total Profit</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>January</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>February</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>March</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                          </tr>
-                          <tr>
-                            <td>4</td>
-                            <td>April</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                          </tr>
-                          <tr>
-                            <td>5</td>
-                            <td>May</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                          </tr>
-                          <tr>
-                            <td>6</td>
-                            <td>June</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                          </tr>
-                          <tr>
-                            <td>7</td>
-                            <td>July</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                          </tr>
-                          <tr>
-                            <td>8</td>
-                            <td>August</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                          </tr>
-                          <tr>
-                            <td>9</td>
-                            <td>Septmber</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                          </tr>
-                          <tr>
-                            <td>10</td>
-                            <td>Octomber</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                          </tr>
-                          <tr>
-                            <td>11</td>
-                            <td>November</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                          </tr>
-                          <tr>
-                            <td>12</td>
-                            <td>December</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                <!-- <div class="col s12 m4 l4">
-                  <div class="card">
-                    <div class="card-move-up teal accent-4 waves-effect waves-block waves-light">
-                      <div class="move-up">
-                        <p class="margin white-text">Browser Stats</p>
-                        <canvas id="trending-radar-chart" height="114"></canvas>
-                      </div>
-                    </div>
-                    <div class="card-content  teal">
-                      <a class="btn-floating btn-move-up waves-effect waves-light red accent-2 z-depth-4 right">
-                        <i class="material-icons activator">done</i>
-                      </a>
-                      <div class="line-chart-wrapper">
-                        <p class="margin white-text">Revenue by country</p>
-                        <canvas id="line-chart" height="114"></canvas>
-                      </div>
-                    </div>
-                    <div class="card-reveal">
-                      <span class="card-title grey-text text-darken-4">Revenue by country
-                        <i class="material-icons right">close</i>
-                      </span>
-                      <table class="responsive-table">
-                        <thead>
-                          <tr>
-                            <th data-field="country-name">Country Name</th>
-                            <th data-field="item-sold">Item Sold</th>
-                            <th data-field="total-profit">Total Profit</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>USA</td>
-                            <td>65</td>
-                            <td>$452.55</td>
-                          </tr>
-                          <tr>
-                            <td>UK</td>
-                            <td>76</td>
-                            <td>$452.55</td>
-                          </tr>
-                          <tr>
-                            <td>Canada</td>
-                            <td>65</td>
-                            <td>$452.55</td>
-                          </tr>
-                          <tr>
-                            <td>Brazil</td>
-                            <td>76</td>
-                            <td>$452.55</td>
-                          </tr>
-                          <tr>
-                            <td>India</td>
-                            <td>65</td>
-                            <td>$452.55</td>
-                          </tr>
-                          <tr>
-                            <td>France</td>
-                            <td>76</td>
-                            <td>$452.55</td>
-                          </tr>
-                          <tr>
-                            <td>Austrelia</td>
-                            <td>65</td>
-                            <td>$452.55</td>
-                          </tr>
-                          <tr>
-                            <td>Russia</td>
-                            <td>76</td>
-                            <td>$452.55</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>-->
-            <!--chart dashboard end-->
-              </div>
-            </div>
             <!--work collections start-->
             <div id="work-collections">
                 <div class="row">
-                    <div class="col s12 m12 l6">
-                        <ul id="projects-collection" class="collection z-depth-1">
-                            <li class="collection-item avatar">
-                                <i class="material-icons cyan circle">card_giftcard</i>
-                                <h6 class="collection-header m-0">Listings</h6>
-                                <p>Latest Listings</p>
-                            </li>
-                            {% for listing in listings%}
-                                <li class="collection-item">
-                                <div class="row">
-                                    <div class="col s6">
-                                        <p class="collections-title">{{listing.title}}</p>
-                                        <p class="collections-content">{{listing.publisher.company_name}}</p>
-                                    </div>
-
-
-                                </div>
-                            </li>
-                            {% endfor%}
-
-                        </ul>
-                    </div>
                     <div class="col s12 m12 l6">
                         <ul id="issues-collection" class="collection z-depth-1">
                             <li class="collection-item avatar">
                                 <i class="material-icons red accent-2 circle">book</i>
                                 <h6 class="collection-header m-0">Bookings</h6>
-                                <p></p>
+                                <p>Recent Bookings</p>
                             </li>
-                            {% for booking in bookings%}
+
                             <li class="collection-item">
-                                <div class="row">
-                                    <div class="col s7">
-                                        <p class="collections-title">
-                                            <strong></strong>{{booking.user.full_name()}}</p>
-                                        <p class="collections-content">{{booking.user.company_name}}</p>
-                                    </div>
-
-
-                                </div>
+                              <table class="responsive-table display datatable" cellspacing="0">
+                                <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th>Customer Name</th>
+                                    <th>Listing</th>
+                                    <th>Departure Date</th>
+                                    <th>Adults</th>
+                                    <th>Children</th>
+                                    <th>Price Due</th>
+                                    <th>status</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {%  for booking in bookings %}
+                                  <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{booking.user.full_name()}}</td>
+                                    <td>{{booking.listing.title}}</td>
+                                    <td>{{moment(booking.orders.departure_date).format("MMM Do YYYY")}}</td>
+                                    <td>{{booking.orders.adults}}</td>
+                                    <td>{{booking.orders.children}}</td>
+                                    <td>{{  "$ {:,.0f}".format(booking.orders.grand_total)}}</td>
+                                    <td>
+                                      {% if booking.state == 'pending' %}
+                                      <span class='orange-text'>Pending</a>
+                                        {% elif booking.state == 'accepted' %}
+                                        <span class='green-text'>Accepted</a>
+                                        {% elif booking.state == 'cancelled' %}
+                                        <span class='red-text'>Cancelled</a>
+                                        {% endif %}
+                                    </td><!-- Dropdown Trigger -->
+                                  </tr>
+                                  {% else %}
+                                  <tr>No Bookings found!!</tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
                             </li>
-                            {%endfor%}
+
+                        </ul>
+
+                    </div>
+                    <div class="col s12 m12 l6">
+                        <ul id="issues-collection2" class="collection z-depth-1">
+                            <li class="collection-item avatar">
+                                <i class="material-icons black accent-2 circle">group</i>
+                                <h6 class="collection-header m-0">Customers</h6>
+                                <p>Recent Customers</p>
+                            </li>
+                                <li class="collection-item">
+                                  <table class="responsive-table display datatable" cellspacing="0">
+                                    <thead>
+                                      <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Address</th>
+                                        <th>Total Bookings</th>
+                                        <th>Status</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {%  for customer in customers %}
+                                      <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{customer.full_name()}}</td>
+                                        <td>{{customer.email}}</td>
+                                        <td>{{customer.address}}</td>
+                                        <td>{{customer.bookings.count()}}</td>
+                                        <td class="{{ 'green-text' if customer.status else 'red-text' }}">{{ 'Active' if customer.status else 'Deactivated' }}</td>
+                                      </tr>
+                                      {% else %}
+                                      <tr>No Publishers found!!</tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </li>
                         </ul>
                     </div>
                 </div>
@@ -368,51 +175,81 @@
             <!--work collections start-->
             <div id="work-collections1">
                 <div class="row">
+                  <div class="col s12 m12 l6">
+                      <ul id="projects-collection" class="collection z-depth-1">
+                          <li class="collection-item avatar">
+                              <i class="material-icons cyan circle">card_giftcard</i>
+                              <h6 class="collection-header m-0">Packages</h6>
+                              <p>Recent Packages</p>
+                          </li>
+                              <li class="collection-item">
+                                <table class="responsive-table display datatable" cellspacing="0">
+                                  <thead>
+                                    <tr>
+                                      <th>#</th>
+                                      <th>Title</th>
+                                      <th>Tour operator</th>
+                                      <th>Location</th>
+                                      <th>Status</th>
+                                      <th>Duration</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {%  for listing in listings %}
+                                    <tr>
+                                      <td>{{ loop.index }}</td>
+                                      <td><a href="{{url_for('home.listings_by_details',id=listing.id)}}">{{listing.title }}</a></td>
+                                      <td><a href="{{url_for('home.tour_operator_details',publisher_id=listing.publisher.id)}}"> {{listing.publisher.publisher.company_name}}</a></td>
+                                      <td>{{listing.location}}</td>
+                                      <td class="{{ 'green-text' if listing.status else 'red-text' }}">{{ 'Approved' if listing.status else 'Not Approved' }}</td>
+                                      <td>{{listing.duration}}</td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>No Packages found!!</tr>
+                                    {% endfor %}
+                                  </tbody>
+                                </table>
+                          </li>
+
+                      </ul>
+                  </div>
                     <div class="col s12 m12 l6">
                         <ul id="projects-collection1" class="collection z-depth-1">
                             <li class="collection-item avatar">
                                 <i class="material-icons cyan circle">card_travel</i>
                                 <h6 class="collection-header m-0">Publishers</h6>
-                                <p></p>
+                                <p>Recent Publishers</p>
                             </li>
-                            {% for publisher in publishers%}
                                 <li class="collection-item">
-                                <div class="row">
-                                    <div class="col s6">
-                                        <p class="collections-title">{{publisher.full_name()}}</p>
-                                        <p class="collections-content">{{publisher.company_name}}</p>
-                                         <p class="collections-content">{{publisher.email}}</p>
-                                    </div>
-
-                                </div>
+                                  <table class="responsive-table display datatable" cellspacing="0">
+                                    <thead>
+                                      <tr>
+                                        <th>#</th>
+                                        <th>Company</th>
+                                        <th>Email</th>
+                                        <th>Total Listings</th>
+                                        <th>Status</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {%  for publisher in publishers %}
+                                      <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{publisher.company_name}}</td>
+                                        <td>{{publisher.emails[0].email}}</td>
+                                        <td>{{publisher.user.listings.count()}}</td>
+                                        <td class="{{ 'green-text' if publisher.user.status else 'red-text' }}">{{ 'Active' if publisher.user.status else 'Deactivated' }}</td>
+                                      </tr>
+                                      {% else %}
+                                      <tr>No Publishers found!!</tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
                             </li>
-                            {% endfor %}
+
                         </ul>
                     </div>
-                    <div class="col s12 m12 l6">
-                        <ul id="issues-collection2" class="collection z-depth-1">
-                            <li class="collection-item avatar">
-                                <i class="material-icons black accent-2 circle">group</i>
-                                <h6 class="collection-header m-0">Customers</h6>
-                                <p></p>
-                            </li>
-                            {% for customer in customers%}
-                                {%if customer.status == 1 %}
-                                <li class="collection-item">
-                                    <div class="row">
-                                        <div class="col s7">
-                                            <p class="collections-title">
-                                                <strong>#{{customer.id}}</strong> {{customer.full_name()}}</p>
-                                            <p class="collections-content">{{customer.email}}</p>
-                                        </div>
 
-
-                                    </div>
-                                </li>
-                                {%endif%}
-                            {% endfor %}
-                        </ul>
-                    </div>
                 </div>
             </div>
             <!--work collections end-->
@@ -420,27 +257,4 @@
         </div>
     </section>
 
-{% block scripts %}
-<script>
-
-var trendingLineChart;
-	var data = {
-		labels: {{titles | safe}},
-		datasets: [{
-				label: "First dataset",
-				fillColor: "rgba(128, 222, 234, 0.6)",
-				strokeColor: "#ffffff",
-				pointColor: "#00bcd4",
-				pointStrokeColor: "#ffffff",
-				pointHighlightFill: "#ffffff",
-				pointHighlightStroke: "#ffffff",
-				data: {{ list }}
-			}
-		]
-	};
-
-</script>
 {% endblock %}
-
-{% endblock %}
-

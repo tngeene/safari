@@ -94,7 +94,7 @@ class EditCountryForm(Form):
     description = TextAreaField('Description', validators=[InputRequired(), Length(1, 64)])
     overview = TextAreaField('Overview', validators=[InputRequired()])
     climate = TextAreaField('Climate')
-    image = FileField(validators=[FileAllowed(photos, u'Image only!')])
+    image_url = FileField(validators=[FileAllowed(photos, u'Image only!')])
     best_time_to_visit = TextAreaField('Best Time To Visit')
     submit = SubmitField('Add')
 
@@ -111,6 +111,7 @@ class EditBirdForm(Form):
     name = StringField('Name', validators=[InputRequired(), Length(1, 64)])
     description = TextAreaField('Description', validators=[InputRequired(), Length(1, 64)])
     image_url = FileField(validators=[FileAllowed(photos, u'Image only!')])
+    park_id = SelectField(validators=[InputRequired()], choices=[], coerce=int)
     submit = SubmitField('Add')
 
 
@@ -127,8 +128,8 @@ class EditWildlifeForm(Form):
     name = StringField('Name', validators=[InputRequired(), Length(1, 64)])
     description = TextAreaField('Description', validators=[InputRequired(), Length(1, 64)])
     frequency = StringField('Frequency', validators=[InputRequired()])
-    image = FileField(validators=[FileAllowed(photos, u'Image only!')])
-    park = SelectField(validators=[InputRequired()], choices=[], coerce=int)
+    image_url = FileField(validators=[FileAllowed(photos, u'Image only!')])
+    park_id = SelectField(validators=[InputRequired()], choices=[], coerce=int)
     submit = SubmitField('Add')
 
 
@@ -136,9 +137,9 @@ class AddParkForm(Form):
     name = StringField('Name', validators=[InputRequired(), Length(1, 64)])
     description = TextAreaField('Description', validators=[InputRequired(), Length(1, 64)])
     climate = TextAreaField('Climate')
-    image = FileField(validators=[FileAllowed(photos, u'Image only!')])
+    image_url = FileField(validators=[FileAllowed(photos, u'Image only!')])
     best_time_to_visit = TextAreaField('Best Time To Visit')
-    country = SelectField(validators=[InputRequired()], choices=[], coerce=int)
+    country_id = SelectField(validators=[InputRequired()], choices=[], coerce=int)
     submit = SubmitField('Add')
 
 
@@ -146,9 +147,9 @@ class EditParkForm(Form):
     name = StringField('Name', validators=[InputRequired(), Length(1, 64)])
     description = TextAreaField('Description', validators=[InputRequired(), Length(1, 64)])
     climate = TextAreaField('Climate')
-    image = FileField(validators=[FileAllowed(photos, u'Image only!')])
+    image_url = FileField(validators=[FileAllowed(photos, u'Image only!')])
     best_time_to_visit = TextAreaField('Best Time To Visit')
-    country = SelectField(validators=[InputRequired()], choices=[], coerce=int)
+    country_id = SelectField(validators=[InputRequired()], choices=[], coerce=int)
     submit = SubmitField('Add')
 
 class CategoryForm(Form):
