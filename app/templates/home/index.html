@@ -243,8 +243,6 @@
                                                 <b>Location: </b>
                                                 {{listing.location}}
                                                 <span class="bull">{{ listing.package}}<br></span>
-                                                <b> You visit: </b>
-                                                {% for place in listing.places %}{{ place.place}}{{', ' if listing.places[loop.index]}}{% endfor %}
                                             </p>
                                             <a href="{{url_for('home.listings_by_details', id=listing.id)}}" class="c-button bg-aqua hv-aqua-o b-40">
                                                 <span>view more</span>

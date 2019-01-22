@@ -19,7 +19,7 @@
 			                <div class="swiper-wrapper">
 								{% for item in listings.images %}
 		                    	<div class="swiper-slide active" data-val="{{ loop.index - 1 }}">
-		                    		 <img class="img-responsive" src="{% if item %}{{ url_for('static', filename='uploads/{}'.format(item.image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" alt="">
+		                    		 <img class="" src="{% if item %}{{ url_for('static', filename='uploads/{}'.format(item.image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" alt="" height="500px">
 		                    	</div>
 								{% endfor %}
 		                    </div>
@@ -34,6 +34,7 @@
 								{% for item in listings.images %}
 		                    	<div class="swiper-slide {% if loop.index == 1 %} current active{% endif %}" data-val="{{ loop.index - 1 }}">
 		                    		 <img class="img-responsive img-full" src="{% if item %}{{ url_for('static', filename='uploads/thumbnail/{}'.format(item.image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" alt="">
+		                    		 <img class="img-full" src="{% if item %}{{ url_for('static', filename='uploads/{}'.format(item.image_url))}}{% else %}{{ url_for('static', filename='images/placeholder.png')}}{% endif %}" alt="" height="100px">
 		                    	</div>
 								{% endfor %}
 							</div>
@@ -67,19 +68,48 @@
 					<div class="col-md-4 ">
 						<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt=""> Duration
 						<p class=""><b>{{ listings.duration }} Days</b></p>
+				<div class="bg-white p-2">
+					<h3 class="detail-title color-dark-2">{{ listings.title}}</h3>
+					<div class="rate-wrap">
+							<div class="rate">
+							<span class="fa fa-star {{'color-yellow' if listings.rating >= 1 else 'color-grey'  }}"></span>
+							<span class="fa fa-star {{'color-yellow' if listings.rating >= 2 else 'color-grey'  }}"></span>
+							<span class="fa fa-star {{'color-yellow' if listings.rating >= 3 else 'color-grey'  }}"></span>
+							<span class="fa fa-star {{'color-yellow' if listings.rating >= 4 else 'color-grey'  }}"></span>
+							<span class="fa fa-star {{'color-yellow' if listings.rating >= 5 else 'color-grey'  }}"></span>
 					</div>
-					<div class="col-md-4 ">
-						<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt=""> Location
-						<p class=""><b>{{ listings.location }}</b></p>
+					<i>{{ listings.overal_ratings }} reviews</i>
+					<div class="row">
+						<div class="col-md-3">
+							<h3 class="text-success">{{ "$ {:,.0f}".format(listings.price.total_price_adults) }}</h3>
+							<p>(per adult)</p>
+						</div>
+						<div class="col-md-3">
+							<h3 class="text-success">{{ "$ {:,.0f}".format(listings.price.total_price_children) }}</h3>
+							<p>(per child)</p>
+						</div>
 					</div>
-					<div class="col-md-4 ">
-						<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt=""> Availability
-						<p class=""><b>{{ moment(listings.availability_from).format('ll') }} to {{ moment(listings.availability_to).format('ll') }}</b></p>
+					<hr>
+					<div class="row">
+						<div class="col-md-4 ">
+							<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt=""> Duration
+							<p class=""><b>{{ listings.duration }}</b></p>
+						</div>
+						<div class="col-md-4 ">
+							<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt=""> Location
+							<p class=""><b>{{ listings.location }}</b></p>
+						</div>
+						<div class="col-md-4 ">
+							<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt=""> Availability
+							<p class=""><b>{{ moment(listings.availability_from).format('ll') }} to {{ moment(listings.availability_to).format('ll') }}</b></p>
+						</div>
 					</div>
 				</div>
+				</div>
+
 				<div class="row">
 					<div class="col-md-12">
-						<div class="simple-tab type-2 tab-wrapper">
+						<div class="simple-tab type-2 tab-wrapper bg-white">
 							<div class="tab-nav-wrapper">
 								<div  class="nav-tab  clearfix">
 									<div class="nav-tab-item active">
@@ -96,7 +126,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="tabs-content tabs-wrap-style clearfix">
+							<div class="tabs-content tabs-wrap-style clearfix bg-white no-border">
 								<div class="tab-info active">
 									<div class="acc-body">
 											<h5>Overview</h5>
@@ -204,17 +234,20 @@
 						</div>
 					</div>
 			  	</div>
-       		</div>
+
+			</div>
+
+
        		<div class="col-xs-12 col-md-4">
        			<div class="right-sidebar">
-       				<div class="detail-block bg-dr-blue">
+       				<div class="detail-block bg-white">
 						<div class="sidebar-block">
 							<h4 class="sidebar-title color-dark-2">booking details</h4>
 							<form action="{{url_for('customer.book', id=listings.id)}}" method="post">
 								{{form.hidden_tag()}}
 								<div class="search-inputs">
 									<div class="form-block clearfix">
-										<label class="color-white-2" for="departure">Departure Date</label>
+										<label class="" for="departure">Departure Date</label>
 										<div class="input-style-1 b-50 color-3">
 											<img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt="">
 											{{form.departure_date(placeholder="Departure Date",class="datepicker",id="departure")}}
@@ -224,8 +257,8 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="form-block clearfix col-md-6">
-											<label class="color-white-2" for="adult">Adults</label>
+										<div class="form-block clearfix col-md-12">
+											<label class="" for="adult">Adults</label>
 											<div class="input-style-1 b-50 color-3">
 												{{form.adults(id="adult",value=1)}}
 												{%for error in form.adults.errors%}
@@ -233,8 +266,8 @@
 											  {%endfor%}
 											</div>
 										</div>
-										<div class="form-block clearfix col-md-6">
-											<label class="color-white-2" for="kids">Children(under 12)</label>
+										<div class="form-block clearfix col-md-12">
+											<label class="" for="kids">Children(under 12)</label>
 											<div class="input-style-1 b-50 color-3">
 												{{form.kids(id="kids",value=1)}}
 												{%for error in form.kids.errors%}
@@ -247,24 +280,24 @@
 											<table class="table">
 											  <tbody>
 											    <tr>
-											      <td class="text-left color-white-3">Adult(<span id="ad">1</span>)</td>
-											      <td class="text-right color-white-3" id="v-adult">{{ "$ {:,.0f}".format(listings.price.total_price_adults) }}</td>
+											      <td class="text-left ">Adult(<span id="ad">1</span>)</td>
+											      <td class="text-right " id="v-adult">{{ "$ {:,.0f}".format(listings.price.total_price_adults) }}</td>
 											    </tr>
 											    <tr>
-											      <td class="text-left color-white-3">Child(<span id="ch">1</span>)</td>
-											      <td class="text-right color-white-3" id="v-child">{{ "$ {:,.0f}".format(listings.price.total_price_children) }}</td>
+											      <td class="text-left ">Child(<span id="ch">1</span>)</td>
+											      <td class="text-right " id="v-child">{{ "$ {:,.0f}".format(listings.price.total_price_children) }}</td>
 											    </tr>
 											    <tr>
-											      <td class="text-left color-white-3">Total</td>
-											      <td class="text-right color-white-3" id="v-total">{{ "$ {:,.0f}".format(listings.price.total_price_children + listings.price.total_price_adults) }}</td>
+											      <td class="text-left ">Total</td>
+											      <td class="text-right " id="v-total">{{ "$ {:,.0f}".format(listings.price.total_price_children + listings.price.total_price_adults) }}</td>
 											    </tr>
 											  </tbody>
 											</table>
 										</div>
 									</div>
 								</div>
-								<div class="details-btn">
-									{{form.book(class="c-button b-40 bg-tr-1 hv-white")}}
+								<div class="details-btn text-center">
+									{{form.book(class="c-button bg-dr-blue-2")}}
 								</div>
 							</form>
 						</div>
