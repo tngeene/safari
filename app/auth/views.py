@@ -111,7 +111,12 @@ def register():
     return render_template('home/register.html', form=form)
 
 
-@account.route('register/publisher', methods=['GET', 'POST'])
+@account.route('/choose-account-type')
+def choose_account_type():
+    return render_template('home/choose_account_type.html')
+
+
+@account.route('/register/publisher', methods=['GET', 'POST'])
 def register_publisher():
     # Register an new publisher and send them a confirmation email
     form = RegistrationForm()
@@ -128,7 +133,7 @@ def register_publisher():
         send_confirm_email(user)
         login_user(user)
         return redirect(url_for('account.unconfirmed'))
-    return render_template('home/register.html', form=form)
+    return render_template('home/register_publisher.html', form=form)
 
 
 @account.route('/logout')

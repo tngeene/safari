@@ -38,16 +38,36 @@
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
                                     <div class="tabs-block">
-                                        <div class="input-style-1 b-50 color-3">
-                                            <input type="text" placeholder="Children">
-                                        </div>
+                                      <select class="input-style-1 b-50 color-3" name="" style="color: #b9b9b9;padding-left: 20px; background-color: #f8f8f8; height: 50px; width:100%;">
+                                        <option value="" style="padding: 10px 0;">Children</option>
+                                        <option value="">1 Child</option>
+                                        <option value="">2 Children</option>
+                                        <option value="">3 Children</option>
+                                        <option value="">4 Children</option>
+                                        <option value="">5 Children</option>
+                                        <option value="">6 Children</option>
+                                        <option value="">7 Children</option>
+                                        <option value="">8 Children</option>
+                                        <option value="">9 Children</option>
+                                        <option value="">10 Children</option>
+                                      </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
                                     <div class="tabs-block">
-                                        <div class="input-style-1 b-50 color-3">
-                                          <input type="text" placeholder="Adults">
-                                        </div>
+                                      <select class="input-style-1 b-50 color-3" name="" style="color: #b9b9b9;padding-left: 20px; background-color: #f8f8f8; height: 50px; width:100%;">
+                                        <option value="" style="padding: 10px 0;">Adults</option>
+                                        <option value="">1 Adult</option>
+                                        <option value="">2 Adults</option>
+                                        <option value="">3 Adults</option>
+                                        <option value="">4 Adults</option>
+                                        <option value="">5 Adults</option>
+                                        <option value="">6 Adults</option>
+                                        <option value="">7 Adults</option>
+                                        <option value="">8 Adults</option>
+                                        <option value="">9 Adults</option>
+                                        <option value="">10 Adults</option>
+                                      </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
@@ -125,7 +145,7 @@
                 <h2>Top safari destinations</h2>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-md-6 col-sm-12">
+                <div class="col-sm-12 col-md-4">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <a href="{{ url_for('home.listings') }}?place=kenya">
@@ -133,7 +153,6 @@
                                 <div class="clip">
                                     <div class="bg bg-bg-chrome act" style="background-image:url({{ url_for('static', filename='home/img/P15.jpg') }})">
                                     </div>
-
                                 </div>
                                 <div class="tour-layer delay-1"></div>
                                 <div class="vertical-bottom">
@@ -145,7 +164,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-6 col-sm-12">
+                <div class="col-sm-12 col-md-4">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                           <a href="{{ url_for('home.listings') }}?place=Tanzania">
@@ -164,7 +183,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-6 col-sm-12">
+                <div class="col-sm-12 col-md-4">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                           <a href="{{ url_for('home.listings') }}?place=Uganda">
@@ -183,7 +202,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-6 col-sm-12">
+                <div class="col-sm-12 col-md-4">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                           <a href="{{ url_for('home.listings') }}?place=Rwanda">
@@ -195,6 +214,101 @@
                                 <div class="tour-layer delay-1"></div>
                                 <div class="vertical-bottom">
                                     <h4><a href="#">Rwanda</a></h4>
+                                    <h5><b class="color-aqua">from $200</b> per person</h5>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                          <a href="{{ url_for('home.listings') }}?place=South-Africa">
+                            <div class="radius-mask popular-img popular-img-300">
+                                <div class="clip">
+                                    <div class="bg bg-bg-chrome act" style="background-image:url({{ url_for('static', filename='home/img/P12.jpg') }})">
+                                    </div>
+                                </div>
+                                <div class="tour-layer delay-1"></div>
+                                <div class="vertical-bottom">
+                                    <h4><a href="#">South Africa</a></h4>
+                                    <h5><b class="color-aqua">from $200</b> per person</h5>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                          <a href="{{ url_for('home.listings') }}?place=Botswana">
+                            <div class="radius-mask popular-img popular-img-300">
+                                <div class="clip">
+                                    <div class="bg bg-bg-chrome act" style="background-image:url({{ url_for('static', filename='home/img/P18.jpg') }})">
+                                    </div>
+                                </div>
+                                <div class="tour-layer delay-1"></div>
+                                <div class="vertical-bottom">
+                                    <h4><a href="#">Botswana</a></h4>
+                                    <h5><b class="color-aqua">from $200</b> per person</h5>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                          <a href="{{ url_for('home.listings') }}?place=Namimbia">
+                            <div class="radius-mask popular-img popular-img-300">
+                                <div class="clip">
+                                    <div class="bg bg-bg-chrome act" style="background-image:url({{ url_for('static', filename='home/img/P27.jpg') }})">
+                                    </div>
+                                </div>
+                                <div class="tour-layer delay-1"></div>
+                                <div class="vertical-bottom">
+                                    <h4><a href="#">Namimbia</a></h4>
+                                    <h5><b class="color-aqua">from $200</b> per person</h5>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                          <a href="{{ url_for('home.listings') }}?place=Zimbabwe">
+                            <div class="radius-mask popular-img popular-img-300">
+                                <div class="clip">
+                                    <div class="bg bg-bg-chrome act" style="background-image:url({{ url_for('static', filename='home/img/P27.jpg') }})">
+                                    </div>
+                                </div>
+                                <div class="tour-layer delay-1"></div>
+                                <div class="vertical-bottom">
+                                    <h4><a href="#">Zimbabwe</a></h4>
+                                    <h5><b class="color-aqua">from $200</b> per person</h5>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                          <a href="{{ url_for('home.listings') }}?place=Zambia">
+                            <div class="radius-mask popular-img popular-img-300">
+                                <div class="clip">
+                                    <div class="bg bg-bg-chrome act" style="background-image:url({{ url_for('static', filename='home/img/P27.jpg') }})">
+                                    </div>
+                                </div>
+                                <div class="tour-layer delay-1"></div>
+                                <div class="vertical-bottom">
+                                    <h4><a href="#">Zambia</a></h4>
                                     <h5><b class="color-aqua">from $200</b> per person</h5>
                                 </div>
                             </div>
