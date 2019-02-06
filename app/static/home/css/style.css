@@ -2035,7 +2035,7 @@ nav li.type-4 .dropmenu .fa-chevron-right { display: none; }
 
 .rate-wrap i { position: relative; float: left; color: #bebebe; font-size: 12px; line-height: 21px; width: auto; font-style: normal; font-weight: 400; }
 
-.hotel-item .title p { color: #bebebe; padding: 8px 0px 27px; font-size: 12px; line-height: 18px; }
+.hotel-item .title p { padding: 8px 0px 27px; font-size: 12px; line-height: 18px; }
 
 .hotel-item .title span.f-14 { font-size: 12px; }
 
