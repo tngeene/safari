@@ -54,7 +54,7 @@
                                     <li class="type-1 {% if request.path == '/' %}active{% endif %}">
                                         <a href="{{ url_for('home.index') }}">home</a>
                                     </li>
-                                    <li class="{% if '/listings' in request.path %}active{% endif %}">
+                                    <li class="{% if '/packages' in request.path %}active{% endif %}">
                                         <a href="{{ url_for('home.listings') }}">safari packages</a>
                                     </li>
                                     <li class="{% if '/tour-operators' in request.path %}active{% endif %}">
