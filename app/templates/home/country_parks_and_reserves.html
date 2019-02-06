@@ -34,7 +34,7 @@
                                             <p>{{ park.description }}</p>
                                         </div>
                                         <div class="title hotel-right clearfix cell-view">
-                                            <a class="c-button b-40 bg-blue hv-blue-o grid-hidden" href="#">view details</a>
+                                            <a class="c-button b-40 bg-blue hv-blue-o grid-hidden" href="{{ url_for('home.park_details', park_id=park.id) }}">view details</a>
                                         </div>
                                     </div>
                                 </div>
