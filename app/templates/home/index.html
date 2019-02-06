@@ -394,7 +394,7 @@
                         <div class="swiper-wrapper">
                             {%for operator in popular_operators%}
                             <a href="{{ url_for('home.tour_operator_details', publisher_id=operator.user.id) }}">
-                                <div class="swiper-slide" data-val={{loop.index}}>
+                              <div class="swiper-slide" data-val={{loop.index}}>
                                     <div class="thumbnail">
                                         <img src="{{ url_for('static', filename='uploads/{}'.format(operator.banner)) if operator.banner else url_for('static', filename='images/placeholder.png')}}" alt="item-img" style="height: 200px !important; width:100%;">
                                         <div class="caption" style="min-height: 150px;">
@@ -419,7 +419,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </a>
+                              </a>
                             {% else %}
                             <div class="alert alert-warning" role="alert">
                                 <span class="text-success">No operators Found!!</span>
@@ -428,8 +428,6 @@
                         </div>
                     <div class="pagination  poin-style-1 pagination-hidden"></div>
                 </div>
-                <div class="swiper-arrow-left offers-arrow"><span class="fa fa-angle-left"></span></div>
-                <div class="swiper-arrow-right offers-arrow"><span class="fa fa-angle-right"></span></div>
                 </div>
             </div>
         </div>
