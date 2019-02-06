@@ -15,8 +15,7 @@
 			<div class="col-xs-12 col-sm-7">
 				<div class="f-login-content">
 					<div class="f-login-header">
-						<div class="f-login-title color-dr-blue-2">Register today</div>
-						<div class="f-login-desc color-grey">Fill in the details below to register as a regular customer or as a tour operator.</div>
+						<div class="f-login-title color-dr-blue-2">Traveller Account</div>
 					</div>
 					{% with messages = get_flashed_messages(with_categories=True) %}
 						{% if messages %}
@@ -27,49 +26,44 @@
 							{% endfor %}
 						{% endif %}
 					{% endwith %}
-					<div class="simple-tab tab-2 color-1 tab-wrapper">
-						<div class="tab-nav-wrapper">
-							<div class="nav-tab  clearfix">
-								<div class="nav-tab-item active">
-									Users
-								</div>
-								<div class="nav-tab-item">
-									Tour Operators
-								</div>
-							</div>
-						</div>
-						<div class="tabs-content clearfix">
+					<div class="tab-wrapper">
+						<div class="clearfix">
 							<div class="tab-info active">
 								<form action="{{url_for('account.register')}}" class="f-login-form" method="POST">
 									{{form.hidden_tag()}}
 									<div class="input-style-1 b-50 type-2 color-5">
-										{{form.first_name(placeholder="First name")}}
+										<label for="" class="pb-1">First Name: </label>
+										{{form.first_name()}}
 
 										{%for error in form.first_name.errors%}
 										<span>{{error}}</span>
 										{%endfor%}
 									</div>
 									<div class="input-style-1 b-50 type-2 color-5">
-										{{form.last_name(placeholder="Last name")}}
+										<label for="" class="pb-1">Last Name: </label>
+										{{form.last_name()}}
 
 										{%for error in form.last_name.errors%}
 											<span>{{error}}</span>
 										{%endfor%}
 									</div>
 									<div class="input-style-1 b-50 type-2 color-5">
-										{{form.email(placeholder="Email")}}
+										<label for="" class="pb-1">Email: </label>
+										{{form.email()}}
 										{%for error in form.email.errors%}
 										<span>{{error}}</span>
 										{%endfor%}
 									</div>
 									<div class="input-style-1 b-50 type-2 color-5">
-										{{form.password(placeholder="Password")}}
+										<label for="" class="pb-1">Password: </label>
+										{{form.password()}}
 										{%for error in form.password.errors%}
 											<span>{{error}}</span>
 										{%endfor%}
 									</div>
 									<div class="input-style-1 b-50 type-2 color-5">
-										{{form.password2(placeholder="Password Again")}}
+										<label for="" class="pb-1">Password Again: </label>
+										{{form.password2()}}
 
 										{%for error in form.password2.errors%}
 											<span>{{error}}</span>
@@ -82,75 +76,7 @@
 									</div>
 
 									{{form.submit(class="login-btn c-button full b-60 bg-dr-blue-2 hv-dr-blue-2-o")}}
-
-									<div class="row">
-										<div class="col-xs-12 col-sm-6">
-											<a href="#" class="c-button full b-60 bg-blue-7 hv-blue-7-o"><i class="fa fa-facebook"></i><span>sign up via facebook</span></a>
-										</div>
-										<div class="col-xs-12 col-sm-6">
-											<a href="#" class="c-button full b-60 bg-blue-8 hv-blue-8-o"><i class="fa fa-twitter"></i><span>sign up via twitter</span></a>
-										</div>
-									</div>
 								</form>
-							</div>
-							<div class="tab-info">
-								<form action="{{url_for('account.register_publisher')}}" class="f-login-form" method="POST">
-									{{form.hidden_tag()}}
-									<div class="input-style-1 b-50 type-2 color-5">
-										{{form.first_name(placeholder="First name")}}
-
-										{%for error in form.first_name.errors%}
-										<span>{{error}}</span>
-										{%endfor%}
-									</div>
-									<div class="input-style-1 b-50 type-2 color-5">
-										{{form.last_name(placeholder="Last name")}}
-
-										{%for error in form.last_name.errors%}
-											<span>{{error}}</span>
-										{%endfor%}
-									</div>
-									<div class="input-style-1 b-50 type-2 color-5">
-										{{form.email(placeholder="Email")}}
-										{%for error in form.email.errors%}
-										<span>{{error}}</span>
-										{%endfor%}
-									</div>
-									<div class="input-style-1 b-50 type-2 color-5">
-										{{form.password(placeholder="Password")}}
-										{%for error in form.password.errors%}
-											<span>{{error}}</span>
-										{%endfor%}
-									</div>
-									<div class="input-style-1 b-50 type-2 color-5">
-										{{form.password2(placeholder="Password Again")}}
-
-										{%for error in form.password2.errors%}
-											<span>{{error}}</span>
-										{%endfor%}
-									</div>
-									<div class="checkbox-group">
-										<div>
-											<p>Already have an account? <a href="{{url_for('account.login')}}" class="color-dr-blue-2">Login.</a></p>
-										</div>
-									</div>
-
-									{{form.submit(class="login-btn c-button full b-60 bg-dr-blue-2 hv-dr-blue-2-o")}}
-
-									<div class="row">
-										<div class="col-xs-12 col-sm-6">
-											<a href="#" class="c-button full b-60 bg-blue-7 hv-blue-7-o"><i class="fa fa-facebook"></i><span>sign up via facebook</span></a>
-										</div>
-										<div class="col-xs-12 col-sm-6">
-											<a href="#" class="c-button full b-60 bg-blue-8 hv-blue-8-o"><i class="fa fa-twitter"></i><span>sign up via twitter</span></a>
-										</div>
-									</div>
-								</form>
-							</div>
-							<div class="row">
-								<div class="col-sm-6 py-1 mx-auto">
-									<a href="{{url_for('home.index')}}" class="c-button full b-60 bg-blue-8 hv-blue-8-o"><span>Back</span></a>
-								</div>
 							</div>
 						</div>
 					</div>

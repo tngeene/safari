@@ -1,0 +1,43 @@
+{% extends 'home/home_base.html' %}
+
+
+{% block header %}{% endblock header %}
+{% block home_content %}
+
+<img class="center-image" src="{{ url_for('static', filename='home/img/tour_grid_15.jpg') }}" alt="">
+
+<div class="container" style="margin-top: 6em;">
+	<div class="login-fullpage">
+		<div class="row">
+			<div class="col-xs-12">
+				<div style="padding: 4em 0 0 0;">
+					<div class="f-login-header">
+						<div class="f-login-title color-dr-blue-2">Sign up today!</div>
+						<div style="text-align: center;">Select the account type.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    <div class="row">
+      <div class="col-md-6 text-center mb-3" style="border-right: 1px solid grey">
+        <ul>
+          <li class="py-2 color-grey">Ideal for holidaymakers looking for safari destinations.</li>
+        </ul>
+        <a href="{{ url_for('account.register') }}" class="c-button b-60 bg-dr-blue-2 hv-dr-blue-2-o ">
+          <span>Sign up as a Traveller</span>
+        </a>
+      </div>
+      <div class="col-md-6 text-center mb-3">
+        <ul>
+          <li class="py-2 color-grey">Ideal for companies and tour operators offering safari packages.</li>
+        </ul>
+        <a href="{{ url_for('account.register_publisher') }}" class="c-button b-60 bg-dr-blue-2 hv-dr-blue-2-o">
+          <span>Sign up as a Tour Operator</span>
+        </a>
+      </div>
+    </div>
+	</div>
+</div>
+{% endblock home_content %}
+
+{% block footer %}{% endblock footer %}

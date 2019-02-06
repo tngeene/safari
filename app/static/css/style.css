@@ -8472,3 +8472,7 @@ tr.group:hover {
 #polar-chart-holder {
   padding-top: 20px;
 }
+
+.radius-0 {
+  border-radius: 0 !important;
+}

@@ -415,7 +415,7 @@ b, strong { font-weight: 700; }
 
 .input-style-1.color-4 input:-ms-input-placeholder { color: #b9b9b9; opacity: 1; }
 
-.input-style-1.color-5 input { border-color: #dfdfdf; background: #fff; color: #b9b9b9; opacity: 1; }
+.input-style-1.color-5 input { border-color: #dfdfdf; background: #fff; color: #000; opacity: 1; }
 
 .input-style-1.color-5 input::-webkit-input-placeholder { color: #b9b9b9; opacity: 1; }
 
@@ -2940,7 +2940,7 @@ nav li.type-4 .dropmenu .fa-chevron-right { display: none; }
 
 .contact-info h4 { font-size: 18px; line-height: 22px; margin-bottom: 22px; }
 
-.contact-info .contact-line { font-family: 'Raleway', sans-serif; font-size: 14px; line-height: 18px; font-weight: 700; margin-bottom: 33px; }
+.contact-info .contact-line { font-family: 'Raleway', sans-serif; font-size: 14px; line-height: 18px; font-weight: 700; margin-bottom: 15px; }
 
 .contact-info .contact-line img { margin-right: 20px; vertical-align: middle; }
 
