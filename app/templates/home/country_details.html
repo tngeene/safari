@@ -2,7 +2,7 @@
 
 
 {% block home_content %}
-    
+
     <!-- listings -->
     <div class="list-wrapper bg-grey-2 py-5">
         <div class="container py-5">
@@ -22,7 +22,7 @@
 
                     <!-- list -->
                     <div id="listings" class="grid-content clearfix">
-                        <!-- list item --> 
+                        <!-- list item -->
                         {% for park in country.parks %}
                             <div class="list-item-entry">
                                 <a href="{{ url_for('home.park_details', park_id=park.id) }}">
@@ -35,15 +35,14 @@
                                                 <h4>
                                                     <b>{{ park.name }}</b>
                                                 </h4>
-                                                <h5>$ 1850 per person</h5>
                                                 <p>{{ park.description }}</p> <br>
                                                 <a href="{{ url_for('home.country_parks_and_reserves', country_id=country.id) }}" class="c-button bg-blue-2 thin-button">view details</a>
                                                 <br> <br>
-                                            </div> 
+                                            </div>
                                         </div>
                                     </div>
                                 </a>
-                            </div>  
+                            </div>
                         {% endfor %}
                     </div>
                     <!-- end list item -->
@@ -65,4 +64,3 @@
         </div>
     </div>
 {% endblock home_content %}
-    
