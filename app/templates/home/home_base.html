@@ -54,6 +54,9 @@
                                     <li class="type-1 {% if request.path == '/' %}active{% endif %}">
                                         <a href="{{ url_for('home.index') }}">home</a>
                                     </li>
+                                    <li class="{% if '/about' in request.path %}active{% endif %}">
+                                        <a href="{{ url_for('home.about') }}">about us</a>
+                                    </li>
                                     <li class="{% if '/packages' in request.path %}active{% endif %}">
                                         <a href="{{ url_for('home.listings') }}">safari packages</a>
                                     </li>
@@ -98,6 +101,9 @@
                             <div class="contact-info">
                                 <div class="contact-line color-grey-3">
                                     <a href="{{ url_for('home.index') }}">Home</a>
+                                </div>
+                                <div class="contact-line color-grey-3">
+                                    <a href="{{ url_for('home.about') }}">About Us</a>
                                 </div>
                                 <div class="contact-line color-grey-3">
                                     <a href="{{ url_for('home.listings') }}">Safari Packages</a>
