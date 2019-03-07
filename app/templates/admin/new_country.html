@@ -27,7 +27,7 @@
                         <form class="col s12" method="post" enctype="multipart/form-data">
                             {{ form.hidden_tag() }}
                             <div class="row">
-                                <div class="input-field col s6">
+                                <div class="input-field col s12">
                                     <i class="material-icons prefix"></i>
                                     {{ form.name() }}
                                     <label>Name</label>
@@ -36,66 +36,15 @@
                                     <div class="error">{{ error }}</div>
                                     {%endfor%}
                                 </div>
-                                <div class="input-field col s6">
+                                <div class="input-field col s12">
                                     <i class="material-icons prefix"></i>
-                                    {{ form.description(class_="materialize-textarea") }}
-                                    <label>Description</label>
+                                    {{ form.description() }}
 
                                     {%for error in form.description.errors%}
                                     <div class="error">{{ error }}</div>
                                     {%endfor%}
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix"></i>
-                                    {{ form.overview(class_="materialize-textarea") }}
-                                    <label>Overview</label>
-
-                                    {%for error in form.overview.errors%}
-                                    <div class="error">{{ error }}</div>
-                                    {%endfor%}
-                                </div>
-                                <div class="input-field col s6">
-
-                                    <i class="material-icons prefix"></i>
-                                    {{ form.climate(class_="materialize-textarea") }}
-                                    <label>Climate</label>
-
-                                    {%for error in form.climate.errors%}
-                                    <div class="error">{{ error }}</div>
-                                    {%endfor%}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix"></i>
-                                    {{ form.best_time_to_visit(class_="materialize-textarea") }}
-                                    <label>Best Time To Visit</label>
-
-                                    {%for error in form.best_time_to_visit.errors%}
-                                    <div class="error">{{ error }}</div>
-                                    {%endfor%}
-                                </div>
-                                <div class="file-field input-field col s6">
-                                    <div class="btn">
-                                        <span>File</span>
-                                        {{ form.image() }}
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text" disabled value="Upload"
-                                                   id="disabled">
-                                        </div>
-                                    </div>
-
-                                    {%for error in form.image.errors%}
-                                    <div class="error">{{ error }}</div>
-                                    {%endfor%}
-                                </div>
-
-                            </div>
-
                             <div class="row">
                                 <div class="center-align">
                                     <button id="submit" class="btn cyan waves-effect waves-light" type="submit">Submit
@@ -115,4 +64,8 @@
     <!--end container-->
 </section>
 <!-- END CONTENT -->
+{% endblock %}
+{% block scripts %}
+    {{ ckeditor.load() }}
+    {{ ckeditor.config(name='description') }}
 {% endblock %}

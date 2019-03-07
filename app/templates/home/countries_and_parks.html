@@ -16,16 +16,14 @@
                                 <div class="list-item-entry">
                                     <div class="col-md-3">
                                         <div class="thumbnail">
-                                            <img src="{{ url_for('static', filename='uploads/{}'.format(country.image_url)) }}" alt="{{ country.name }}">
+                                            <img src="{{ url_for('static', filename='home/flags/4x3/{}.svg'.format(country.get_country_code(country.name).lower())) }}" alt="{{ country.name }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <h3>
                                             <b>{{ country.name }}</b>
                                         </h3>
-                                        <p>{{ country.overview }}</p> <br>
-                                        <h5><b>Best time to visit</b></h5>
-                                        <p class="small">{{ country.best_time_to_visit }}</p>
+                                        {{ country.description |truncate(255, True) |safe }} <br>
                                     </div>
                                     <div class="col-md-3">
                                         <h5 class="mb-1">

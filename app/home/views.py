@@ -13,7 +13,7 @@ from flask_login import (
 from datetime import datetime
 from app.models import *
 from app.home.forms import Search, PaymentForm, BookingForm
-from app.publisher.countries import get_arcode
+from app.publisher.countries import get_arcode,get_country_code
 from sqlalchemy import or_, and_, func
 
 home = Blueprint('home', __name__)
@@ -193,7 +193,8 @@ def tour_operator_contact(publisher_id):
 @home.route('/countries-and-parks')
 def countries_and_parks_list():
     countries = Country.query.all()
-    return render_template('home/countries_and_parks.html', countries=countries)
+    arcodes = get_arcode()
+    return render_template('home/countries_and_parks.html', countries=countries,arcodes=arcodes)
 
 
 @home.route('/countries/<country_id>/overview')

@@ -57,12 +57,7 @@
                                         </div>
                                         <div class="card-image waves-effect waves-block waves-light">
                                             <a href="{{ url_for('admin.view_country',id=country.id) }}">
-                                                <img src="
-                                        {% if country.image_url %}
-                                            {{ url_for('static', filename='uploads/{}'.format(country.image_url))}}
-                                       {% else %}
-                                            {{ url_for('static', filename='images/cards/macbook.png')}}
-                                       {% endif %}" alt="item-img">
+                                                <img src="{{ url_for('static', filename='home/flags/4x3/{}.svg'.format(country.get_country_code(country.name).lower())) }}" alt="{{ country.name }}">
                                             </a>
                                         </div>
                                         <ul class="card-action-buttons" style="display: flex;">
@@ -86,9 +81,9 @@
                                         <div class="card-content">
                                             <div class="row">
                                                 <div class="col s12">
-                                                    <p class="card-title grey-text text-darken-4">
-                                                        climate: {{country.climate}}
-                                                        <br> Best time to visit: {{country.best_time_to_visit}}</p>
+                                                    <p class="card-title font-weight-200 mb-10">
+                                                        <a href="{{ url_for('admin.view_country',id=country.id) }}"> View Parks in {{country.name}}</a>
+                                                      </p>
                                                 </div>
                                             </div>
                                         </div>

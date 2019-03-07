@@ -85,17 +85,17 @@
     <!-- sparkline -->
     <script type="text/javascript" src="{{ url_for('static', filename='vendors/sparkline/jquery.sparkline.min.js') }}"></script>
     <!-- google map api -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek"></script>
+    <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek"></script> -->
     <!--jvectormap-->
     <script type="text/javascript" src="{{ url_for('static', filename='vendors/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='vendors/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='vendors/jvectormap/vectormap-script.js') }}"></script>
     <!--google map-->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts/google-map-script.js') }}"></script>
+    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/scripts/google-map-script.js') }}"></script> -->
     <!--plugins.js - Some Specific JS codes for Plugin Settings-->
     <script type="text/javascript" src="{{ url_for('static', filename='js/plugins.js') }}"></script>
     <!--card-advanced.js - Page specific JS-->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts/dashboard-analytics.js') }}"></script>
+    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/scripts/dashboard-analytics.js') }}"></script> -->
         <!-- data-tables -->
     <script type="text/javascript" src="{{ url_for('static', filename='vendors/data-tables/js/jquery.dataTables.min.js') }}"></script>
     <!--data-tables.js - Page Specific JS codes -->
@@ -103,7 +103,7 @@
     <script type="text/javascript" src="{{ url_for('static', filename='vendors/sweetalert/dist/sweetalert.min.js') }}"></script>
     <!--custom-script.js - Add your own theme custom JS-->
     <script type="text/javascript" src="{{ url_for('static', filename='js/custom-script.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts/cards-extended.js') }}"></script>
+    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/scripts/cards-extended.js') }}"></script> -->
      <!-- masonry -->
     <script src="{{ url_for('static', filename='vendors/masonry.pkgd.min.js') }}"></script>
     <!-- imagesloaded -->
@@ -112,6 +112,7 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/scripts/page-item.js') }}"></script>
     {{ moment.include_moment() }}
     {{ moment.lang(g.locale) }}
+
     <script type="text/javascript">
     $(document).ready(function () {
         $('#select-role').dropdown({
