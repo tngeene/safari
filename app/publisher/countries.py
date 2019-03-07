@@ -70,3 +70,11 @@ def get_arcode():
         "Zimbabwe": "ZW"
     }
     return codes
+
+def get_country_code(country):
+    code = get_arcode()
+    try:
+        county_code = code[country]
+    except AttributeError:
+        county_code = 'KE'
+    return county_code

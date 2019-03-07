@@ -7,10 +7,11 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_rq import RQ
 from flask_sqlalchemy import SQLAlchemy
-from flask_wtf import CsrfProtect
+from flask_wtf.csrf import CSRFProtect
 from flask_moment import Moment
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 from flask_babel import Babel, lazy_gettext as _l
+from flask_ckeditor import CKEditor
 # from oauth2client.contrib.flask_util import UserOAuth2
 
 
@@ -21,10 +22,11 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 mail = Mail()
 db = SQLAlchemy()
-csrf = CsrfProtect()
+csrf = CSRFProtect()
 compress = Compress()
 moment = Moment()
 babel = Babel()
+ckeditor = CKEditor()
 # Set up Flask-Login
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -36,6 +38,7 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     # not using sqlalchemy event system, hence disabling it
+
 
     app.config['OAUTH_CREDENTIALS'] = {
         'google': {
@@ -61,6 +64,7 @@ def create_app(config_name):
     csrf.init_app(app)
     compress.init_app(app)
     moment.init_app(app)
+    ckeditor.init_app(app)
     RQ(app)
 
     babel.init_app(app)
@@ -68,6 +72,9 @@ def create_app(config_name):
     photos = UploadSet('photos', IMAGES)
     configure_uploads(app, photos)
     patch_request_class(app)
+
+    app.config['CKEDITOR_ENABLE_CSRF'] = True
+    app.config['CKEDITOR_FILE_UPLOADER'] = '/admin/upload'
 
     # Register Jinja template functions
     from .utils import register_template_utils

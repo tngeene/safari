@@ -4,6 +4,8 @@ from flask import (
     flash,
     redirect,
     render_template,
+    send_from_directory,
+    current_app
 )
 
 from app.models import *
@@ -17,6 +19,7 @@ from app.auth.email import send_confirm_email
 from app.auth.email import send_password_reset_email
 from app.auth.admin_decorators import check_confirmed
 from sqlalchemy import func
+from flask_ckeditor import upload_success, upload_fail
 
 admin = Blueprint('admin', __name__)
 photos = UploadSet('photos', IMAGES)
@@ -372,16 +375,9 @@ def add_country():
     """Create a new country."""
     form = AddCountryForm()
     if form.validate_on_submit():
-        image = form.image.data
-        if image:
-            image = photos.save(form.image.data)
         newcountry = Country(
             name=form.name.data,
             description=form.description.data,
-            overview=form.overview.data,
-            climate=form.climate.data,
-            image_url=image,
-            best_time_to_visit=form.best_time_to_visit.data
         )
         db.session.add(newcountry)
         db.session.commit()
@@ -396,17 +392,13 @@ def add_country():
 @check_confirmed
 def edit_country(id):
     country = Country.query.filter_by(id=id).first_or_404()
-    form = EditCountryForm(obj=country)
+    form = AddCountryForm(obj=country)
     if form.validate_on_submit():
-        image = form.image_url.data
-        if image:
-            image = photos.save(form.image_url.data)
-            form.image_url.data = image
         form.populate_obj(country)
         db.session.commit()
         flash('Country edited successfully', 'green')
         return redirect(url_for('admin.countries'))
-    return render_template('admin/edit_country.html', form=form, country=country)
+    return render_template('admin/new_country.html', form=form, country=country)
 
 
 @admin.route('/countries/delete/<id>', methods=['POST'])
@@ -601,8 +593,6 @@ def add_park():
         newpark = Park(
             name=form.name.data,
             description=form.description.data,
-            climate=form.climate.data,
-            best_time_to_visit=form.best_time_to_visit.data,
             image_url=image,
             country=country
         )
@@ -619,16 +609,15 @@ def add_park():
 @check_confirmed
 def edit_park(id):
     park = Park.query.filter_by(id=id).first_or_404()
-    form = EditParkForm(obj=park)
+    form = AddParkForm(obj=park)
     form.country_id.choices = [(row.id, row.name) for row in Country.query.all()]
     country_id = park.country.id
     country_name = park.country.name
     if form.validate_on_submit():
         image = form.image_url.data
-        if image:
+        if image is not None and park.image_url != image:
             image = photos.save(form.image_url.data)
             form.image_url.data = image
-
         form.populate_obj(park)
         db.session.commit()
         flash('Park edited successfully', 'green')
@@ -742,3 +731,19 @@ def newCategory():
         flash('Category added successfully', 'green')
         return redirect(url_for('admin.category'))
     return render_template('admin/add_category.html', form=form)
+
+@admin.route('/files/<path:filename>')
+def uploaded_files(filename):
+    path = current_app.config['UPLOADS_CKEDITOR']
+    return send_from_directory(path, filename)
+
+@admin.route('/upload', methods=['POST'])
+def upload():
+    f = request.files.get('upload')
+    # Add more validations here
+    extension = f.filename.split('.')[1].lower()
+    if extension not in ['jpg', 'gif', 'png', 'jpeg']:
+        return upload_fail(message='Image only!')
+    f.save(os.path.join('app/static/ckeditor_uploads', f.filename))
+    url = url_for('admin.uploaded_files', filename=f.filename)
+    return upload_success(url=url)  # return upload_success call

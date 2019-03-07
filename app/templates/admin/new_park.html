@@ -40,40 +40,6 @@
                             <div class="row">
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix"></i>
-                                    {{ form.description(class_="materialize-textarea") }}
-                                    <label>Description</label>
-
-                                    {%for error in form.description.errors%}
-                                    <div class="error">{{ error }}</div>
-                                    {%endfor%}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix"></i>
-                                    {{ form.climate(class_="materialize-textarea") }}
-                                    <label>Climate</label>
-
-                                    {%for error in form.climate.errors%}
-                                    <div class="error">{{ error }}</div>
-                                    {%endfor%}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix"></i>
-                                    {{ form.best_time_to_visit(class_="materialize-textarea") }}
-                                    <label>Best Time</label>
-
-                                    {%for error in form.best_time_to_visit.errors%}
-                                    <div class="error">{{ error }}</div>
-                                    {%endfor%}
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix"></i>
                                     {{ form.country_id() }}
                                     <label>Country</label>
 
@@ -101,6 +67,14 @@
                                     {%endfor%}
                                 </div>
                             </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix"></i>
+                                {{ form.description() }}
+
+                                {%for error in form.description.errors%}
+                                <div class="error">{{ error }}</div>
+                                {%endfor%}
+                            </div>
 
                             <div class="row">
                                 <div class="center-align">
@@ -120,4 +94,8 @@
     <!--end container-->
 </section>
 <!-- END CONTENT -->
+{% endblock %}
+{% block scripts %}
+    {{ ckeditor.load() }}
+    {{ ckeditor.config(name='description') }}
 {% endblock %}

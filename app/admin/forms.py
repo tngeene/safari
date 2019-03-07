@@ -1,5 +1,6 @@
 from flask_wtf import Form
 from wtforms import ValidationError
+from flask_ckeditor import CKEditorField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.fields import (
     PasswordField,
@@ -81,11 +82,7 @@ class NewUserForm(InviteUserForm):
 
 class AddCountryForm(Form):
     name = StringField('Name', validators=[InputRequired(), Length(1, 64)])
-    description = TextAreaField('Description', validators=[InputRequired(), Length(1, 64)])
-    overview = TextAreaField('Overview', validators=[InputRequired()])
-    climate = TextAreaField('Climate')
-    image = FileField(validators=[FileAllowed(photos, u'Image only!')])
-    best_time_to_visit = TextAreaField('Best Time To Visit')
+    description = CKEditorField('Description')
     submit = SubmitField('Add')
 
 
@@ -135,10 +132,8 @@ class EditWildlifeForm(Form):
 
 class AddParkForm(Form):
     name = StringField('Name', validators=[InputRequired(), Length(1, 64)])
-    description = TextAreaField('Description', validators=[InputRequired(), Length(1, 64)])
-    climate = TextAreaField('Climate')
+    description = CKEditorField('Description')
     image_url = FileField(validators=[FileAllowed(photos, u'Image only!')])
-    best_time_to_visit = TextAreaField('Best Time To Visit')
     country_id = SelectField(validators=[InputRequired()], choices=[], coerce=int)
     submit = SubmitField('Add')
 

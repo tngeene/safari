@@ -23,6 +23,7 @@ from app.auth.forms import (
     RegistrationForm,
     RequestResetPasswordForm,
     ResetPasswordForm,
+    PublisherRegistrationForm
 )
 
 import httplib2
@@ -119,12 +120,11 @@ def choose_account_type():
 @account.route('/register/publisher', methods=['GET', 'POST'])
 def register_publisher():
     # Register an new publisher and send them a confirmation email
-    form = RegistrationForm()
+    form = PublisherRegistrationForm()
     if form.validate_on_submit():
         role = Role.query.filter_by(index='publisher').first_or_404()
         user = User(
             first_name=form.first_name.data,
-            last_name = form.last_name.data,
             email = form.email.data,
             password = form.password.data, role=role)
         db.session.add(user)
