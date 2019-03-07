@@ -86,9 +86,9 @@
                                         <div class="card-content">
                                             <div class="row">
                                                 <div class="col s12">
-                                                    <p class="card-title grey-text text-darken-4">
-                                                        climate: {{country.climate}}
-                                                        <br> Best time to visit: {{country.best_time_to_visit}}</p>
+                                                    <p class="card-title font-weight-200 mb-10">
+                                                        <a href="{{ url_for('admin.view_country',id=country.id) }}"> View Parks in {{country.name}}</a>
+                                                      </p>
                                                 </div>
                                             </div>
                                         </div>

@@ -29,7 +29,7 @@ def index():
                             Booking).group_by(Listing).order_by('total DESC').all()]
         popular_packages = Listing.query.filter(Listing.id.in_(popular_list)).filter(Listing.status == True).limit(6)
     popular_operators = Publisher.query.join(
-                                        User, (User.id == Publisher.user_id)).filter(User.status == True).order_by(Publisher.overal_ratings.desc()).limit(12)
+                                        User, (User.id == Publisher.user_id)).filter(User.status == True).order_by(Publisher.overal_ratings.desc()).limit(3)
     """Admin dashboard page."""
     return render_template('home/index.html', form=form,
                            popular_packages=popular_packages, popular_operators=popular_operators)

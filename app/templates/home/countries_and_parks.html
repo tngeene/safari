@@ -29,10 +29,10 @@
                                     </div>
                                     <div class="col-md-3">
                                         <h5 class="mb-1">
-                                            <b>Kenya parks and reserves</b>
+                                            <b>{{ country.name }} parks and reserves</b>
                                         </h5>
                                         {% for park in country.parks.limit(4) %}
-                                            <p><a href="#">{{ park.name }}</a></p>
+                                            <p><a href="{{ url_for('home.park_details', park_id=park.id) }}" class="color-aqua">{{ park.name }}</a></p>
                                         {% endfor %}
                                         <a class="c-button b-40 bg-blue hv-blue-o grid-hidden m-2" href="{{ url_for('home.country_details', country_id=country.id) }}">view more</a>
                                     </div>
@@ -43,19 +43,6 @@
                         {%endfor%}
                     </div>
                     <!-- end list item -->
-
-                    <div class="c_pagination clearfix padd-120">
-                      <a href="#" class="c-button b-40 bg-blue-2 hv-blue-2-o fl">prev page</a>
-                      <a href="#" class="c-button b-40 bg-blue-2 hv-blue-2-o fr">next page</a>
-                      <ul class="cp_content color-1">
-                          <li class="active"><a href="#">1</a></li>
-                          <li><a href="#">2</a></li>
-                          <li><a href="#">3</a></li>
-                          <li><a href="#">4</a></li>
-                          <li><a href="#">...</a></li>
-                          <li><a href="#">10</a></li>
-                      </ul>
-                    </div>
                 </div>
             </div>
         </div>

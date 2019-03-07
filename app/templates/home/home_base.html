@@ -54,7 +54,10 @@
                                     <li class="type-1 {% if request.path == '/' %}active{% endif %}">
                                         <a href="{{ url_for('home.index') }}">home</a>
                                     </li>
-                                    <li class="{% if '/listings' in request.path %}active{% endif %}">
+                                    <li class="{% if '/about' in request.path %}active{% endif %}">
+                                        <a href="{{ url_for('home.about') }}">about us</a>
+                                    </li>
+                                    <li class="{% if '/packages' in request.path %}active{% endif %}">
                                         <a href="{{ url_for('home.listings') }}">safari packages</a>
                                     </li>
                                     <li class="{% if '/tour-operators' in request.path %}active{% endif %}">
@@ -70,6 +73,9 @@
                                     {% else %}
                                     <li>
                                         <a href="{{ url_for('account.login') }}" class="c-button bg-dr-blue-2 thin-button">login</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('account.choose_account_type') }}" class="c-button bg-dr-blue-2 thin-button">sign up</a>
                                     </li>
                                     {% endif %}
                                 </ul>
@@ -97,7 +103,10 @@
                                     <a href="{{ url_for('home.index') }}">Home</a>
                                 </div>
                                 <div class="contact-line color-grey-3">
-                                    <a href="{{ url_for('home.listings') }}">Listings</a>
+                                    <a href="{{ url_for('home.about') }}">About Us</a>
+                                </div>
+                                <div class="contact-line color-grey-3">
+                                    <a href="{{ url_for('home.listings') }}">Safari Packages</a>
                                 </div>
                                 <div class="contact-line color-grey-3">
                                     <a href="{{ url_for('home.tour_operators_list') }}">Tour Operators</a>
@@ -113,10 +122,10 @@
                             <h6>General</h6>
                             <div class="contact-info">
                                 <div class="contact-line color-grey-3">
-                                    <a href="#">Terms and Conditions</a>
+                                    <a href="#">Terms of Use</a>
                                 </div>
                                 <div class="contact-line color-grey-3">
-                                    <a href="#">Privacy Policy</a>
+                                    <a href="{{ url_for('home.privacy') }}">Privacy Policy</a>
                                 </div>
                             </div>
                         </div>
@@ -125,18 +134,39 @@
                         <div class="footer-block">
                             <h6>Safari Destinations</h6>
                             <div class="contact-info">
-                                <div class="contact-line color-grey-3">
-                                    <a href="#">Kenya</a>
+                              <div style="display: flex;">
+                                <div class="col" style="margin: 0 20px">
+                                  <div class="contact-line color-grey-3">
+                                      <a href="#">Kenya</a>
+                                  </div>
+                                  <div class="contact-line color-grey-3">
+                                      <a href="#">Tanzania</a>
+                                  </div>
+                                  <div class="contact-line color-grey-3">
+                                      <a href="#">Uganda</a>
+                                  </div>
+                                  <div class="contact-line color-grey-3">
+                                      <a href="#">Rwanda</a>
+                                  </div>
+                                  <div class="contact-line color-grey-3">
+                                      <a href="#">South-Africa</a>
+                                  </div>
                                 </div>
-                                <div class="contact-line color-grey-3">
-                                    <a href="#">Tanzania</a>
+                                <div class="col" style="margin: 0 20px">
+                                  <div class="contact-line color-grey-3">
+                                      <a href="#">Zambia</a>
+                                  </div>
+                                  <div class="contact-line color-grey-3">
+                                      <a href="#">Namimbia</a>
+                                  </div>
+                                  <div class="contact-line color-grey-3">
+                                      <a href="#">Zimbabwe</a>
+                                  </div>
+                                  <div class="contact-line color-grey-3">
+                                      <a href="#">Botswana</a>
+                                  </div>
                                 </div>
-                                <div class="contact-line color-grey-3">
-                                    <a href="#">Uganda</a>
-                                </div>
-                                <div class="contact-line color-grey-3">
-                                    <a href="#">Rwanda</a>
-                                </div>
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -146,24 +176,31 @@
                             <div class="contact-info">
                                 <div class="contact-line color-grey-3">
                                     <i class="fa fa-map-marker"></i>
-                                    <span>Safari Travels</span>
+                                    <span style="color: white;">
+                                      Suite 3, Chaka Apartments, <br> <br>
+                                      Chaka Road, Kilimani, <br> <br>
+                                      Nairobi, Kenya.
+                                    </span>
                                 </div>
                                 <div class="contact-line color-grey-3">
                                     <i class="fa fa-phone"></i>
-                                    <a href="tel:93123456789">+254 712 345 678</a>
+                                    <a href="tel:+254722495203">+254 722 495 203</a>
                                 </div>
                                 <div class="contact-line color-grey-3">
                                     <i class="fa fa-envelope-o"></i>
-                                    <a href="mailto:">letstravel@mail.com</a>
-                                </div>
-                                <div class="contact-line color-grey-3">
-                                    <i class="fa fa-globe"></i>
-                                    <a href="#">let’s_travel@world.com</a>
+                                    <a href="mailto:hello@out2safari.com">hello@out2safari.com</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                  </div>
+                    <div class="">
+                      <p style="padding-bottom: 30px; text-align: center;">
+                        <a href="#" style="padding-left:10px;"><span class="fa fa-facebook fa-2x"></span></a>
+                        <a href="#" style="padding-left:10px;"><span class="fa fa-twitter fa-2x"></span></a>
+                        <a href="#" style="padding-left:10px;"><span class="fa fa-instagram fa-2x"></span></a>
+                      </p>
+                    </div>
                     <div class="footer-block color-grey-3">
                         <div class="row">
                             <div class="col-md-12" style="text-align: center;">
@@ -190,16 +227,8 @@
             <div class="footer-link bg-black">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="copyright">
-                                <span>&copy; 2018 All rights reserved. LET'STRAVEL</span>
-                            </div>
-                            <ul>
-                                <li><a href="#"><span class="fa fa-facebook"></span></a></li>
-                                <li><a href="#"><span class="fa fa-twitter"></span></a></li>
-                                <li><a href="#"><span class="fa fa-google-plus"></span></a></li>
-                                <li><a href="#"><span class="fa fa-pinterest"></span></a></li>
-                            </ul>
+                        <div class="col-md-12" style="text-align: center;">
+                            <p>&copy; 2019 All rights reserved.</p>
                         </div>
                     </div>
                 </div>

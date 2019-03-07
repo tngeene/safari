@@ -1,172 +1,175 @@
 {% extends 'layouts/base.html' %}
+
 {% block custom_head_tags %}
-<!-- CORE CSS-->
-<link href="{{ url_for('static', filename='css/themes/collapsible-menu/materialize.css' )}}" type="text/css"
+    <link href="{{ url_for('static', filename='css/themes/collapsible-menu/materialize.css' )}}" type="text/css"
       rel="stylesheet">
-<link href="{{ url_for('static', filename='css/themes/collapsible-menu/style.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/themes/collapsible-menu/style.css') }}" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-<!-- START CONTENT -->
-<section id="content">
-    <!--start container-->
-    <div class="container">
-        <!--card stats start-->
-        <div id="card-stats">
-            <div class="row">
-                <div class="col s12 m6 l4">
-                    <div class="card gradient-45deg-light-blue-cyan gradient-shadow min-height-100 white-text">
-                        <div class="padding-4">
-                            <div class="col s7 m7">
-                                <i class="material-icons background-round mt-5">dvr</i>
-                                <p>Listings</p>
-                            </div>
-                            <div class="col s5 m5 right-align">
-                                <h5 class="mb-0">{{ listing_count }}</h5>
+    <section id="content">
+        <div class="container">
+            <div id="card-stats">
+                <div class="row">
+                    <div class="col s12 m6 l4">
+                        <div class="card gradient-45deg-light-blue-cyan gradient-shadow min-height-100 white-text">
+                            <div class="padding-4">
+                                <div class="col s7 m7">
+                                    <i class="material-icons background-round mt-5">dvr</i>
+                                    <p>Listings</p>
+                                </div>
+                                <div class="col s5 m5 right-align">
+                                    <h5 class="mb-0">{{ listing_count }}</h5>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col s12 m6 l4">
-                    <div class="card gradient-45deg-red-pink gradient-shadow min-height-100 white-text">
-                        <div class="padding-4">
-                            <div class="col s7 m7">
-                                <i class="material-icons background-round mt-5">location_on</i>
-                                <p>Destinations</p>
-                            </div>
-                            <div class="col s5 m5 right-align">
-                                <h5 class="mb-0">{{ destination_count }}</h5>
+                    <div class="col s12 m6 l4">
+                        <div class="card gradient-45deg-red-pink gradient-shadow min-height-100 white-text">
+                            <div class="padding-4">
+                                <div class="col s7 m7">
+                                    <i class="material-icons background-round mt-5">location_on</i>
+                                    <p>Destinations</p>
+                                </div>
+                                <div class="col s5 m5 right-align">
+                                    <h5 class="mb-0">{{ destination_count }}</h5>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col s12 m6 l4">
-                    <div class="card gradient-45deg-amber-amber gradient-shadow min-height-100 white-text">
-                        <div class="padding-4">
-                            <div class="col s7 m7">
-                                <i class="material-icons background-round mt-5">people</i>
-                                <p>Bookings</p>
-                            </div>
-                            <div class="col s5 m5 right-align">
-                                <h5 class="mb-0">{{ booking_count }}</h5>
+                    <div class="col s12 m6 l4">
+                        <div class="card gradient-45deg-amber-amber gradient-shadow min-height-100 white-text">
+                            <div class="padding-4">
+                                <div class="col s7 m7">
+                                    <i class="material-icons background-round mt-5">people</i>
+                                    <p>Bookings</p>
+                                </div>
+                                <div class="col s5 m5 right-align">
+                                    <h5 class="mb-0">{{ booking_count }}</h5>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="table-datatables">
 
-          <div class="row">
-            <div class="col s6">
-              <div class="card">
-                <span class="card-title">Recent Bookings</span>
-                <div class="card-content">
-                  <table class="responsive-table display datatable" cellspacing="0">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Customer Name</th>
-                        <th>Listing</th>
-                        <th>Departure Date</th>
-                        <th>Adults</th>
-                        <th>Children</th>
-                        <th>Price Due</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {%  for booking in bookings %}
-                      <tr>
-                        <td>{{ loop.index }}</td>
-                        <td>{{booking.user.full_name()}}</td>
-                        <td>{{booking.listing.title}}</td>
-                        <td>{{moment(booking.orders.departure_date).format("MMM Do YYYY")}}</td>
-                        <td>{{booking.orders.adults}}</td>
-                        <td>{{booking.orders.children}}</td>
-                        <td>{{  "$ {:,.0f}".format(booking.orders.grand_total)}}</td>
-                        <td>
-                          {% if booking.state == 'pending' %}
-                          <a class='dropdown-button btn waves-effect waves-light amber darken-4' href='#' data-activates='dropdown{{ booking.id }}'>Pending</a>
-                            <ul id='dropdown{{ booking.id }}' class='dropdown-content'>
-                              <li><a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='accepted') }}">Accept</a></li>
-                              <li><a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='cancelled') }}">Cancel</a></li>
-                            </ul>
-                            {% elif booking.state == 'accepted' %}
-                            <a class='dropdown-button btn waves-effect waves-light green darken-1' href='#' data-activates='dropdown{{ booking.id }}'>Accepted</a>
-                              <ul id='dropdown{{ booking.id }}' class='dropdown-content'>
-                                <li><a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='cancelled') }}">Cancel</a></li>
-                              </ul>
-                            {% elif booking.state == 'cancelled' %}
-                            <a class='dropdown-button btn waves-effect waves-light red accent-2' href='#'>Cancelled</a>
-                            {% endif %}
-                        </td><!-- Dropdown Trigger -->
-                      </tr>
-                      {% else %}
-                      <tr>No Bookings found!!</tr>
-                      {% endfor %}
-                    </tbody>
-                  </table>
+            <div id="table-datatables">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card">
+                            <h3 class="card-title px-2">Recent Bookings</h3>
+                                <div class="card-content">
+                                    <table class="responsive-table display datatable" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Customer Name</th>
+                                                <th>Listing</th>
+                                                <th>Departure Date</th>
+                                                <th>Adults</th>
+                                                <th>Children</th>
+                                                <th>Price Due</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {%  for booking in bookings %}
+                                                <tr>
+                                                    <td>{{ loop.index }}</td>
+                                                    <td>{{booking.user.full_name()}}</td>
+                                                    <td>{{booking.listing.title}}</td>
+                                                    <td>{{moment(booking.orders.departure_date).format("MMM Do YYYY")}}</td>
+                                                    <td>{{booking.orders.adults}}</td>
+                                                    <td>{{booking.orders.children}}</td>
+                                                    <td>{{  "$ {:,.0f}".format(booking.orders.grand_total)}}</td>
+                                                    <td>
+                                                      {% if booking.state == 'pending' %}
+                                                      <a class='dropdown-button btn waves-effect waves-light amber darken-4' href='#' data-activates='dropdown{{ booking.id }}'>Pending</a>
+                                                        <ul id='dropdown{{ booking.id }}' class='dropdown-content'>
+                                                            <li>
+                                                                <a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='accepted') }}">Accept</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='cancelled') }}">Cancel</a>
+                                                            </li>
+                                                        </ul>
+                                                        {% elif booking.state == 'accepted' %}
+                                                            <a class='dropdown-button btn waves-effect waves-light green darken-1' href='#' data-activates='dropdown{{ booking.id }}'>Accepted</a>
+                                                            <ul id='dropdown{{ booking.id }}' class='dropdown-content'>
+                                                                <li>
+                                                                    <a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='cancelled') }}">Cancel</a>
+                                                                </li>
+                                                            </ul>
+                                                        {% elif booking.state == 'cancelled' %}
+                                                            <a class='dropdown-button btn waves-effect waves-light red accent-2' href='#'>Cancelled</a>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% else %}
+                                                <tr>No Bookings found!!</tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                      <div class="col s12">
+                          <div class="card">
+                              <h4 class="card-title px-2">Recent Cancellation</h4>
+                              <div class="card-content">
+                          <table class="responsive-table display" cellspacing="0">
+                              <thead>
+                                  <tr>
+                                      <th>#</th>
+                                      <th>Customer Name</th>
+                                      <th>Listing</th>
+                                      <th>Departure Date</th>
+                                      <th>Adults</th>
+                                      <th>Children</th>
+                                      <th>Price Due</th>
+                                      <th>Action</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {%  for booking in cancelled %}
+                                      <tr>
+                                          <td>{{ loop.index }}</td>
+                                          <td>{{booking.user.full_name()}}</td>
+                                          <td>{{booking.listing.title}}</td>
+                                          <td>{{moment(booking.orders.departure_date).format("MMM Do YYYY")}}</td>
+                                          <td>{{booking.orders.adults}}</td>
+                                          <td>{{booking.orders.children}}</td>
+                                          <td>{{  "$ {:,.0f}".format(booking.orders.grand_total)}}</td>
+                                          <td>
+                                              {% if booking.state == 'pending' %}
+                                                  <a class='dropdown-button btn waves-effect waves-light amber darken-4' href='#' data-activates='dropdown{{ booking.id }}'>Pending</a>
+                                                  <ul id='dropdown{{ booking.id }}' class='dropdown-content'>
+                                                    <li><a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='accepted') }}">Accept</a></li>
+                                                    <li><a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='cancelled') }}">Cancel</a></li>
+                                                  </ul>
+                                              {% elif booking.state == 'accepted' %}
+                                                  <a class='dropdown-button btn waves-effect waves-light green darken-1' href='#' data-activates='dropdown{{ booking.id }}'>Accepted</a>
+                                                  <ul id='dropdown{{ booking.id }}' class='dropdown-content'>
+                                                      <li>
+                                                          <a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='cancelled') }}">Cancel</a>
+                                                      </li>
+                                                  </ul>
+                                              {% elif booking.state == 'cancelled' %}
+                                                  <a class='dropdown-button btn waves-effect waves-light red accent-2' href='#' data-activates='dropdown{{ booking.id }}'>Cancelled</a>
+                                              {% endif %}
+                                          </td>
+                                      </tr>
+                                {% else %}
+                                    <tr>No Cacelletions found!!</tr>
+                                {% endfor %}
+                              </tbody>
+                          </table>
+                      </div>
+                    </div>
                 </div>
               </div>
             </div>
-
-            <div class="col s6">
-              <div class="card">
-                <span class="card-title">Recent Cancellation</span>
-                <div class="card-content">
-              <table class="responsive-table display" cellspacing="0">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Customer Name</th>
-                    <th>Listing</th>
-                    <th>Departure Date</th>
-                    <th>Adults</th>
-                    <th>Children</th>
-                    <th>Price Due</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {%  for booking in cancelled %}
-                  <tr>
-                    <td>{{ loop.index }}</td>
-                    <td>{{booking.user.full_name()}}</td>
-                    <td>{{booking.listing.title}}</td>
-                    <td>{{moment(booking.orders.departure_date).format("MMM Do YYYY")}}</td>
-                    <td>{{booking.orders.adults}}</td>
-                    <td>{{booking.orders.children}}</td>
-                    <td>{{  "$ {:,.0f}".format(booking.orders.grand_total)}}</td>
-                    <td>
-                      {% if booking.state == 'pending' %}
-                      <a class='dropdown-button btn waves-effect waves-light amber darken-4' href='#' data-activates='dropdown{{ booking.id }}'>Pending</a>
-                        <ul id='dropdown{{ booking.id }}' class='dropdown-content'>
-                          <li><a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='accepted') }}">Accept</a></li>
-                          <li><a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='cancelled') }}">Cancel</a></li>
-                        </ul>
-                        {% elif booking.state == 'accepted' %}
-                        <a class='dropdown-button btn waves-effect waves-light green darken-1' href='#' data-activates='dropdown{{ booking.id }}'>Accepted</a>
-                          <ul id='dropdown{{ booking.id }}' class='dropdown-content'>
-                            <li><a href="{{ url_for('publisher.confirm_booking',id=booking.id,state='cancelled') }}">Cancel</a></li>
-                          </ul>
-                        {% elif booking.state == 'cancelled' %}
-                        <a class='dropdown-button btn waves-effect waves-light red accent-2' href='#' data-activates='dropdown{{ booking.id }}'>Cancelled</a>
-                        {% endif %}
-                    </td><!-- Dropdown Trigger -->
-                  </tr>
-                  {% else %}
-                  <tr>No Cacelletions found!!</tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          </div>
-            </div>
-          </div>
         </div>
-    </div>
-</section>
-<!-- END CONTENT -->
-
+    </section>
 {% endblock%}

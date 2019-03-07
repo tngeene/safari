@@ -15,9 +15,9 @@
 
 {% macro header_items(current_user, dropdown) %}
     {% set endpoints = [
-      ('admin.publishers', 'Publishers', 'verified_user'),
-      ('admin.customers', 'Customers', 'people'),
-      ('admin.listings', 'Listings', 'card_giftcard'),
+      ('admin.publishers', 'Tour Operators', 'verified_user'),
+      ('admin.customers', 'Travellers', 'people'),
+      ('admin.listings', 'Safari Packages', 'card_giftcard'),
       ('admin.bookings', 'Bookings', 'book'),
       ('admin.category', 'Categories', 'dehaze'),
       ('admin.countries', 'Countries', 'flag')
@@ -78,7 +78,7 @@
               <li>
                 <h1 class="logo-wrapper">
                   <a href="index.html" class="brand-logo darken-1">
-                    <img src="{{ url_for('static', filename='images/logo/materialize-logo.png') }}" alt="materialize logo">
+                    <img src="{{ url_for('static', filename='images/logo/materialize-logo.png') }}" alt="logo">
                     <span class="logo-text hide-on-med-and-down">Safari</span>
                   </a>
                 </h1>

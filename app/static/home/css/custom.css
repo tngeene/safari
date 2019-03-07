@@ -13,6 +13,10 @@
     margin-bottom: 1rem;
 }
 
+.pb-1 {
+  padding-bottom: 1rem;
+}
+
 .p-2 {
     padding: 2rem;
 }
@@ -119,4 +123,8 @@
 
 .no-border {
     border: none !important;
+}
+
+.text-center {
+  text-align: center !important;
 }

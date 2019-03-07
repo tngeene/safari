@@ -22,7 +22,7 @@
                             <div class="card-content cyan white-text">
                                 <a href="{{url_for('admin.publishers')}}">
                                     <p class="card-stats-title">
-                                        <i class="material-icons">verified_user</i> Publishers</p>
+                                        <i class="material-icons">verified_user</i> Tour Operators</p>
                                     <h4 class="card-stats-number">{{publishersCount}}</h4>
                                 </a>
                             </div>
@@ -36,7 +36,7 @@
                             <div class="card-content red accent-2 white-text">
                                 <a href="{{url_for('admin.listings')}}">
                                     <p class="card-stats-title">
-                                        <i class="material-icons">card_giftcard</i>Listings</p>
+                                        <i class="material-icons">card_giftcard</i>Safari Packages</p>
                                     <h4 class="card-stats-number">{{listingsCount}}</h4>
 
                                 </a>
@@ -65,7 +65,7 @@
                             <div class="card-content deep-orange accent-2 white-text">
                                 <a href="{{url_for('admin.customers')}}">
                                     <p class="card-stats-title">
-                                        <i class="material-icons">person_outline</i> Customers</p>
+                                        <i class="material-icons">person_outline</i> Travellers</p>
                                     <h4 class="card-stats-number">{{customersCount}}</h4>
                                 </a>
                             </div>
@@ -77,109 +77,15 @@
                 </div>
             </div>
             <!--card stats end-->
-            <!--work collections start-->
-            <div id="work-collections">
-                <div class="row">
-                    <div class="col s12 m12 l6">
-                        <ul id="issues-collection" class="collection z-depth-1">
-                            <li class="collection-item avatar">
-                                <i class="material-icons red accent-2 circle">book</i>
-                                <h6 class="collection-header m-0">Bookings</h6>
-                                <p>Recent Bookings</p>
-                            </li>
 
-                            <li class="collection-item">
-                              <table class="responsive-table display datatable" cellspacing="0">
-                                <thead>
-                                  <tr>
-                                    <th>#</th>
-                                    <th>Customer Name</th>
-                                    <th>Listing</th>
-                                    <th>Departure Date</th>
-                                    <th>Adults</th>
-                                    <th>Children</th>
-                                    <th>Price Due</th>
-                                    <th>status</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  {%  for booking in bookings %}
-                                  <tr>
-                                    <td>{{ loop.index }}</td>
-                                    <td>{{booking.user.full_name()}}</td>
-                                    <td>{{booking.listing.title}}</td>
-                                    <td>{{moment(booking.orders.departure_date).format("MMM Do YYYY")}}</td>
-                                    <td>{{booking.orders.adults}}</td>
-                                    <td>{{booking.orders.children}}</td>
-                                    <td>{{  "$ {:,.0f}".format(booking.orders.grand_total)}}</td>
-                                    <td>
-                                      {% if booking.state == 'pending' %}
-                                      <span class='orange-text'>Pending</a>
-                                        {% elif booking.state == 'accepted' %}
-                                        <span class='green-text'>Accepted</a>
-                                        {% elif booking.state == 'cancelled' %}
-                                        <span class='red-text'>Cancelled</a>
-                                        {% endif %}
-                                    </td><!-- Dropdown Trigger -->
-                                  </tr>
-                                  {% else %}
-                                  <tr>No Bookings found!!</tr>
-                                  {% endfor %}
-                                </tbody>
-                              </table>
-                            </li>
-
-                        </ul>
-
-                    </div>
-                    <div class="col s12 m12 l6">
-                        <ul id="issues-collection2" class="collection z-depth-1">
-                            <li class="collection-item avatar">
-                                <i class="material-icons black accent-2 circle">group</i>
-                                <h6 class="collection-header m-0">Customers</h6>
-                                <p>Recent Customers</p>
-                            </li>
-                                <li class="collection-item">
-                                  <table class="responsive-table display datatable" cellspacing="0">
-                                    <thead>
-                                      <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Address</th>
-                                        <th>Total Bookings</th>
-                                        <th>Status</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      {%  for customer in customers %}
-                                      <tr>
-                                        <td>{{ loop.index }}</td>
-                                        <td>{{customer.full_name()}}</td>
-                                        <td>{{customer.email}}</td>
-                                        <td>{{customer.address}}</td>
-                                        <td>{{customer.bookings.count()}}</td>
-                                        <td class="{{ 'green-text' if customer.status else 'red-text' }}">{{ 'Active' if customer.status else 'Deactivated' }}</td>
-                                      </tr>
-                                      {% else %}
-                                      <tr>No Publishers found!!</tr>
-                                      {% endfor %}
-                                    </tbody>
-                                  </table>
-                                </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!--work collections end-->
             <!--work collections start-->
             <div id="work-collections1">
                 <div class="row">
-                  <div class="col s12 m12 l6">
+                  <div class="col s12 m12">
                       <ul id="projects-collection" class="collection z-depth-1">
                           <li class="collection-item avatar">
                               <i class="material-icons cyan circle">card_giftcard</i>
-                              <h6 class="collection-header m-0">Packages</h6>
+                              <h6 class="collection-header m-0">Safari Packages</h6>
                               <p>Recent Packages</p>
                           </li>
                               <li class="collection-item">
@@ -213,12 +119,12 @@
 
                       </ul>
                   </div>
-                    <div class="col s12 m12 l6">
+                    <div class="col s12 m12">
                         <ul id="projects-collection1" class="collection z-depth-1">
                             <li class="collection-item avatar">
                                 <i class="material-icons cyan circle">card_travel</i>
-                                <h6 class="collection-header m-0">Publishers</h6>
-                                <p>Recent Publishers</p>
+                                <h6 class="collection-header m-0">Tour Operators</h6>
+                                <p>Recent Tour Operators</p>
                             </li>
                                 <li class="collection-item">
                                   <table class="responsive-table display datatable" cellspacing="0">
