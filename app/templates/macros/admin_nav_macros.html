@@ -59,7 +59,7 @@
           </a>
         </li>
 
-        <ul id="Dashboarddropdown" class="dropdown-content dropdown-horizontal-list">
+        <ul id="Dashboarddropdown" class="dropdown-content collapsible-header waves-effect waves-cyan">
           {{ create_dropdown(item[1]) }}
         </ul>
 
@@ -68,34 +68,13 @@
 {% endmacro %}
 
 {% macro render_nav(current_user, dropdown=[]) %}
-    <!-- //////////////////////////////////////////////////////////////////////////// -->
-    <!-- START HEADER -->
-    <header id="header" class="page-topbar">
-      <div class="navbar-fixed">
-        <nav class="navbar-color light-blue">
-          <div class="nav-wrapper">
-            <ul class="left">
-              <li>
-                <h1 class="logo-wrapper">
-                  <a href="index.html" class="brand-logo darken-1">
-                    <img src="{{ url_for('static', filename='images/logo/materialize-logo.png') }}" alt="logo">
-                    <span class="logo-text hide-on-med-and-down">Safari</span>
-                  </a>
-                </h1>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <!-- HORIZONTL NAV START-->
-        <nav id="horizontal-nav" class="white hide-on-med-and-down">
-          <div class="nav-wrapper">
-            <ul id="ul-horizontal-nav" class="left hide-on-med-and-down">
+
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav">
+          <ul id="slide-out" class="side-nav fixed leftside-navigation">
               {{ header_items(current_user) }}
               {{ create_dropdown(dropdown) }}
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </header>
- <!-- END HEADER -->
+          </ul>
+        </aside>
+
 {% endmacro %}
