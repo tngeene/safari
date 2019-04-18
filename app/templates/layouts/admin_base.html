@@ -8,9 +8,12 @@
         {% include 'partials/_head.html' %}
 
         {# Any templates that extend this template can set custom_head_tags to add scripts to their page #}
-        {% block custom_head_tags %}{% endblock %}
+        {% block custom_head_tags %}
+
+    {% endblock %}
+
     </head>
-    <body id="layouts-horizontal">
+    <body>
         <!-- Start Page Loading -->
         <div id="loader-wrapper">
           <div id="loader"></div>
@@ -20,8 +23,35 @@
         <!-- End Page Loading -->
         <!-- //////////////////////////////////////////////////////////////////////////// -->
     <!-- START MAIN -->
-        <div id="main">
-            <div class="wrapper">
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START HEADER -->
+    <header id="header" class="page-topbar">
+      <!-- start header nav-->
+      <div class="navbar-fixed">
+        <nav class="navbar-color">
+          <div class="nav-wrapper">
+            <ul class="left">
+              <li>
+                <h1 class="logo-wrapper">
+                  <a href="index.html" class="brand-logo darken-1">
+                    <img src="{{ url_for('static', filename='images/logo/materialize-logo.png') }}" alt="logo">
+                    <span class="logo-text hide-on-med-and-down">Safari</span>
+                  </a>
+                </h1>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <!-- end header nav-->
+    </header>
+    <div id="main">
+      <!-- START WRAPPER -->
+      <div class="wrapper">
+                {% block nav %}
+                    {{ nav.render_nav(current_user, dropdown) }}
+                {% endblock %}
+
                 {% set dropdown =
                   [
                     ('All Users',
@@ -39,10 +69,6 @@
                 %}
 
 
-
-                {% block nav %}
-                    {{ nav.render_nav(current_user, dropdown) }}
-                {% endblock %}
 
                 {% include 'partials/_flashes.html' %}
                 {# When extended, the content block contains all the html of the webpage #}
