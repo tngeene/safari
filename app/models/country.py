@@ -8,7 +8,7 @@ class Country(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True)
     image_url = db.Column(db.String(64), index=True)
-    overview = db.Column(db.String(10000), index=True)
+    overview = db.Column(db.String(10000))
     description = db.Column(db.String(10000))
     climate = db.Column(db.String(500), index=True)
     best_time_to_visit = db.Column(db.String(500))
