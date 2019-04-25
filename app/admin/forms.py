@@ -82,6 +82,7 @@ class NewUserForm(InviteUserForm):
 
 class AddCountryForm(Form):
     name = StringField('Name', validators=[InputRequired(), Length(1, 64)])
+    image = FileField(validators=[FileAllowed(photos, u'Image only!')])
     description = CKEditorField('Description')
     submit = SubmitField('Add')
 
