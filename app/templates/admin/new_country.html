@@ -45,6 +45,24 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="file-field input-field col s6">
+                                    <div class="btn">
+                                        <span>File</span>
+                                        {{ form.image() }}
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" disabled value="Upload"
+                                                   id="disabled">
+                                        </div>
+                                    </div>
+
+                                    {%for error in form.image.errors%}
+                                    <div class="error">{{ error }}</div>
+                                    {%endfor%}
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="center-align">
                                     <button id="submit" class="btn cyan waves-effect waves-light" type="submit">Submit
                                         <i class="material-icons right">send</i>

@@ -24,9 +24,9 @@ class Country(db.Model):
     def get_country_code(country):
         from app.publisher.countries import get_arcode
         code = get_arcode()
-        for country_name in code:
-            if country_name[0] == country:
-                county_code = country_name[1]
-            else:
-                county_code = 'KE'
+        if country.lower().capitalize() in code:
+            county_code = code[country.lower().capitalize()]
+        else:
+            county_code = 'KE'
+
         return county_code
