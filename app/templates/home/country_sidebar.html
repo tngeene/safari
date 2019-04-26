@@ -7,14 +7,14 @@
                     <a href="{{ url_for('home.country_details', country_id=country.id) }}">Overview</a>
                     </li>
                     <li class="{% if '/parks_and_reserves' in request.path %}active{% endif %}">
-                        <a href="{{ url_for('home.country_parks_and_reserves', country_id=country.id) }}">Parks and Reserves</a>									
+                        <a href="{{ url_for('home.country_parks_and_reserves', country_id=country.id) }}">Parks and Reserves</a>
                     </li>
-                    <li class="{% if '/wildlife' in request.path %}active{% endif %}">
-                        <a href="{{ url_for('home.country_wildlife', country_id=country.id) }}">Wildlife</span></a>									
+                    <!-- <li class="{% if '/wildlife' in request.path %}active{% endif %}">
+                        <a href="{{ url_for('home.country_wildlife', country_id=country.id) }}">Wildlife</span></a>
                     </li>
                     <li class="{% if '/birds' in request.path %}active{% endif %}">
                         <a href="{{ url_for('home.country_birds', country_id=country.id) }}">Birds</span></a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
