@@ -308,3 +308,11 @@ def _get_tour_ratings():
 @home.route('/privacy_policy')
 def privacy():
     return render_template('home/privacy_policy.html')
+
+@home.route('/terms-of-use')
+def terms_of_use():
+    return render_template('home/terms_of_use.html')
+
+@home.route('/tour-operators/terms-and-conditions')
+def tour_operators_terms():
+    return render_template('home/tour_operators_terms.html')
