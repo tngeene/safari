@@ -132,6 +132,7 @@ class ProfileForm(Form):
     emails = FieldList(FormField(EmailForm), min_entries=1)
     locations = FieldList(FormField(LocationForm), min_entries=1)
     paypal = StringField('paypal', validators=[Length(min=2, max=80), Email()])
+    terms_of_use = BooleanField(validators=[DataRequired()])
 
 
 class EditProfileForm(Form):

@@ -170,6 +170,19 @@
                           </div>
                         </div>
                         <div class="row">
+                          <div class="center-align">
+                            <div class="input-field col s12">
+                              {{ form.terms_of_use() }}
+                              <label for="">
+                                Accept <a href="{{ url_for('home.tour_operators_terms')}}" target="_blank">Terms and Conditions</a>
+                              </label>
+                              {%for error in form.paypal.errors%}
+                                  <div class="error">{{ error }}</div>
+                                {%endfor%}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
                           <div class="row">
                             <div class="center-align">
                               <button class="btn cyan waves-effect waves-light" type="submit">Submit

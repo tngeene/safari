@@ -24,6 +24,7 @@
                                             <b>{{ country.name }}</b>
                                         </h3>
                                         {{ country.description |truncate(255, True) |safe }} <br>
+                                        <a class="c-button b-40 bg-blue hv-blue-o grid-hidden m-2" href="{{ url_for('home.country_details', country_id=country.id) }}">Read more</a>
                                     </div>
                                     <div class="col-md-3">
                                         <h5 class="mb-1">
