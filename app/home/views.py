@@ -22,6 +22,7 @@ home = Blueprint('home', __name__)
 @home.route('/', methods=['post', 'get'])
 def index():
     form = Search()
+    countries = Country.query.all()
     popular_packages = Listing.query.filter(Listing.status == True).limit(10)
     if Booking.query.count() > 3:
         popular_list = [row[0] for row in
@@ -32,7 +33,7 @@ def index():
                                         User, (User.id == Publisher.user_id)).filter(User.status == True).order_by(Publisher.overal_ratings.desc()).limit(3)
     """Admin dashboard page."""
     return render_template('home/index.html', form=form,
-                           popular_packages=popular_packages, popular_operators=popular_operators)
+                           popular_packages=popular_packages, popular_operators=popular_operators, countries=countries)
 
 
 @home.route('/about')
