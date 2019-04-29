@@ -33,7 +33,7 @@
                                         {% for park in country.parks.limit(4) %}
                                             <p><a href="{{ url_for('home.park_details', park_id=park.id) }}" class="color-aqua">{{ park.name }}</a></p>
                                         {% endfor %}
-                                        <a class="c-button b-40 bg-blue hv-blue-o grid-hidden m-2" href="{{ url_for('home.country_details', country_id=country.id) }}">view more</a>
+                                        <a class="c-button b-40 bg-blue hv-blue-o grid-hidden m-2" href="{{ url_for('home.country_parks_and_reserves', country_id=country.id) }}">view more</a>
                                     </div>
                                 </div>
                             </div>
