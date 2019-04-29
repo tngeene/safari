@@ -375,9 +375,13 @@ def add_country():
     """Create a new country."""
     form = AddCountryForm()
     if form.validate_on_submit():
+        image = form.image_url.data
+        if image:
+            image = photos.save(form.image_url.data)
         newcountry = Country(
             name=form.name.data,
             description=form.description.data,
+            image_url=image
         )
         db.session.add(newcountry)
         db.session.commit()
@@ -394,6 +398,10 @@ def edit_country(id):
     country = Country.query.filter_by(id=id).first_or_404()
     form = AddCountryForm(obj=country)
     if form.validate_on_submit():
+        image = form.image_url.data
+        if image is not None and country.image_url != image:
+            image = photos.save(form.image_url.data)
+            form.image_url.data = image
         form.populate_obj(country)
         db.session.commit()
         flash('Country edited successfully', 'green')

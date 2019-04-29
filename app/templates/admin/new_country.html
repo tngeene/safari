@@ -35,29 +35,29 @@
                                     <div class="error">{{ error }}</div>
                                     {%endfor%}
                                 </div>
+                                <div class="row">
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn">
+                                            <span>File</span>
+                                            {{ form.image_url() }}
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text" disabled value="Upload"
+                                                       id="disabled">
+                                            </div>
+                                        </div>
+
+                                        {%for error in form.image_url.errors%}
+                                        <div class="error">{{ error }}</div>
+                                        {%endfor%}
+                                    </div>
+                                </div>
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix"></i>
                                     {{ form.description() }}
 
                                     {%for error in form.description.errors%}
-                                    <div class="error">{{ error }}</div>
-                                    {%endfor%}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="file-field input-field col s6">
-                                    <div class="btn">
-                                        <span>File</span>
-                                        {{ form.image() }}
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text" disabled value="Upload"
-                                                   id="disabled">
-                                        </div>
-                                    </div>
-
-                                    {%for error in form.image.errors%}
                                     <div class="error">{{ error }}</div>
                                     {%endfor%}
                                 </div>
