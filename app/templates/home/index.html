@@ -152,7 +152,7 @@
                           <a href="{{ url_for('home.country_details',country_id=country.id) }}">
                             <div class="radius-mask popular-img popular-img-300">
                                 <div class="clip">
-                                    <div class="bg bg-bg-chrome act" style="background-image:url({{ url_for('static', filename='home/img/P15.jpg') }})">
+                                    <div class="bg bg-bg-chrome act" style="background-image:url({{ url_for('static', filename='uploads/{}'.format(country.image_url) ) if country.image_url else url_for('static', filename='images/placeholder.png') }})">
                                     </div>
                                 </div>
                                 <div class="tour-layer delay-1"></div>
