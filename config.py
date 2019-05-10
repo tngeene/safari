@@ -65,6 +65,9 @@ class Config:
     UPLOADS_CKEDITOR=os.path.join(basedir, 'app/static/ckeditor_uploads')
     THUMBNAIL_FOLDER=os.path.join(basedir, 'app/static/uploads/thumbnail')
 
+    RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY') or '6LeYIbsSAAAAACRPIllxA7wvXjIE411PfdB2gt2J'
+    RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY') or '6LeYIbsSAAAAAJezaIq3Ft_hSTo0YtyeFG-JgRtu'
+
     # Parse the REDIS_URL to set RQ config variables
     if PYTHON_VERSION == 3:
         urllib.parse.uses_netloc.append('redis')

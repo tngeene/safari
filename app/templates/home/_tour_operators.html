@@ -21,7 +21,7 @@
                     </div>
                         <p><b>Office in: </b>
                         {%  for location in publisher.getLocations() %}
-                        <span class="flag-icon flag-icon-{{ arcodes[location.country.capitalize()].lower() if location.country else 'gb' }}"></span>
+                        <span class="flag-icon flag-icon-{{ location.get_country_code(location.country).lower() }}"></span>
                         {{ location.country }}
                         {% endfor %}</p>
                         <p><b>Price range: </b>{{ "$ {:,.0f}".format(publisher.user.get_price_range()['min']) }} - {{ "$ {:,.0f}".format(publisher.user.get_price_range()['max']) }}</p>
@@ -34,7 +34,7 @@
             </div>
         </div>
     </a>
-    
+
     {% else %}
     <div class="alert alert-warning" role="alert">
         <span class="text-success">No Publishers Found!!</span>

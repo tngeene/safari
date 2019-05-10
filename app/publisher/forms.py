@@ -132,7 +132,10 @@ class ProfileForm(Form):
     emails = FieldList(FormField(EmailForm), min_entries=1)
     locations = FieldList(FormField(LocationForm), min_entries=1)
     paypal = StringField('paypal', validators=[Length(min=2, max=80), Email()])
-    terms_of_use = BooleanField(validators=[DataRequired()])
+    terms_of_use = BooleanField(validators=[DataRequired()],id="terms_of_use")
+    operator_licence = FileField(validators=[FileAllowed(photos, u'Image Only!'), FileRequired(u'Choose a file!')])
+    reg_certificate = FileField(validators=[FileAllowed(photos, u'Image Only!'), FileRequired(u'Choose a file!')])
+    tax_registration = FileField(validators=[FileAllowed(photos, u'Image Only!'), FileRequired(u'Choose a file!')])
 
 
 class EditProfileForm(Form):
@@ -145,6 +148,10 @@ class EditProfileForm(Form):
     facebook = StringField(validators=[Length(min=0, max=100)])
     twitter = StringField(validators=[Length(min=0, max=100)])
     instagram = StringField(validators=[Length(min=0, max=100)])
+    terms_of_use = BooleanField(validators=[DataRequired()],id="terms_of_use")
+    operator_licence = FileField(validators=[FileAllowed(photos, u'Image Only!'), FileRequired(u'Choose a file!')])
+    reg_certificate = FileField(validators=[FileAllowed(photos, u'Image Only!'), FileRequired(u'Choose a file!')])
+    tax_registration = FileField(validators=[FileAllowed(photos, u'Image Only!'), FileRequired(u'Choose a file!')])
 
 
 class BannerForm(Form):

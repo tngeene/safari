@@ -11,4 +11,3 @@ class Image(db.Model):
     listing_id = db.Column(db.Integer, db.ForeignKey('listings.id'))
     createdAt = db.Column(db.DateTime(), default=datetime.utcnow)
     updatedAt = db.Column(db.DateTime(), default=datetime.utcnow, onupdate=datetime.utcnow)
-

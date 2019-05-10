@@ -14,7 +14,7 @@ from flask_login import (
     logout_user
 )
 
-from app.auth.admin_decorators import publisher_login_required,check_confirmed
+from app.auth.admin_decorators import publisher_login_required,check_profile
 from app.publisher.forms import *
 import os, random, string, PIL, simplejson, traceback
 from PIL import Image
@@ -37,17 +37,11 @@ def before_request():
             return redirect(url_for('account.login'))
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
-        if current_user.role.index == 'publisher' and current_user.confirmed and not current_user.publisher\
-            and request.path != url_for('publisher.edit_profile') and request.endpoint != 'static':
-            flash('You need to finish editig your profile','cyan')
-            return redirect(url_for('publisher.edit_profile'))
-
-
 
 @publisher.route('/')
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def dashboard():
     """Admin dashboard page."""
     listing_count = current_user.listings.count()
@@ -66,7 +60,7 @@ def dashboard():
 @publisher.route('/listings/<country>')
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def listing(country):
     listings = Listing.query.filter_by(publisher=current_user, location=country).order_by(
         Listing.createdAt.desc()).all()
@@ -76,7 +70,7 @@ def listing(country):
 @publisher.route('/listings/new', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def newListing():
     form = ListingForm()
     form.categories.choices = [(row.id, row.name) for row in Category.query.order_by(Category.createdAt.desc()).all()]
@@ -101,7 +95,7 @@ def newListing():
 @publisher.route('/listings/edit/<id>', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def editListing(id):
     listing = Listing.query.filter_by(id=id, publisher=current_user).first_or_404()
     form = ListingForm(obj=listing)
@@ -131,7 +125,7 @@ def editListing(id):
 @publisher.route('/listings/delete/<id>', methods=['POST'])
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def deleteListing(id):
     listing = Listing.query.filter_by(id=id, publisher=current_user).first_or_404()
     db.session.delete(listing)
@@ -143,7 +137,7 @@ def deleteListing(id):
 @publisher.route('/listings/publish/<id>')
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def publishListing(id):
     listing = Listing.query.filter_by(id=id, publisher=current_user).first_or_404()
     if listing.published == True:
@@ -157,7 +151,7 @@ def publishListing(id):
 
 @publisher.route('/category')
 @login_required
-@check_confirmed
+@check_profile
 def category():
     categories = Category.query.order_by(Category.createdAt.desc()).all()
     return render_template('publisher/category.html', items=categories)
@@ -165,7 +159,7 @@ def category():
 
 @publisher.route('/category/new', methods=('GET', 'POST'))
 @login_required
-@check_confirmed
+@check_profile
 def newCategory():
     form = CategoryForm()
     if form.validate_on_submit():
@@ -183,7 +177,7 @@ def newCategory():
 @publisher.route('/destinations')
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def destination():
     destinations = Listing.query.filter_by(publisher=current_user).group_by(Listing.location)
     return render_template('publisher/destination.html', items=destinations)
@@ -192,7 +186,7 @@ def destination():
 @publisher.route('/packages')
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def package():
     pricing = Price.query.filter_by(publisher=current_user).group_by(Price.location)
     arcodes = get_arcode()
@@ -202,7 +196,7 @@ def package():
 @publisher.route('/packages/<country>')
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def pricing(country):
     pricing = Price.query.filter_by(publisher=current_user, location=country).order_by(Price.createdAt.desc()).all()
     return render_template('publisher/pricing.html', items=pricing, country=country)
@@ -211,7 +205,7 @@ def pricing(country):
 @publisher.route('/pricing/new/<id>', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def newPricing(id):
     listing=Listing.query.filter_by(id=id, publisher=current_user).first_or_404()
     form = PriceForm(obj=listing.price)
@@ -235,7 +229,7 @@ def newPricing(id):
 @publisher.route('/pricing/edit/<id>', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def editPricing(id):
     pricing = Price.query.filter_by(id=id).first_or_404()
     form = EditPriceForm(obj=pricing)
@@ -250,7 +244,7 @@ def editPricing(id):
 @publisher.route('/extras/new/<id>', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def newExtras(id):
     listing=Listing.query.filter_by(id=id, publisher=current_user).first_or_404()
     form = ExtrasForm(obj=listing)
@@ -263,7 +257,7 @@ def newExtras(id):
 @publisher.route('/policy/new/<id>', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def newPolicy(id):
     listing=Listing.query.filter_by(id=id, publisher=current_user).first_or_404()
     form = PolicyForm(obj=listing)
@@ -276,7 +270,7 @@ def newPolicy(id):
 @publisher.route('/images/new/<id>', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def newImages(id):
     listing=Listing.query.filter_by(id=id, publisher=current_user).first_or_404()
     form = ImageForm()
@@ -297,7 +291,7 @@ def newImages(id):
 @publisher.route('/bookings')
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def bookings():
     current_user.last_booking_read_time = datetime.utcnow()
     current_user.add_notification('unread_booking_count', 0)
@@ -311,7 +305,7 @@ def bookings():
 @publisher.route('/confirm_booking/<id>/<state>')
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def confirm_booking(id,state):
     booking = Booking.query.filter_by(id=id).first_or_404()
     if booking.listing.publisher != current_user:
@@ -324,7 +318,7 @@ def confirm_booking(id,state):
 @publisher.route('/cancel_booking',methods=['POST'])
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def cancel_booking():
     id = request.args.get('id', 0, type=int)
     if request.method == 'POST':
@@ -342,7 +336,7 @@ def cancel_booking():
 
 @publisher.route('/send_message/<id>', methods=['GET', 'POST'])
 @login_required
-@check_confirmed
+@check_profile
 def send_message(id):
     user = User.query.filter_by(id=id).first_or_404()
     form = MessageForm()
@@ -359,7 +353,7 @@ def send_message(id):
 
 @publisher.route('/messages')
 @login_required
-@check_confirmed
+@check_profile
 def messages():
     current_user.last_message_read_time = datetime.utcnow()
     current_user.add_notification('unread_message_count', 0)
@@ -372,7 +366,7 @@ def messages():
 
 @publisher.route('/notifications')
 @login_required
-@check_confirmed
+@check_profile
 def notifications():
     since = request.args.get('since', 0.0, type=float)
     notifications = current_user.notifications.filter(
@@ -386,14 +380,14 @@ def notifications():
 
 @publisher.route('/notifications_view')
 @login_required
-@check_confirmed
+@check_profile
 def notifications_view():
     bookings = current_user.user_notifications()
     return render_template('publisher/_notification.html', notifications=bookings)
 
 @publisher.route('/settings', methods=['GET', 'POST'])
 @login_required
-@check_confirmed
+@check_profile
 def settings():
     form = EditPasswordForm()
     if form.validate_on_submit():
@@ -407,7 +401,7 @@ def settings():
 @publisher.route('/profile')
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def profile():
     form = BannerForm()
     if form.validate_on_submit():
@@ -427,7 +421,7 @@ def profile():
 @publisher.route('/view_profile/<id>')
 @login_required
 @publisher_login_required
-@check_confirmed
+@check_profile
 def get_profile(id):
     user=User.query.get_or_404(id)
     return render_template('publisher/_profile_modal.html', user=user)
@@ -436,7 +430,6 @@ def get_profile(id):
 @publisher.route('/edit_profile', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
-@check_confirmed
 def edit_profile():
     form = ProfileForm()
     publisher = current_user.publisher
@@ -444,11 +437,18 @@ def edit_profile():
         form = EditProfileForm(obj=publisher)
     if form.validate_on_submit():
         if publisher is not None:
+            form.operator_licence.data=photos.save(form.operator_licence.data)
+            form.reg_certificate.data=photos.save(form.reg_certificate.data)
+            form.tax_registration.data=photos.save(form.tax_registration.data)
             form.populate_obj(publisher)
         else:
+            operator_licence=photos.save(form.operator_licence.data)
+            reg_certificate=photos.save(form.reg_certificate.data)
+            tax_registration=photos.save(form.tax_registration.data)
             profile = Publisher(company_name=form.company_name.data, overview=form.overview.data,
                                 facebook=form.facebook.data, twitter=form.twitter.data, instagram=form.instagram.data,
-                                paypal=form.paypal.data, user=current_user)
+                                paypal=form.paypal.data, user=current_user, operator_licence=operator_licence,
+                                reg_certificate=reg_certificate, tax_registration=tax_registration)
 
             for item in form.phones.data:
                 phones = Pubphones(phone_number=item['phone_number'], profile=profile)
@@ -472,7 +472,6 @@ def edit_profile():
 @publisher.route('/edit_cover', methods=('GET', 'POST'))
 @login_required
 @publisher_login_required
-@check_confirmed
 def edit_cover():
     form = BannerForm()
     if form.validate_on_submit():

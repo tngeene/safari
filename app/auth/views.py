@@ -102,13 +102,17 @@ def register():
             first_name=form.first_name.data,
             last_name=form.last_name.data,
             email=form.email.data,
-            password=form.password.data, role=role)
+            password=form.password.data,
+            confirmed=True,
+            role=role)
 
         db.session.add(user)
         db.session.commit()
-        send_confirm_email(user)
         login_user(user, False)
-        return redirect(url_for('account.unconfirmed'))
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('customer.dashboard')
+        return redirect(next_page)
     return render_template('home/register.html', form=form)
 
 
@@ -126,13 +130,13 @@ def register_publisher():
         user = User(
             first_name=form.first_name.data,
             email = form.email.data,
-            password = form.password.data, role=role)
+            password = form.password.data,
+            confirmed=True,
+            role=role)
         db.session.add(user)
         db.session.commit()
-
-        send_confirm_email(user)
         login_user(user)
-        return redirect(url_for('account.unconfirmed'))
+        return redirect(url_for('publisher.edit_profile'))
     return render_template('home/register_publisher.html', form=form)
 
 
