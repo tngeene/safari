@@ -15,6 +15,9 @@ class Publisher(db.Model):
     twitter   = db.Column(db.String(120))
     instagram   = db.Column(db.String(120))
     rating = db.Column(db.Integer(),default=0)
+    reg_certificate=db.Column(db.String(120))
+    tax_registration=db.Column(db.String(120))
+    operator_licence=db.Column(db.String(120))
     overal_ratings = db.Column(db.Integer(),default=0)
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
     createdAt = db.Column(db.DateTime(), default=datetime.utcnow)
@@ -49,3 +52,14 @@ class Publocations(db.Model):
 
     def get_count(self):
         return Publocations.query.filter_by(publisher_id=self.publisher_id).group_by(Publocations.publisher_id).count()
+
+    @staticmethod
+    def get_country_code(country):
+        from app.publisher.countries import get_arcode
+        code = get_arcode()
+        if country.lower().title() in code:
+            county_code = code[country.lower().title()]
+        else:
+            county_code = 'KE'
+
+        return county_code

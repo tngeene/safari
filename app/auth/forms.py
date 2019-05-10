@@ -7,6 +7,7 @@ from wtforms.fields import (
     StringField,
     SubmitField,
 )
+from flask_wtf.recaptcha import RecaptchaField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import Email, EqualTo, InputRequired, Length
 
@@ -41,6 +42,7 @@ class RegistrationForm(Form):
             EqualTo('password2', 'Passwords must match')
         ])
     password2 = PasswordField('Confirm password', validators=[InputRequired()])
+    recaptcha = RecaptchaField()
     submit = SubmitField('Register')
 
     def validate_email(self, field):
@@ -64,6 +66,7 @@ class PublisherRegistrationForm(Form):
             EqualTo('password2', 'Passwords must match')
         ])
     password2 = PasswordField('Confirm password', validators=[InputRequired()])
+    recaptcha = RecaptchaField()
     submit = SubmitField('Register')
 
     def validate_email(self, field):

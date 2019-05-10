@@ -35,21 +35,21 @@
                     <label for="" class="pb-1">Legal business name: </label>
 										{{form.first_name()}}
 										{%for error in form.first_name.errors%}
-										<span>{{error}}</span>
+											<span class="text-danger">{{error}}</span>
 										{%endfor%}
 									</div>
 									<div class="input-style-1 b-50 type-2 color-5">
                     <label for="" class="pb-1">Email: </label>
 										{{form.email()}}
 										{%for error in form.email.errors%}
-										<span>{{error}}</span>
+											<span class="text-danger">{{error}}</span>
 										{%endfor%}
 									</div>
 									<div class="input-style-1 b-50 type-2 color-5">
                     <label for="" class="pb-1">Password: </label>
 										{{form.password()}}
 										{%for error in form.password.errors%}
-											<span>{{error}}</span>
+											<span class="text-danger">{{error}}</span>
 										{%endfor%}
 									</div>
 									<div class="input-style-1 b-50 type-2 color-5">
@@ -57,7 +57,14 @@
 										{{form.password2()}}
 
 										{%for error in form.password2.errors%}
-											<span>{{error}}</span>
+											<span class="text-danger">{{error}}</span>
+										{%endfor%}
+									</div>
+									<div class="input-style-1 b-50 type-2 color-5">
+										{{ form.recaptcha() }}
+
+										{%for error in form.recaptcha.errors%}
+											<span class="text-danger">{{error}}</span>
 										{%endfor%}
 									</div>
 									<div class="checkbox-group">

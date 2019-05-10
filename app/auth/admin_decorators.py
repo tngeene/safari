@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import g, request, redirect, url_for
+from flask import g, request, redirect, url_for, flash
 from flask_login import current_user,logout_user
 from app.models import *
 
@@ -17,6 +17,16 @@ def check_confirmed(func):
     def decorated_function(*args, **kwargs):
         if current_user.confirmed is False:
             return redirect(url_for('account.unconfirmed'))
+        return func(*args, **kwargs)
+
+    return decorated_function
+
+def check_profile(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if current_user.role.index == 'publisher' and not current_user.publisher:
+            flash('You need to finish editig your profile','cyan')
+            return redirect(url_for('publisher.edit_profile'))
         return func(*args, **kwargs)
 
     return decorated_function

@@ -83,6 +83,57 @@
                               {%endfor%}
                           </div>
                         </div>
+                        <div class="row">
+                            <div class="file-field input-field col s6">
+                                <div class="btn">
+                                    <span>File</span>
+                                    {{ form.tax_registration() }}
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" disabled value="Upload Tax Registration No."
+                                               id="disabled">
+                                    </div>
+                                </div>
+                                {%for error in form.tax_registration.errors%}
+                                <div class="error">{{ error }}</div>
+                                {%endfor%}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="file-field input-field col s6">
+                                <div class="btn">
+                                    <span>File</span>
+                                    {{ form.operator_licence() }}
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" disabled value="Upload Operator License"
+                                               id="disabled">
+                                    </div>
+                                </div>
+                                {%for error in form.operator_licence.errors%}
+                                <div class="error">{{ error }}</div>
+                                {%endfor%}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="file-field input-field col s6">
+                                <div class="btn">
+                                    <span>File</span>
+                                    {{ form.reg_certificate() }}
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" disabled value="Upload Company Registration Certificate"
+                                               id="disabled">
+                                    </div>
+                                </div>
+                                {%for error in form.reg_certificate.errors%}
+                                <div class="error">{{ error }}</div>
+                                {%endfor%}
+                            </div>
+                        </div>
                         <div class="row" data-toggle="fieldset" id="phone-fieldset">
                           {%  for phone in form.phones %}
                           <div class="row" data-toggle="fieldset-entry">
@@ -171,15 +222,13 @@
                         </div>
                         <div class="row">
                           <div class="center-align">
-                            <div class="input-field col s12">
-                              {{ form.terms_of_use() }}
-                              <label for="">
+                              {{ form.terms_of_use()  }}
+                              <label for="terms_of_use">
                                 Accept <a href="{{ url_for('home.tour_operators_terms')}}" target="_blank">Terms and Conditions</a>
                               </label>
-                              {%for error in form.paypal.errors%}
+                              {%for error in form.terms_of_use.errors%}
                                   <div class="error">{{ error }}</div>
-                                {%endfor%}
-                            </div>
+                              {%endfor%}
                           </div>
                         </div>
                         <div class="row">
