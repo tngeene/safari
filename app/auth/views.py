@@ -132,8 +132,7 @@ def register_publisher():
             email = form.email.data,
             password = form.password.data,
             confirmed=True,
-            role=role,
-            status=False)
+            role=role)
         db.session.add(user)
         db.session.commit()
         login_user(user)
