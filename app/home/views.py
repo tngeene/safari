@@ -13,10 +13,16 @@ from flask_login import (
 from datetime import datetime
 from app.models import *
 from app.home.forms import Search, PaymentForm, BookingForm
-from app.publisher.countries import get_arcode,get_country_code
+from app.publisher.countries import get_arcode, get_country_code
 from sqlalchemy import or_, and_, func
 
 home = Blueprint('home', __name__)
+
+
+@home.context_processor
+def countries_for_footer():
+    countries = Country.query.all()
+    return dict(countries=countries)
 
 
 @home.route('/', methods=['post', 'get'])
@@ -28,9 +34,10 @@ def index():
         popular_list = [row[0] for row in
                         db.session.query(Listing.id, func.count(Booking.listing_id).label('total')).join(
                             Booking).group_by(Listing).order_by('total DESC').all()]
-        popular_packages = Listing.query.filter(Listing.id.in_(popular_list)).filter(Listing.status == True).limit(6)
+        popular_packages = Listing.query.filter(Listing.id.in_(
+            popular_list)).filter(Listing.status == True).limit(6)
     popular_operators = Publisher.query.join(
-                                        User, (User.id == Publisher.user_id)).filter(User.status == True).order_by(Publisher.overal_ratings.desc()).limit(3)
+        User, (User.id == Publisher.user_id)).filter(User.status == True).order_by(Publisher.overal_ratings.desc()).limit(3)
     """Admin dashboard page."""
     return render_template('home/index.html', form=form,
                            popular_packages=popular_packages, popular_operators=popular_operators, countries=countries)
@@ -56,10 +63,13 @@ def listings():
             checkdate = datetime.strptime(date, '%m/%d/%Y')
             date = datetime.combine(checkdate, datetime.min.time())
         listings = get_search(name, date, page)
-    next_url = url_for('home.listings', page=listings.next_num) if listings.has_next else None
-    prev_url = url_for('home.listings', page=listings.prev_num) if listings.has_prev else None
+    next_url = url_for(
+        'home.listings', page=listings.next_num) if listings.has_next else None
+    prev_url = url_for(
+        'home.listings', page=listings.prev_num) if listings.has_prev else None
     maxlist = Listing.query.filter(Listing.status == True).all()
-    maxval = int(max(node.price.total_price_adults for node in maxlist)) if maxlist else 0
+    maxval = int(
+        max(node.price.total_price_adults for node in maxlist)) if maxlist else 0
     arcodes = get_arcode()
     return render_template('home/list.html', listings=listings.items, next_url=next_url, prev_url=prev_url,
                            arcodes=arcodes, categories=categories, maxval=maxval)
@@ -75,7 +85,8 @@ def listings_by_package(package):
 def listings_by_details(id):
     listings = Listing.query.filter_by(id=id).first_or_404()
     form = BookingForm()
-    form.total.data = listings.price.total_price_children + listings.price.total_price_adults
+    form.total.data = listings.price.total_price_children + \
+        listings.price.total_price_adults
     if form.validate_on_submit():
         pass
     return render_template('home/details.html', listings=listings, form=form)
@@ -94,16 +105,16 @@ def booking(id):
 
     if form.validate_on_submit():
 
-        year = form.years.data;
-        month = form.month.data;
-        billing_code = form.billing_zip_code.data;
-        card_type = form.select_card.data;
-        email = form.email.data;  # card identification number
-        card_number = form.card_number.data;
-        card_holder_name = form.card_holder_name.data;
+        year = form.years.data
+        month = form.month.data
+        billing_code = form.billing_zip_code.data
+        card_type = form.select_card.data
+        email = form.email.data  # card identification number
+        card_number = form.card_number.data
+        card_holder_name = form.card_holder_name.data
         try:
-            order = Order.query.filter_by(booking=booking).first_or_404();
-            order_amount = order.grand_total;
+            order = Order.query.filter_by(booking=booking).first_or_404()
+            order_amount = order.grand_total
 
             payment = Payment(booking=booking, user_id=current_user.id, years=year, month=month,
                               billing_zip_code=billing_code,
@@ -131,8 +142,10 @@ def tour_operators_list():
     page = request.args.get('page', 1, type=int)
     publishers = Publisher.query.join(
         User, (User.id == Publisher.user_id)).filter(User.status == True).order_by(Publisher.overal_ratings.desc()).paginate(page, current_app.config['POSTS_PER_PAGE'], False)
-    next_url = url_for('home.tour_operators', page=publishers.next_num) if publishers.has_next else None
-    prev_url = url_for('home.tour_operators', page=publishers.prev_num) if publishers.has_prev else None
+    next_url = url_for('home.tour_operators',
+                       page=publishers.next_num) if publishers.has_next else None
+    prev_url = url_for('home.tour_operators',
+                       page=publishers.prev_num) if publishers.has_prev else None
     offices = Publocations.query.group_by(Publocations.country)
     arcodes = get_arcode()
     return render_template('home/tour_operators.html', publishers=publishers.items, arcodes=arcodes, offices=offices,
@@ -167,7 +180,8 @@ def tour_operator_listings(publisher_id):
 @home.route('/tour-operators/<publisher_id>/reviews')
 def tour_operator_reviews(publisher_id):
     publisher = User.query.filter_by(id=publisher_id).first()
-    publisher_listings = Listing.query.filter_by(publisher_id=publisher_id).filter(Listing.status == True)
+    publisher_listings = Listing.query.filter_by(
+        publisher_id=publisher_id).filter(Listing.status == True)
     arcodes = get_arcode()
     return render_template('home/operator_reviews.html', publisher=publisher,
                            publisher_listings=publisher_listings, arcodes=arcodes)
@@ -176,7 +190,8 @@ def tour_operator_reviews(publisher_id):
 @home.route('/tour-operators/<publisher_id>/destinations')
 def tour_operator_destinations(publisher_id):
     publisher = User.query.filter_by(id=publisher_id).first()
-    publisher_listings = Listing.query.filter_by(publisher_id=publisher_id).group_by(Listing.location)
+    publisher_listings = Listing.query.filter_by(
+        publisher_id=publisher_id).group_by(Listing.location)
     arcodes = get_arcode()
     return render_template('home/operator_destinations.html', publisher=publisher,
                            publisher_listings=publisher_listings, arcodes=arcodes)
@@ -195,7 +210,7 @@ def tour_operator_contact(publisher_id):
 def countries_and_parks_list():
     countries = Country.query.all()
     arcodes = get_arcode()
-    return render_template('home/countries_and_parks.html', countries=countries,arcodes=arcodes)
+    return render_template('home/countries_and_parks.html', countries=countries, arcodes=arcodes)
 
 
 @home.route('/countries/<country_id>/overview')
@@ -238,8 +253,10 @@ def _get_category():
     data = request.args
     page = request.args.get('page', 1, type=int)
     listings = get_categories(data, page)
-    next_url = url_for('home.listings', page=listings.next_num) if listings.has_next else None
-    prev_url = url_for('home.listings', page=listings.prev_num) if listings.has_prev else None
+    next_url = url_for(
+        'home.listings', page=listings.next_num) if listings.has_next else None
+    prev_url = url_for(
+        'home.listings', page=listings.prev_num) if listings.has_prev else None
     arcodes = get_arcode()
     return render_template('home/_listings.html', listings=listings.items, arcodes=arcodes, next_url=next_url,
                            prev_url=prev_url)
@@ -250,8 +267,10 @@ def _get_search():
     data = request.args
     page = request.args.get('page', 1, type=int)
     listings = get_categories(data, page)
-    next_url = url_for('home.listings', page=listings.next_num) if listings.has_next else None
-    prev_url = url_for('home.listings', page=listings.prev_num) if listings.has_prev else None
+    next_url = url_for(
+        'home.listings', page=listings.next_num) if listings.has_next else None
+    prev_url = url_for(
+        'home.listings', page=listings.prev_num) if listings.has_prev else None
     arcodes = get_arcode()
     return render_template('home/_listings.html', listings=listings.items, arcodes=arcodes, next_url=next_url,
                            prev_url=prev_url)
@@ -263,8 +282,10 @@ def _get_range():
     min_val = request.args.get('minval', 1, type=int)
     page = request.args.get('page', 1, type=int)
     listings = get_range(max_val, min_val, page)
-    next_url = url_for('home.listings', page=listings.next_num) if listings.has_next else None
-    prev_url = url_for('home.listings', page=listings.prev_num) if listings.has_prev else None
+    next_url = url_for(
+        'home.listings', page=listings.next_num) if listings.has_next else None
+    prev_url = url_for(
+        'home.listings', page=listings.prev_num) if listings.has_prev else None
     arcodes = get_arcode()
     return render_template('home/_listings.html', listings=listings.items, arcodes=arcodes, next_url=next_url,
                            prev_url=prev_url)
@@ -275,8 +296,10 @@ def _get_ratings():
     data = request.args
     page = request.args.get('page', 1, type=int)
     listings = get_ratings(data, page)
-    next_url = url_for('home.listings', page=listings.next_num) if listings.has_next else None
-    prev_url = url_for('home.listings', page=listings.prev_num) if listings.has_prev else None
+    next_url = url_for(
+        'home.listings', page=listings.next_num) if listings.has_next else None
+    prev_url = url_for(
+        'home.listings', page=listings.prev_num) if listings.has_prev else None
     arcodes = get_arcode()
     return render_template('home/_listings.html', listings=listings.items, arcodes=arcodes, next_url=next_url,
                            prev_url=prev_url)
@@ -287,8 +310,10 @@ def _get_office():
     data = request.args
     page = request.args.get('page', 1, type=int)
     publishers = User.get_operators(data, page)
-    next_url = url_for('home.tour_operators', page=publishers.next_num) if publishers.has_next else None
-    prev_url = url_for('home.tour_operators', page=publishers.prev_num) if publishers.has_prev else None
+    next_url = url_for('home.tour_operators',
+                       page=publishers.next_num) if publishers.has_next else None
+    prev_url = url_for('home.tour_operators',
+                       page=publishers.prev_num) if publishers.has_prev else None
     arcodes = get_arcode()
     return render_template('home/_tour_operators.html', publishers=publishers.items, arcodes=arcodes, next_url=next_url,
                            prev_url=prev_url)
@@ -299,8 +324,10 @@ def _get_tour_ratings():
     data = request.args
     page = request.args.get('page', 1, type=int)
     publishers = User.get_tour_ratings(data, page)
-    next_url = url_for('home.tour_operators', page=publishers.next_num) if publishers.has_next else None
-    prev_url = url_for('home.tour_operators', page=publishers.prev_num) if publishers.has_prev else None
+    next_url = url_for('home.tour_operators',
+                       page=publishers.next_num) if publishers.has_next else None
+    prev_url = url_for('home.tour_operators',
+                       page=publishers.prev_num) if publishers.has_prev else None
     arcodes = get_arcode()
     return render_template('home/_tour_operators.html', publishers=publishers.items, arcodes=arcodes, next_url=next_url,
                            prev_url=prev_url)
@@ -310,9 +337,11 @@ def _get_tour_ratings():
 def privacy():
     return render_template('home/privacy_policy.html')
 
+
 @home.route('/terms-of-use')
 def terms_of_use():
     return render_template('home/terms_of_use.html')
+
 
 @home.route('/tour-operators/terms-and-conditions')
 def tour_operators_terms():

@@ -1,151 +1,148 @@
 {% extends 'layouts/base.html' %}
 
 {% block custom_head_tags %}
-    <link href="{{ url_for('static', filename='css/custom/profile.css') }}" type="text/css"rel="stylesheet">
-    {{ super() }}
+<link href="{{ url_for('static', filename='css/custom/profile.css') }}" type="text/css" rel="stylesheet">
+{{ super() }}
 {% endblock %}
 
 {% block content %}
-    <section id="content">
-        <div id="breadcrumbs-wrapper">
-            <div class="container">
-                <div class="row">
-                    <div class="col s10 m6 l6">
-                        <h5 class="breadcrumbs-title">My Account</h5>
-                        <ol class="breadcrumbs">
-                            <li>
-                              <a href="{{url_for('publisher.dashboard')}}">Dashboard</a>
-                            </li>
-                            <li class="active">Profile</li>
-                          </ol>
-                    </div>
-                    <div class="col s2 m6 l6">
-                        <a href="{{url_for('publisher.edit_profile')}}"
-                            class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn right gradient-45deg-light-blue-cyan gradient-shadow">
-                            <i class="material-icons left">mode_edit</i>
-                            Edit Profile
-                        </a>
-                    </div>
-                </div>
-            </div>
+<section id="content">
+  <div id="breadcrumbs-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col s10 m6 l6">
+          <h5 class="breadcrumbs-title">My Account</h5>
+          <ol class="breadcrumbs">
+            <li>
+              <a href="{{url_for('publisher.dashboard')}}">Dashboard</a>
+            </li>
+            <li class="active">Profile</li>
+          </ol>
         </div>
+        <div class="col s2 m6 l6">
+          <a href="{{url_for('publisher.edit_profile')}}" class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn right gradient-45deg-light-blue-cyan gradient-shadow">
+            <i class="material-icons left">mode_edit</i>
+            Edit Profile
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <div class="container">
-            <div id="profile-page" class="section">
-                <div class="row">
-                    <!-- banner -->
-                    <div class="col s12 m12">
-                        <div id="profile-page-header" class="card">
-                            <div class="card-image waves-effect waves-block waves-light">
-                                <img class="activator" src="{{ url_for('static', filename='uploads/{}'.format(current_user.publisher.banner))
+  <div class="container">
+    <div id="profile-page" class="section">
+      <div class="row">
+        <!-- banner -->
+        <div class="col s12 m12">
+          <div id="profile-page-header" class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+              <a href="{{url_for('publisher.edit_cover')}}">
+                <img class="activator" src="{{ url_for('static', filename='uploads/{}'.format(current_user.publisher.banner))
                                     if current_user.publisher.banner else url_for('static', filename='images/placeholder.png') }}" alt="user background">
-                                <a href="{{url_for('publisher.edit_cover')}}" class="btn-floating right top">
-                                    <i class="material-icons">mode_edit</i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row d-flex py-2">
-                    <!-- logo -->
-                    <div class="col s12 m3">
-                        <figure class="card-profile-image">
-                            <img src="{{ url_for('static', filename='uploads/{}'.format(current_user.publisher.logo))
-                                if current_user.publisher.logo else url_for('static', filename='images/placeholder.png') }}"
-                                alt="profile image" class="z-depth-2 responsive-img activator gradient-45deg-light-blue-cyan gradient-shadow" />
-                        </figure>
-                    </div>
-
-                    <!-- name and description -->
-                    <div class="col s12 m9 card">
-                        <div class="">
-                            <div class="p-2">
-                                <h4 class="mt-0 text-center">
-                                    {{ current_user.publisher.company_name if current_user.publisher.company_name else current_user.full_name() }}
-                                </h4>
-                                <div class="text-muted">
-                                    <h5 class="">About Us</h5>
-                                    <p>{{current_user.publisher.overview}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div id="profile-page-content" class="row">
-                    <!-- Contacts -->
-                    <div id="profile-page-sidebar" class="col s12 m4">
-                        <div class="card cyan">
-                            <div class="card-content white-text">
-                                <span class="card-title">Contacts</span>
-                            </div>
-                        </div>
-                        <ul id="profile-page-about-details" class="collection z-depth-1">
-                            {% for phone in current_user.publisher.phones %}
-                                <li class="collection-item">
-                                    <div class="row">
-                                        <div class="col s5">
-                                            <i class="material-icons left">phone</i>
-                                        </div>
-                                        <div class="col s7 right-align">{{ phone.phone_number }}</div>
-                                    </div>
-                                </li>
-                            {% endfor %}
-                            {% for email in current_user.publisher.emails %}
-                                <li class="collection-item">
-                                    <div class="row">
-                                        <div class="col s5">
-                                            <i class="material-icons left">email</i>
-                                        </div>
-                                        <div class="col s7 right-align">{{ email.email}}</div>
-                                    </div>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-
-                    <!-- Locations -->
-                    <div id="profile-page-sidebar" class="col s12 m4">
-                        <div class="card cyan">
-                            <div class="card-content white-text">
-                                <span class="card-title">Locations</span>
-                            </div>
-                        </div>
-                        <ul id="profile-page-about-details" class="collection z-depth-1">
-                            {% for location in current_user.publisher.locations %}
-                                <li class="collection-item">
-                                    <div class="row">
-                                        <div class="col s5">
-                                            <i class="material-icons left">location_on</i>
-                                        </div>
-                                        <div class="col s7 right-align">{{ location.city}}, {{ location.country }}</div>
-                                    </div>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-
-                    <!-- Payment -->
-                    <div id="profile-page-sidebar" class="col s12 m4">
-                        <div class="card cyan">
-                            <div class="card-content white-text">
-                                <span class="card-title">Payment</span>
-                            </div>
-                        </div>
-                        <ul id="profile-page-about-details" class="collection z-depth-1">
-                            <li class="collection-item">
-                                <div class="row">
-                                    <div class="col s5">
-                                        <i class="material-icons left">payment</i></div>
-                                    <div class="col s7 right-align">{{ current_user.publisher.paypal }}</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+              </a>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+
+      <div class="row d-flex py-2">
+        <!-- logo -->
+        <div class="col s12 m3">
+          <figure class="card-profile-image">
+            <img src="{{ url_for('static', filename='uploads/{}'.format(current_user.publisher.logo))
+                                if current_user.publisher.logo else url_for('static', filename='images/placeholder.png') }}" alt="profile image" class="z-depth-2 responsive-img activator gradient-45deg-light-blue-cyan gradient-shadow" />
+          </figure>
+        </div>
+
+        <!-- name and description -->
+        <div class="col s12 m9 card">
+          <div class="">
+            <div class="p-2">
+              <h4 class="mt-0 text-center">
+                {{ current_user.publisher.company_name if current_user.publisher.company_name else current_user.full_name() }}
+              </h4>
+              <div class="text-muted">
+                <h5 class="">About Us</h5>
+                <p>{{current_user.publisher.overview}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="profile-page-content" class="row">
+        <!-- Contacts -->
+        <div id="profile-page-sidebar" class="col s12 m4">
+          <div class="card cyan">
+            <div class="card-content white-text">
+              <span class="card-title">Contacts</span>
+            </div>
+          </div>
+          <ul id="profile-page-about-details" class="collection z-depth-1">
+            {% for phone in current_user.publisher.phones %}
+            <li class="collection-item">
+              <div class="row">
+                <div class="col s5">
+                  <i class="material-icons left">phone</i>
+                </div>
+                <div class="col s7 right-align">{{ phone.phone_number }}</div>
+              </div>
+            </li>
+            {% endfor %}
+            {% for email in current_user.publisher.emails %}
+            <li class="collection-item">
+              <div class="row">
+                <div class="col s5">
+                  <i class="material-icons left">email</i>
+                </div>
+                <div class="col s7 right-align">{{ email.email}}</div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- Locations -->
+        <div id="profile-page-sidebar" class="col s12 m4">
+          <div class="card cyan">
+            <div class="card-content white-text">
+              <span class="card-title">Locations</span>
+            </div>
+          </div>
+          <ul id="profile-page-about-details" class="collection z-depth-1">
+            {% for location in current_user.publisher.locations %}
+            <li class="collection-item">
+              <div class="row">
+                <div class="col s5">
+                  <i class="material-icons left">location_on</i>
+                </div>
+                <div class="col s7 right-align">{{ location.city}}, {{ location.country }}</div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- Payment -->
+        <div id="profile-page-sidebar" class="col s12 m4">
+          <div class="card cyan">
+            <div class="card-content white-text">
+              <span class="card-title">Payment</span>
+            </div>
+          </div>
+          <ul id="profile-page-about-details" class="collection z-depth-1">
+            <li class="collection-item">
+              <div class="row">
+                <div class="col s5">
+                  <i class="material-icons left">payment</i></div>
+                <div class="col s7 right-align">{{ current_user.publisher.paypal }}</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock%}

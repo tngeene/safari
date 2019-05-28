@@ -2,48 +2,48 @@
 #}
 
 {% macro render_menu_items(endpoints) %}
-    {% for endpoint, name, icon in endpoints %}
-        <li class="bold">
-          <a href="{{ url_for(endpoint) }}" class="waves-effect waves-cyan {% if request.endpoint == endpoint %}active{% endif %}">
-              {% if icon %}
-                <i class="material-icons">{{ icon }} </i>
-              {% endif %}
-            <span class="nav-text">{{ name | safe }}</span>
-          </a>
-        </li>
-    {% endfor %}
+{% for endpoint, name, icon in endpoints %}
+<li class="bold">
+  <a href="{{ url_for(endpoint) }}" class="waves-effect waves-cyan {% if request.endpoint == endpoint %}active{% endif %}">
+    {% if icon %}
+    <i class="material-icons">{{ icon }} </i>
+    {% endif %}
+    <span class="nav-text">{{ name | safe }}</span>
+  </a>
+</li>
+{% endfor %}
 {% endmacro %}
 
 {% macro account_items(current_user) %}
-    {% if current_user.is_authenticated %}
-      {% set endpoints = [
+{% if current_user.is_authenticated %}
+{% set endpoints = [
         ('account.manage', 'Account', ''),
         ('account.logout', 'Log out', '')
       ] %}
-      {{ render_menu_items(endpoints) }}
-    {% else %}
-      {% set endpoints = [
+{{ render_menu_items(endpoints) }}
+{% else %}
+{% set endpoints = [
         ('account.register', 'Register', ''),
         ('account.login', 'Log In', '')
       ] %}
-      {{ render_menu_items(endpoints) }}
-    {% endif %}
+{{ render_menu_items(endpoints) }}
+{% endif %}
 {% endmacro %}
 
 
 
 {% macro header_items(current_user, dropdown) %}
 
-    {% if current_user.is_authenticated and current_user.role.index == 'admin' %}
-        {% set endpoints = [
+{% if current_user.is_authenticated and current_user.role.index == 'admin' %}
+{% set endpoints = [
 
           ('admin.registered_users', 'Registered Users', ''),
           ('admin.new_user', 'Add Users', ''),
           ('admin.invite_user', 'Invite Users', ''),
           ('home.index', 'View Site', 'home')
         ]%}
-    {% elif current_user.is_authenticated and current_user.role.index == 'publisher'%}
-        {% set endpoints = [
+{% elif current_user.is_authenticated and current_user.role.index == 'publisher'%}
+{% set endpoints = [
           ('publisher.bookings', 'Bookings', 'people'),
           ('publisher.destination', 'Destinations', 'my_location'),
           ('publisher.profile', 'My Account', 'account_circle'),
@@ -51,8 +51,8 @@
           ('home.index', 'View Site', 'home'),
           ('account.logout', 'Logout', 'lock')
         ]%}
-    {% elif current_user.is_authenticated and current_user.role.index == 'customer'%}
-        {% set endpoints = [
+{% elif current_user.is_authenticated and current_user.role.index == 'customer'%}
+{% set endpoints = [
           ('customer.view_bookings', 'My Bookings', 'book'),
           ('customer.view_payments', 'My Payments', 'attach_money'),
           ('customer.profile', 'Profile', 'account_circle'),
@@ -60,60 +60,60 @@
           ('home.index', 'View Site', 'home'),
           ('account.logout', 'Logout', 'lock')
         ]%}
-    {% endif %}
+{% endif %}
 
-    {% set user = [] %}
-    {% if current_user.is_authenticated %}
-        {% set user = ([(current_user.role.index + '.dashboard', current_user.role.name + ' Dashboard', 'dashboard')]) %}
+{% set user = [] %}
+{% if current_user.is_authenticated %}
+{% set user = ([(current_user.role.index + '.dashboard', current_user.role.name + ' Dashboard', 'dashboard')]) %}
 
-    {% endif %}
+{% endif %}
 
-    {{ render_menu_items(user + endpoints) }}
+{{ render_menu_items(user + endpoints) }}
 
 {% endmacro %}
 
 {% macro create_dropdown(dropdown, icon) %}
-  {% for item in dropdown %}
-    {% if item | length == 3 %}
-      {{ render_menu_items([item]) }}
-    {% elif item | length == 4 %}
-        <li class="bold">
-          <a class="collapsible-header  light-blue" onClick="changeMenu(this)">
-            <i class="material-icons">{{ item[2]}}</i>
-            <span class="nav-text">{{ item[0] }}</span>
-          </a>
-          <div class="collapsible-body">
-            <ul class="collapsible" data-collapsible="accordion">
-              {{ create_dropdown(item[1]) }}
-            </ul>
-          </div>
-        </li>
-    {% endif %}
-  {% endfor %}
+{% for item in dropdown %}
+{% if item | length == 3 %}
+{{ render_menu_items([item]) }}
+{% elif item | length == 4 %}
+<li class="bold">
+  <a class="collapsible-header  light-blue" onClick="changeMenu(this)">
+    <i class="material-icons">{{ item[2]}}</i>
+    <span class="nav-text">{{ item[0] }}</span>
+  </a>
+  <div class="collapsible-body">
+    <ul class="collapsible" data-collapsible="accordion">
+      {{ create_dropdown(item[1]) }}
+    </ul>
+  </div>
+</li>
+{% endif %}
+{% endfor %}
 {% endmacro %}
 
 {% macro render_sidebar(current_user, dropdown=[]) %}
 <!-- START LEFT SIDEBAR NAV-->
-        <aside id="left-sidebar-nav" class="nav-expanded nav-lock nav-collapsible nav-background">
-          <div class="brand-sidebar">
-            <h1 class="logo-wrapper">
-              <a href="#" class="brand-logo darken-1">
-                <img src="{{ url_for('static', filename='images/logo/materialize-logo.png') }}" alt="materialize logo">
-                <span class="logo-text hide-on-med-and-down">Safari</span>
-              </a>
-            </h1>
-          </div>
-          <ul id="slide-out" class="side-nav fixed leftside-navigation">
-            <li class="no-padding">
-                <ul class="collapsible" data-collapsible="accordion">
-                    {{ header_items(current_user) }}
-                    {{ create_dropdown(dropdown) }}
-                </ul>
-            </li>
-          </ul>
-          <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only gradient-45deg-light-blue-cyan gradient-shadow">
-            <i class="material-icons">menu</i>
-          </a>
-        </aside>
-        <!-- END LEFT SIDEBAR NAV-->
+<aside id="left-sidebar-nav" class="nav-expanded nav-lock nav-collapsible nav-background">
+  <div class="brand-sidebar">
+    <h1 class="logo-wrapper">
+      <a href="#" class="brand-logo darken-1">
+        <img src="{{ url_for('static', filename='images/logo/materialize-logo.png') }}" alt="materialize logo">
+        <span class="logo-text hide-on-med-and-down">Safari</span>
+      </a>
+    </h1>
+  </div>
+  <ul id="slide-out" class="side-nav fixed leftside-navigation">
+    <li class="no-padding">
+      <ul class="collapsible" data-collapsible="accordion">
+        {{ header_items(current_user) }}
+        {{ create_dropdown(dropdown) }}
+      </ul>
+    </li>
+  </ul>
+  <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only gradient-45deg-light-blue-cyan gradient-shadow">
+    <i class="material-icons">menu</i>
+  </a>
+</aside>
+<!-- END LEFT SIDEBAR NAV-->
 {% endmacro %}
