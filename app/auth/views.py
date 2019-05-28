@@ -15,16 +15,10 @@ from flask_login import (
 from flask_rq import get_queue
 
 from app import db
-from app.auth.forms import (
-    ChangeEmailForm,
-    ChangePasswordForm,
-    CreatePasswordForm,
-    LoginForm,
-    RegistrationForm,
-    RequestResetPasswordForm,
-    ResetPasswordForm,
-    PublisherRegistrationForm
-)
+from app.auth.forms import (ChangeEmailForm, ChangePasswordForm,
+                            CreatePasswordForm, LoginForm, RegistrationForm,
+                            RequestResetPasswordForm, ResetPasswordForm,
+                            PublisherRegistrationForm)
 
 import httplib2
 
@@ -34,7 +28,6 @@ from app.customer.forms import *
 from app.auth.email import send_confirm_email
 from app.auth.email import send_password_reset_email
 #from oauth import OAuthSignIn
-
 
 account = Blueprint('account', __name__)
 
@@ -65,9 +58,11 @@ def oauth_callback(provider):
     if current_user.role.index == 'admin':
         return redirect(request.args.get('next') or url_for('admin.dashboard'))
     elif current_user.role.index == 'publisher':
-        return redirect(request.args.get('next') or url_for('publisher.dashboard'))
+        return redirect(
+            request.args.get('next') or url_for('publisher.dashboard'))
     else:
-        return redirect(request.args.get('next') or url_for('customer.dashboard'))
+        return redirect(
+            request.args.get('next') or url_for('customer.dashboard'))
 
 
 @account.route('/', methods=['GET', 'POST'])
@@ -81,11 +76,14 @@ def login():
             login_user(user, form.remember_me.data)
             flash('You are now logged in. Welcome!', 'green')
             if current_user.role.index == 'admin':
-                return redirect(request.args.get('next') or url_for('admin.dashboard'))
+                return redirect(
+                    request.args.get('next') or url_for('admin.dashboard'))
             elif current_user.role.index == 'publisher':
-                return redirect(request.args.get('next') or url_for('publisher.dashboard'))
+                return redirect(
+                    request.args.get('next') or url_for('publisher.dashboard'))
             else:
-                return redirect(request.args.get('next') or url_for('customer.dashboard'))
+                return redirect(
+                    request.args.get('next') or url_for('customer.dashboard'))
         else:
             flash('Invalid email or password.', 'danger')
     return render_template('home/login.html', form=form)
@@ -98,13 +96,12 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         role = Role.query.filter_by(index='customer').first_or_404()
-        user = User(
-            first_name=form.first_name.data,
-            last_name=form.last_name.data,
-            email=form.email.data,
-            password=form.password.data,
-            confirmed=True,
-            role=role)
+        user = User(first_name=form.first_name.data,
+                    last_name=form.last_name.data,
+                    email=form.email.data,
+                    password=form.password.data,
+                    confirmed=True,
+                    role=role)
 
         db.session.add(user)
         db.session.commit()
@@ -127,12 +124,12 @@ def register_publisher():
     form = PublisherRegistrationForm()
     if form.validate_on_submit():
         role = Role.query.filter_by(index='publisher').first_or_404()
-        user = User(
-            first_name=form.first_name.data,
-            email = form.email.data,
-            password = form.password.data,
-            confirmed=True,
-            role=role)
+        user = User(first_name=form.first_name.data,
+                    email=form.email.data,
+                    password=form.password.data,
+                    confirmed=True,
+                    status=False,
+                    role=role)
         db.session.add(user)
         db.session.commit()
         login_user(user)
@@ -164,8 +161,9 @@ def reset_password_request():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
             send_password_reset_email(user)
-        flash('A password reset link has been sent to {}.'.format(
-            form.email.data), 'warning')
+        flash(
+            'A password reset link has been sent to {}.'.format(
+                form.email.data), 'warning')
         return redirect(url_for('account.login'))
     return render_template('home/reset_password.html', form=form)
 
@@ -216,8 +214,9 @@ def change_email_request():
         if current_user.verify_password(form.password.data):
             new_email = form.email.data
             token = current_user.generate_email_change_token(new_email)
-            change_email_link = url_for(
-                'account.change_email', token=token, _external=True)
+            change_email_link = url_for('account.change_email',
+                                        token=token,
+                                        _external=True)
             get_queue().enqueue(
                 send_email,
                 recipient=new_email,
@@ -251,8 +250,9 @@ def change_email(token):
 def confirm_request():
     """Respond to new user's request to confirm their account."""
     send_confirm_email(current_user)
-    flash('A new confirmation link has been sent to {}.'.format(
-        current_user.email), 'green')
+    flash(
+        'A new confirmation link has been sent to {}.'.format(
+            current_user.email), 'green')
     return redirect(url_for('account.unconfirmed'))
 
 
@@ -265,7 +265,9 @@ def confirm(token):
             flash('Your account has been confirmed.', 'green')
             return redirect(url_for('customer.dashboard'))
         elif current_user.role_id == 3:
-            flash('Your account has been confirmed, Please finish your Registration.', 'cyan')
+            flash(
+                'Your account has been confirmed, Please finish your Registration.',
+                'cyan')
             return redirect(url_for('publisher.edit_profile'))
         return redirect(url_for('account.login'))
     user = User.verify_confirmation_token(token)
@@ -286,8 +288,8 @@ def confirm(token):
     return redirect(url_for('account.unconfirmed'))
 
 
-@account.route(
-    '/join-from-invite/<int:user_id>/<token>', methods=['GET', 'POST'])
+@account.route('/join-from-invite/<int:user_id>/<token>',
+               methods=['GET', 'POST'])
 def join_from_invite(user_id, token):
     """
     Confirm new user's account with provided token and prompt them to set
@@ -311,27 +313,27 @@ def join_from_invite(user_id, token):
             new_user.password = form.password.data
             db.session.add(new_user)
             db.session.commit()
-            flash('Your password has been set. After you log in, you can '
-                  'go to the "Your Account" page to review your account '
-                  'information and settings.', 'success')
+            flash(
+                'Your password has been set. After you log in, you can '
+                'go to the "Your Account" page to review your account '
+                'information and settings.', 'success')
             return redirect(url_for('account.login'))
         return render_template('account/join_invite.html', form=form)
     else:
-        flash('The confirmation link is invalid or has expired. Another '
-              'invite email with a new link has been sent to you.', 'error')
+        flash(
+            'The confirmation link is invalid or has expired. Another '
+            'invite email with a new link has been sent to you.', 'error')
         token = new_user.generate_confirmation_token()
-        invite_link = url_for(
-            'account.join_from_invite',
-            user_id=user_id,
-            token=token,
-            _external=True)
-        get_queue().enqueue(
-            send_email,
-            recipient=new_user.email,
-            subject='You Are Invited To Join',
-            template='account/email/invite',
-            user=new_user,
-            invite_link=invite_link)
+        invite_link = url_for('account.join_from_invite',
+                              user_id=user_id,
+                              token=token,
+                              _external=True)
+        get_queue().enqueue(send_email,
+                            recipient=new_user.email,
+                            subject='You Are Invited To Join',
+                            template='account/email/invite',
+                            user=new_user,
+                            invite_link=invite_link)
     return redirect(url_for('main.index'))
 
 

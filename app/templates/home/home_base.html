@@ -8,7 +8,7 @@
         <meta name="format-detection" content="telephone=no" />
 
         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-        <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon/favicon-32x32.png')}}"/>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='home/img/favicon.png')}}"/>
         <link href="{{ url_for('static', filename='home/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ url_for('static', filename='home/css/jquery-ui.structure.min.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ url_for('static', filename='home/css/jquery-ui.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -44,7 +44,7 @@
                     <div class="col-md-12">
                         <div class="nav">
                             <a href="{{ url_for('home.index') }}" class="logo">
-                                <img src="{{ url_for('static', filename='home/img/logo_dark.png')}}" alt="lets travel">
+                                <img src="{{ url_for('static', filename='home/img/safari1.jpg')}}" alt="out2safari">
                             </a>
                             <div class="nav-menu-icon">
                                 <a href="#"><i></i></a>
@@ -134,37 +134,13 @@
                         <div class="footer-block">
                             <h6>Safari Destinations</h6>
                             <div class="contact-info">
-                              <div style="display: flex;">
-                                <div class="col" style="margin: 0 20px">
-                                  <div class="contact-line color-grey-3">
-                                      <a href="#">Kenya</a>
-                                  </div>
-                                  <div class="contact-line color-grey-3">
-                                      <a href="#">Tanzania</a>
-                                  </div>
-                                  <div class="contact-line color-grey-3">
-                                      <a href="#">Uganda</a>
-                                  </div>
-                                  <div class="contact-line color-grey-3">
-                                      <a href="#">Rwanda</a>
-                                  </div>
-                                  <div class="contact-line color-grey-3">
-                                      <a href="#">South-Africa</a>
-                                  </div>
-                                </div>
-                                <div class="col" style="margin: 0 20px">
-                                  <div class="contact-line color-grey-3">
-                                      <a href="#">Zambia</a>
-                                  </div>
-                                  <div class="contact-line color-grey-3">
-                                      <a href="#">Namimbia</a>
-                                  </div>
-                                  <div class="contact-line color-grey-3">
-                                      <a href="#">Zimbabwe</a>
-                                  </div>
-                                  <div class="contact-line color-grey-3">
-                                      <a href="#">Botswana</a>
-                                  </div>
+                              <div>
+                                <div class="row">
+                                  {% for country in countries %}
+                                    <div class="col-md-6 contact-line color-grey-3">
+                                        <a href="{{ url_for('home.country_details',country_id=country.id) }}">{{ country.name }}</a>
+                                    </div>
+                                  {% endfor %}
                                 </div>
                               </div>
                             </div>
