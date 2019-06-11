@@ -1,21 +1,30 @@
-    <div class="col-xs-12 col-sm-4 col-md-3">
-        <div class="sidebar bg-white clearfix">
-            <div class="sidebar-block type-2">
-                <h4 class="sidebar-title color-dark-2">{{ country.name }}</h4>
-                <ul class="sidebar-category color-5">
-                    <li class="{% if '/overview' in request.path %}active{% endif %}">
-                    <a href="{{ url_for('home.country_details', country_id=country.id) }}">Overview</a>
-                    </li>
-                    <li class="{% if '/parks_and_reserves' in request.path %}active{% endif %}">
-                        <a href="{{ url_for('home.country_parks_and_reserves', country_id=country.id) }}">Parks and Reserves</a>
-                    </li>
-                    <!-- <li class="{% if '/wildlife' in request.path %}active{% endif %}">
-                        <a href="{{ url_for('home.country_wildlife', country_id=country.id) }}">Wildlife</span></a>
-                    </li>
-                    <li class="{% if '/birds' in request.path %}active{% endif %}">
-                        <a href="{{ url_for('home.country_birds', country_id=country.id) }}">Birds</span></a>
-                    </li> -->
-                </ul>
-            </div>
-        </div>
+<div class="col-xs-12 col-sm-4 col-md-3">
+  <div class="sidebar bg-white clearfix">
+    <div class="sidebar-block type-2">
+      <h4 class="sidebar-title color-dark-2">{{ country.name }}</h4>
+      <ul class="sidebar-category color-5">
+        <li class="{% if '/overview' in request.path %}active{% endif %}">
+          <a href="{{ url_for('home.country_details', country_id=country.id) }}"
+            >Overview</a
+          >
+        </li>
+        <li
+          class="{% if '/parks_and_reserves' in request.path %}active{% endif %}"
+        >
+          <a
+            href="{{ url_for('home.country_parks_and_reserves', country_id=country.id) }}"
+            >Parks and Reserves</a
+          >
+        </li>
+        <!--
+          <li class="{% if '/wildlife' in request.path %}active{% endif %}">
+              <a href="{{ url_for('home.country_wildlife', country_id=country.id) }}">Wildlife</span></a>
+          </li>
+          <li class="{% if '/birds' in request.path %}active{% endif %}">
+              <a href="{{ url_for('home.country_birds', country_id=country.id) }}">Birds</span></a>
+          </li>
+        -->
+      </ul>
     </div>
+  </div>
+</div>

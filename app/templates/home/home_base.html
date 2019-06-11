@@ -1,231 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="format-detection" content="telephone=no" />
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-        <meta name="format-detection" content="telephone=no" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='home/img/favicon.png')}}"
+    />
+    <link
+      href="{{ url_for('static', filename='home/css/bootstrap.min.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="{{ url_for('static', filename='home/css/jquery-ui.structure.min.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="{{ url_for('static', filename='home/css/jquery-ui.min.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='home/css/font-awesome.min.css') }}"
+    />
+    <link
+      href="{{ url_for('static', filename='home/css/docs.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="{{ url_for('static', filename='home/css/flag-icon.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="{{ url_for('static', filename='home/css/style.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="{{ url_for('static', filename='home/css/custom.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <title>Safari</title>
+    <script>
+      (function(w, i, d, g, e, t, s) {
+        w[d] = w[d] || [];
+        t = i.createElement(g);
+        t.async = 1;
+        t.src = e;
+        s = i.getElementsByTagName(g)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "_gscq",
+        "script",
+        "https://widgets.getsitecontrol.com/81599/script.js"
+      );
+    </script>
+  </head>
 
-        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-        <link rel="shortcut icon" href="{{ url_for('static', filename='home/img/favicon.png')}}"/>
-        <link href="{{ url_for('static', filename='home/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ url_for('static', filename='home/css/jquery-ui.structure.min.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ url_for('static', filename='home/css/jquery-ui.min.css') }}" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" href="{{ url_for('static', filename='home/css/font-awesome.min.css') }}">
-        <link href="{{ url_for('static', filename='home/css/docs.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ url_for('static', filename='home/css/flag-icon.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ url_for('static', filename='home/css/style.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ url_for('static', filename='home/css/custom.css') }}" rel="stylesheet" type="text/css"/>
-        <title>Safari</title>
-        <script>
-            (function (w,i,d,g,e,t,s) {w[d] = w[d]||[];t= i.createElement(g);
-                t.async=1;t.src=e;s=i.getElementsByTagName(g)[0];s.parentNode.insertBefore(t, s);
-            })(window, document, '_gscq','script','https://widgets.getsitecontrol.com/81599/script.js');
-        </script>
-    </head>
-
-    <body data-color="theme-1" class="bg-light">
-        <div class="loading">
-            <div class="loading-center">
-                <div class="loading-center-absolute">
-                    <div class="object object_four"></div>
-                    <div class="object object_three"></div>
-                    <div class="object object_two"></div>
-                    <div class="object object_one"></div>
-                </div>
-            </div>
+  <body data-color="theme-1" class="bg-light">
+    <div class="loading">
+      <div class="loading-center">
+        <div class="loading-center-absolute">
+          <div class="object object_four"></div>
+          <div class="object object_three"></div>
+          <div class="object object_two"></div>
+          <div class="object object_one"></div>
         </div>
+      </div>
+    </div>
 
-        {% block header %}
-        <header class="color-1 hovered menu-3">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="nav">
-                            <a href="{{ url_for('home.index') }}" class="logo">
-                                <img src="{{ url_for('static', filename='home/img/safari1.jpg')}}" alt="out2safari">
-                            </a>
-                            <div class="nav-menu-icon">
-                                <a href="#"><i></i></a>
-                            </div>
-                            <nav class="menu">
-                                <ul>
-                                    <li class="type-1 {% if request.path == '/' %}active{% endif %}">
-                                        <a href="{{ url_for('home.index') }}">home</a>
-                                    </li>
-                                    <li class="{% if '/about' in request.path %}active{% endif %}">
-                                        <a href="{{ url_for('home.about') }}">about us</a>
-                                    </li>
-                                    <li class="{% if '/packages' in request.path %}active{% endif %}">
-                                        <a href="{{ url_for('home.listings') }}">safari packages</a>
-                                    </li>
-                                    <li class="{% if '/tour-operators' in request.path %}active{% endif %}">
-                                        <a href="{{ url_for('home.tour_operators_list') }}">tour operators</a>
-                                    </li>
-                                    <li class="{% if '/countries-and-parks' in request.path %}active{% endif %}">
-                                        <a href="{{ url_for('home.countries_and_parks_list') }}">countries and parks</a>
-                                    </li>
-                                    {% if current_user.is_authenticated %}
-                                    <li>
-                                        <a href="{{ url_for('{}.dashboard'.format(current_user.role.index)) }}" class="c-button bg-dr-blue-2 thin-button">My Account</a>
-                                    </li>
-                                    {% else %}
-                                    <li>
-                                        <a href="{{ url_for('account.login') }}" class="c-button bg-dr-blue-2 thin-button">login</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url_for('account.choose_account_type') }}" class="c-button bg-dr-blue-2 thin-button">sign up</a>
-                                    </li>
-                                    {% endif %}
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
+    {% block header %}
+    <header class="color-1 hovered menu-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="nav">
+              <a href="{{ url_for('home.index') }}" class="logo">
+                <img
+                  src="{{ url_for('static', filename='home/img/safari1.jpg')}}"
+                  alt="out2safari"
+                />
+              </a>
+              <div class="nav-menu-icon">
+                <a href="#"><i></i></a>
+              </div>
+              <nav class="menu">
+                <ul>
+                  <li
+                    class="type-1 {% if request.path == '/' %}active{% endif %}"
+                  >
+                    <a href="{{ url_for('home.index') }}">home</a>
+                  </li>
+                  <li
+                    class="{% if '/about' in request.path %}active{% endif %}"
+                  >
+                    <a href="{{ url_for('home.about') }}">about us</a>
+                  </li>
+                  <li
+                    class="{% if '/packages' in request.path %}active{% endif %}"
+                  >
+                    <a href="{{ url_for('home.listings') }}">safari packages</a>
+                  </li>
+                  <li
+                    class="{% if '/tour-operators' in request.path %}active{% endif %}"
+                  >
+                    <a href="{{ url_for('home.tour_operators_list') }}"
+                      >tour operators</a
+                    >
+                  </li>
+                  <li
+                    class="{% if 'countries' in request.path %}active{% endif %}"
+                  >
+                    <a href="{{ url_for('home.countries_and_parks_list') }}"
+                      >countries and parks<span class="fa fa-angle-down"></span
+                    ></a>
+                    <ul class="dropmenu">
+                      {% for country in countries %}
+                      <li>
+                        <a
+                          href="{{ url_for('home.country_details',country_id=country.id) }}"
+                        >
+                          {{ country.name }}
+                        </a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                  {% if current_user.is_authenticated %}
+                  <li>
+                    <a
+                      href="{{ url_for('{}.dashboard'.format(current_user.role.index)) }}"
+                      class="c-button bg-dr-blue-2 thin-button"
+                      >My Account</a
+                    >
+                  </li>
+                  {% else %}
+                  <li>
+                    <a
+                      href="{{ url_for('account.login') }}"
+                      class="c-button bg-dr-blue-2 thin-button"
+                      >login</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="{{ url_for('account.choose_account_type') }}"
+                      class="c-button bg-dr-blue-2 thin-button"
+                      >sign up</a
+                    >
+                  </li>
+                  {% endif %}
+                </ul>
+              </nav>
             </div>
-        </header>
-        {% endblock header %}
-
-        {% block home_content %}
-
-        {% endblock home_content %}
-
-        {% block footer %}
-        <footer class="bg-dark type-2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="footer-block">
-                            <h6>Links: </h6>
-                            <div class="contact-info">
-                                <div class="contact-line color-grey-3">
-                                    <a href="{{ url_for('home.index') }}">Home</a>
-                                </div>
-                                <div class="contact-line color-grey-3">
-                                    <a href="{{ url_for('home.about') }}">About Us</a>
-                                </div>
-                                <div class="contact-line color-grey-3">
-                                    <a href="{{ url_for('home.listings') }}">Safari Packages</a>
-                                </div>
-                                <div class="contact-line color-grey-3">
-                                    <a href="{{ url_for('home.tour_operators_list') }}">Tour Operators</a>
-                                </div>
-                                <div class="contact-line color-grey-3">
-                                    <a href="{{ url_for('home.countries_and_parks_list') }}">Countries and Parks</a>
-                                </div>
-                            </div>
-                        </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    {% endblock header %} {% block home_content %} {% endblock home_content %}
+    {% block footer %}
+    <footer class="bg-dark type-2">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="footer-block">
+              <h6>Links:</h6>
+              <div class="contact-info">
+                <div class="contact-line color-grey-3">
+                  <a href="{{ url_for('home.index') }}">Home</a>
+                </div>
+                <div class="contact-line color-grey-3">
+                  <a href="{{ url_for('home.about') }}">About Us</a>
+                </div>
+                <div class="contact-line color-grey-3">
+                  <a href="{{ url_for('home.listings') }}">Safari Packages</a>
+                </div>
+                <div class="contact-line color-grey-3">
+                  <a href="{{ url_for('home.tour_operators_list') }}"
+                    >Tour Operators</a
+                  >
+                </div>
+                <div class="contact-line color-grey-3">
+                  <a href="{{ url_for('home.countries_and_parks_list') }}"
+                    >Countries and Parks</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="footer-block">
+              <h6>General</h6>
+              <div class="contact-info">
+                <div class="contact-line color-grey-3">
+                  <a href="{{ url_for('home.terms_of_use') }}">Terms of Use</a>
+                </div>
+                <div class="contact-line color-grey-3">
+                  <a href="{{ url_for('home.privacy') }}">Privacy Policy</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="footer-block">
+              <h6>Safari Destinations</h6>
+              <div class="contact-info">
+                <div>
+                  <div class="row">
+                    {% for country in countries %}
+                    <div class="col-md-6 contact-line color-grey-3">
+                      <a
+                        href="{{ url_for('home.country_details',country_id=country.id) }}"
+                        >{{ country.name }}</a
+                      >
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="footer-block">
-                            <h6>General</h6>
-                            <div class="contact-info">
-                                <div class="contact-line color-grey-3">
-                                    <a href="{{ url_for('home.terms_of_use') }}">Terms of Use</a>
-                                </div>
-                                <div class="contact-line color-grey-3">
-                                    <a href="{{ url_for('home.privacy') }}">Privacy Policy</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="footer-block">
-                            <h6>Safari Destinations</h6>
-                            <div class="contact-info">
-                              <div>
-                                <div class="row">
-                                  {% for country in countries %}
-                                    <div class="col-md-6 contact-line color-grey-3">
-                                        <a href="{{ url_for('home.country_details',country_id=country.id) }}">{{ country.name }}</a>
-                                    </div>
-                                  {% endfor %}
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="footer-block">
-                            <h6>Contact Info</h6>
-                            <div class="contact-info">
-                                <div class="contact-line color-grey-3">
-                                    <i class="fa fa-map-marker"></i>
-                                    <span style="color: white;">
-                                      Suite 3, Chaka Apartments, <br> <br>
-                                      Chaka Road, Kilimani, <br> <br>
-                                      Nairobi, Kenya.
-                                    </span>
-                                </div>
-                                <div class="contact-line color-grey-3">
-                                    <i class="fa fa-phone"></i>
-                                    <a href="tel:+254722495203">+254 722 495 203</a>
-                                </div>
-                                <div class="contact-line color-grey-3">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <a href="mailto:hello@out2safari.com">hello@out2safari.com</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                   </div>
-                    <div class="">
-                      <p style="padding-bottom: 30px; text-align: center;">
-                        <a href="#" style="padding-left:10px;"><span class="fa fa-facebook fa-2x"></span></a>
-                        <a href="#" style="padding-left:10px;"><span class="fa fa-twitter fa-2x"></span></a>
-                        <a href="#" style="padding-left:10px;"><span class="fa fa-instagram fa-2x"></span></a>
-                      </p>
-                    </div>
-                    <div class="footer-block color-grey-3">
-                        <div class="row">
-                            <div class="col-md-12" style="text-align: center;">
-                                Payment options: <br> <br>
-                               <p>
-                                    <a href="#" class="footer-payment">
-                                        <img src="{{ url_for('static', filename='home/img/master-card.png') }}" width="50px" alt="">
-                                    </a>
-                                    <a href="#" class="footer-payment">
-                                        <img src="{{ url_for('static', filename='home/img/paypal.png') }}" width="100px" alt="">
-                                    </a>
-                                    <a href="#" class="footer-payment">
-                                        <img src="{{ url_for('static', filename='home/img/visa.png') }}" width="50px" alt="">
-                                    </a>
-                                    <a href="#" class="footer-payment">
-                                        <img src="{{ url_for('static', filename='home/img/stripe.png') }}" width="50px" alt="">
-                                    </a>
-                               </p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+              </div>
             </div>
-            <div class="footer-link bg-black">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12" style="text-align: center;">
-                            <p>&copy; 2019 All rights reserved.</p>
-                        </div>
-                    </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="footer-block">
+              <h6>Contact Info</h6>
+              <div class="contact-info">
+                <div class="contact-line color-grey-3">
+                  <i class="fa fa-map-marker"></i>
+                  <span style="color: white;">
+                    Suite 3, Chaka Apartments, <br />
+                    <br />
+                    Chaka Road, Kilimani, <br />
+                    <br />
+                    Nairobi, Kenya.
+                  </span>
                 </div>
+                <div class="contact-line color-grey-3">
+                  <i class="fa fa-phone"></i>
+                  <a href="tel:+254722495203">+254 722 495 203</a>
+                </div>
+                <div class="contact-line color-grey-3">
+                  <i class="fa fa-envelope-o"></i>
+                  <a href="mailto:hello@out2safari.com">hello@out2safari.com</a>
+                </div>
+              </div>
             </div>
-        </footer>
-        {% endblock footer %}
+          </div>
+        </div>
+        <div class="">
+          <p style="padding-bottom: 30px; text-align: center;">
+            <a href="#" style="padding-left:10px;"
+              ><span class="fa fa-facebook fa-2x"></span
+            ></a>
+            <a href="#" style="padding-left:10px;"
+              ><span class="fa fa-twitter fa-2x"></span
+            ></a>
+            <a href="#" style="padding-left:10px;"
+              ><span class="fa fa-instagram fa-2x"></span
+            ></a>
+          </p>
+        </div>
+        <div class="footer-block color-grey-3">
+          <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+              Payment options: <br />
+              <br />
+              <p>
+                <a href="#" class="footer-payment">
+                  <img
+                    src="{{ url_for('static', filename='home/img/master-card.png') }}"
+                    width="50px"
+                    alt=""
+                  />
+                </a>
+                <a href="#" class="footer-payment">
+                  <img
+                    src="{{ url_for('static', filename='home/img/paypal.png') }}"
+                    width="100px"
+                    alt=""
+                  />
+                </a>
+                <a href="#" class="footer-payment">
+                  <img
+                    src="{{ url_for('static', filename='home/img/visa.png') }}"
+                    width="50px"
+                    alt=""
+                  />
+                </a>
+                <a href="#" class="footer-payment">
+                  <img
+                    src="{{ url_for('static', filename='home/img/stripe.png') }}"
+                    width="50px"
+                    alt=""
+                  />
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-link bg-black">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+              <p>&copy; 2019 All rights reserved.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    {% endblock footer %}
 
-        <script src="{{ url_for('static', filename='home/js/jquery-2.1.4.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='home/js/bootstrap.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='home/js/jquery-ui.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='home/js/idangerous.swiper.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='home/js/jquery.viewportchecker.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='home/js/isotope.pkgd.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='home/js/jquery.mousewheel.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='home/js/all.js') }}"></script>
-        <script src="{{ url_for('static', filename='home/js/docs.js') }}"></script>
-        <script src="{{ url_for('static', filename='home/js/session.js') }}"></script>
-        {{ moment.include_moment() }}
-        {{ moment.lang(g.locale) }}
-        {% block scripts %}
-        {% endblock %}
-    </body>
-
+    <script src="{{ url_for('static', filename='home/js/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='home/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='home/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='home/js/idangerous.swiper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='home/js/jquery.viewportchecker.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='home/js/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='home/js/jquery.mousewheel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='home/js/all.js') }}"></script>
+    <script src="{{ url_for('static', filename='home/js/docs.js') }}"></script>
+    <script src="{{ url_for('static', filename='home/js/session.js') }}"></script>
+    {{ moment.include_moment() }} {{ moment.lang(g.locale) }} {% block scripts
+    %} {% endblock %}
+  </body>
 </html>

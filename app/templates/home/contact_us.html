@@ -1,50 +1,80 @@
-{% extends 'home/home_base.html' %}
-
-
-{% block home_content %}
-	<div class="main-wraper py-5">
-		<div class="container py-5">
-			<div class="row">
-				<div class="col-xs-12 col-sm-8">
-					<form class="contact-form js-contact-form" action="#" method="POST">
-						<div class="row">
-							<div class="col-xs-12 col-sm-6">
-								<div class="input-style-1 type-2 color-2">
-									<input type="text" name="fields[name]" required="" placeholder="Your name">
-								</div>
-							</div>
-							<div class="col-xs-12 col-sm-6">
-								<div class="input-style-1 type-2 color-2">
-									<input type="text" name="fields[name]" required="" placeholder="Your phone">
-								</div>
-							</div>
-							<div class="col-xs-12 col-sm-12">
-								<div class="input-style-1 type-2 color-2">
-									<input type="email" name="fields[email]" required="" placeholder="Your email">
-								</div>
-							</div>
-							<div class="col-xs-12">
-								<textarea class="area-style-1 color-1" name="fields[text]" required="" placeholder="Your message"></textarea>
-								<button type="submit" class="c-button bg-dr-blue-2 hv-dr-blue-2-o"><span>submit message</span></button>
-							</div>
-						</div>					
-					</form>
-				</div>
-				<div class="col-xs-12 col-sm-4">
-					<div class="contact-info text-center">
-						<h4 class="color-dark-2"><strong>contact info</strong></h4>
-						<div class="contact-line"><img src="img/phone_icon_2_dark.png" alt="">Phone: <a class="color-dark-2" href="#">+254 712 345 678</a></div>					
-						<div class="contact-line"><img src="img/mail_icon_b_dark.png" alt="">Email us: <a class="color-dark-2" href="#">travel@safari.co.ke</a></div>					
-						<div class="contact-line"><img src="img/loc_icon_dark.png" alt="">Address: <span class="color-dark-2">Nairobi, Kenya</span></div>
-					</div>
-					<div class="contact-socail text-center">
-						<a class=" link-dr-blue-2" href="#"><i class="fa fa-facebook"></i></a>
-						<a class=" link-dr-blue-2" href="#"><i class="fa fa-twitter"></i></a>
-						<a class=" link-dr-blue-2" href="#"><i class="fa fa-skype"></i></a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+{% extends 'home/home_base.html' %} {% block home_content %}
+<div class="main-wraper py-5">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-xs-12 col-sm-8">
+        <form class="contact-form js-contact-form" action="#" method="POST">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6">
+              <div class="input-style-1 type-2 color-2">
+                <input
+                  type="text"
+                  name="fields[name]"
+                  required=""
+                  placeholder="Your name"
+                />
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+              <div class="input-style-1 type-2 color-2">
+                <input
+                  type="text"
+                  name="fields[name]"
+                  required=""
+                  placeholder="Your phone"
+                />
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12">
+              <div class="input-style-1 type-2 color-2">
+                <input
+                  type="email"
+                  name="fields[email]"
+                  required=""
+                  placeholder="Your email"
+                />
+              </div>
+            </div>
+            <div class="col-xs-12">
+              <textarea
+                class="area-style-1 color-1"
+                name="fields[text]"
+                required=""
+                placeholder="Your message"
+              ></textarea>
+              <button
+                type="submit"
+                class="c-button bg-dr-blue-2 hv-dr-blue-2-o"
+              >
+                <span>submit message</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <div class="contact-info text-center">
+          <h4 class="color-dark-2"><strong>contact info</strong></h4>
+          <div class="contact-line">
+            <img src="img/phone_icon_2_dark.png" alt="" />Phone:
+            <a class="color-dark-2" href="#">+254 712 345 678</a>
+          </div>
+          <div class="contact-line">
+            <img src="img/mail_icon_b_dark.png" alt="" />Email us:
+            <a class="color-dark-2" href="#">travel@safari.co.ke</a>
+          </div>
+          <div class="contact-line">
+            <img src="img/loc_icon_dark.png" alt="" />Address:
+            <span class="color-dark-2">Nairobi, Kenya</span>
+          </div>
+        </div>
+        <div class="contact-socail text-center">
+          <a class=" link-dr-blue-2" href="#"><i class="fa fa-facebook"></i></a>
+          <a class=" link-dr-blue-2" href="#"><i class="fa fa-twitter"></i></a>
+          <a class=" link-dr-blue-2" href="#"><i class="fa fa-skype"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock home_content %}
-    

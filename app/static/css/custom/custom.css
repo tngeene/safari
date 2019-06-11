@@ -10,8 +10,8 @@ NOTE:
 PLACE HERE YOUR OWN CSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
 
-.nav-background{
-  background:#03a9f4 !important
+.nav-background {
+  background: #03a9f4 !important;
 }
 
 .p-1 {
@@ -43,15 +43,15 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 }
 
 .my-1 {
-  margin: : 1em 0;
+  margin: 1em 0;
 }
 
 .my-2 {
-  margin: : 2em 0;
+  margin: 2em 0;
 }
 
 .my-3 {
-  margin: : 3em 0;
+  margin: 3em 0;
 }
 
 .mx-auto {
@@ -65,4 +65,8 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 
 .text-muted {
   color: #9e9e9e !important;
+}
+
+.color-sky-blue {
+  color: skyblue;
 }

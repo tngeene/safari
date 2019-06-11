@@ -1,5 +1,4 @@
-{% extends 'layouts/base.html' %}
-{% block content %}
+{% extends 'layouts/base.html' %} {% block content %}
 <!-- START CONTENT -->
 <section id="content">
   <div id="breadcrumbs-wrapper">
@@ -16,50 +15,62 @@
       </div>
     </div>
   </div>
-  <!--breadcrumbs end-->
-  <!--start container-->
+  <!-- breadcrumbs end -->
+  <!-- start container -->
   <div class="container">
     <div class="divider"></div>
-    <!--file-upload-->
+    <!-- file-upload -->
     <form class="col s12" method="post" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
-    <div id="file-upload" class="section">
-      <!--Default version-->
+      {{ form.hidden_tag() }}
+      <div id="file-upload" class="section">
+        <!-- Default version -->
+        <div class="row section">
+          <div class="col s12 m4 l3">
+            <p>
+              Cover Photo<br />
+              (600 * 400)
+            </p>
+          </div>
+          <div class="col s12 m8 l9">
+            {{ form.banner(id="input-file-now",class="dropify",**{"
+            data-default-file": url_for('static',
+            filename='uploads/{}'.format(current_user.publisher.banner) ) if
+            current_user.publisher.banner else ""} ) }} {%for error in
+            form.banner.errors%}
+            <div class="error">{{ error }}</div>
+            {%endfor%}
+          </div>
+        </div>
+      </div>
       <div class="row section">
         <div class="col s12 m4 l3">
-          <p>Banner</p>
+          <p>
+            Logo<br />
+            (200 * 200)
+          </p>
         </div>
         <div class="col s12 m8 l9">
-          {{ form.banner(id="input-file-now",class="dropify",**{" data-default-file": url_for('static', filename='uploads/{}'.format(current_user.publisher.banner) ) if current_user.publisher.banner else ""} ) }}
-           {%for error in form.banner.errors%}
-              <div class="error">{{ error }}</div>
-            {%endfor%}
-        </div>
-      </div>
-    </div>
-    <div class="row section">
-      <div class="col s12 m4 l3">
-        <p>Logo</p>
-      </div>
-      <div class="col s12 m8 l9">
-        {{ form.logo(id="input-file-events",class="dropify-event",**{" data-default-file": url_for('static', filename='uploads/{}'.format(current_user.publisher.logo) ) if current_user.publisher.logo else ""} ) }}
-         {%for error in form.logo.errors%}
-            <div class="error">{{ error }}</div>
+          {{ form.logo(id="input-file-events",class="dropify-event",**{"
+          data-default-file": url_for('static',
+          filename='uploads/{}'.format(current_user.publisher.logo) ) if
+          current_user.publisher.logo else ""} ) }} {%for error in
+          form.logo.errors%}
+          <div class="error">{{ error }}</div>
           {%endfor%}
-      </div>
-    </div>
-    <div class="row">
-      <div class="row">
-        <div class="center-align">
-          <button class="btn cyan waves-effect waves-light" type="submit">Save
-            <i class="material-icons right">send</i>
-          </button>
         </div>
       </div>
-    </div>
-  </form>
+      <div class="row">
+        <div class="row">
+          <div class="center-align">
+            <button class="btn cyan waves-effect waves-light" type="submit">
+              Save <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
-  <!--end container-->
+  <!-- end container -->
 </section>
 <!-- END CONTENT -->
 {% endblock%}
