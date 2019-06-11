@@ -1,241 +1,316 @@
-{% import 'macros/header_macros.html' as header with context %}
-{% import 'macros/footer_macros.html' as footer %}
-{% import 'macros/sidebar_macros.html' as sidebar %}
+{% import 'macros/header_macros.html' as header with context %} {% import
+'macros/footer_macros.html' as footer %} {% import 'macros/sidebar_macros.html'
+as sidebar %}
 
 <!DOCTYPE html>
 <html>
-<head>
-    {% include 'partials/_head.html' %}
-
-    {# Any templates that extend this template can set custom_head_tags to add scripts to their page #}
-    {% block custom_head_tags %}
-    <!-- CORE CSS-->
-    <link href="{{ url_for('static', filename='css/themes/collapsible-menu/materialize.css' )}}" type="text/css"
-          rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/themes/collapsible-menu/style.css') }}" type="text/css"
-          rel="stylesheet">
-    <link href="{{ url_for('static', filename='vendors/prism/prism.css') }}" type="text/css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='vendors/perfect-scrollbar/perfect-scrollbar.css') }}" type="text/css"
-          rel="stylesheet">
-    <link href="{{ url_for('static', filename='vendors/data-tables/css/jquery.dataTables.min.css') }}" type="text/css"
-          rel="stylesheet">
-    <link href="{{ url_for('static', filename='dist/materialnote.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ url_for('static', filename='vendors/sweetalert/dist/sweetalert.css') }}" type="text/css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='vendors/dropify/css/dropify.min.css') }}" type="text/css" rel="stylesheet">
+  <head>
+    {% include 'partials/_head.html' %} {# Any templates that extend this
+    template can set custom_head_tags to add scripts to their page #} {% block
+    custom_head_tags %}
+    <!-- CORE CSS -->
+    <link
+      href="{{ url_for('static', filename='css/themes/collapsible-menu/materialize.css' )}}"
+      type="text/css"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='css/themes/collapsible-menu/style.css') }}"
+      type="text/css"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='vendors/prism/prism.css') }}"
+      type="text/css"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='vendors/perfect-scrollbar/perfect-scrollbar.css') }}"
+      type="text/css"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='dist/materialnote.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="{{ url_for('static', filename='vendors/sweetalert/dist/sweetalert.css') }}"
+      type="text/css"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='vendors/dropify/css/dropify.min.css') }}"
+      type="text/css"
+      rel="stylesheet"
+    />
     <!-- blueimp Gallery styles -->
-    <link rel="stylesheet" href="https://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link
+      rel="stylesheet"
+      href="https://blueimp.github.io/Gallery/css/blueimp-gallery.min.css"
+    />
 
-    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='file-upload/css/jquery.fileupload.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='file-upload/css/jquery.fileupload-ui.css') }}">
+    <!--
+      CSS to style the file input field as button and adjust the Bootstrap progress bars
+    -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='file-upload/css/jquery.fileupload.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='file-upload/css/jquery.fileupload-ui.css') }}"
+    />
     {% endblock %}
-</head>
-<body>
+  </head>
+  <body>
+    <!-- Start Page Loading -->
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+    <!-- End Page Loading -->
 
-<!-- Start Page Loading -->
-<div id="loader-wrapper">
-    <div id="loader"></div>
-    <div class="loader-section section-left"></div>
-    <div class="loader-section section-right"></div>
-</div>
-<!-- End Page Loading -->
+    <!--
+      ////////////////////////////////////////////////////////////////////////////
+    -->
 
-<!-- //////////////////////////////////////////////////////////////////////////// -->
-
-{% block header %}
-    {{ header.render_header(current_user) }}
-{% endblock %}
-<!-- START MAIN -->
-<div id="main">
-    <!-- START WRAPPER -->
-    <div class="wrapper">
+    {% block header %} {{ header.render_header(current_user) }} {% endblock %}
+    <!-- START MAIN -->
+    <div id="main">
+      <!-- START WRAPPER -->
+      <div class="wrapper">
         {% include 'partials/_flashes.html' %}
-        <!-- START LEFT SIDEBAR NAV-->
-        {% block sidebar %}
-        {{ sidebar.render_sidebar(current_user, dropdown) }}
+        <!-- START LEFT SIDEBAR NAV -->
+        {% block sidebar %} {{ sidebar.render_sidebar(current_user, dropdown) }}
         {% endblock %}
-        <!-- END LEFT SIDEBAR NAV-->
+        <!-- END LEFT SIDEBAR NAV -->
 
         <!-- START CONTENT -->
-        {# When extended, the content block contains all the html of the webpage #}
-        {% block content %}
-        {% endblock %}
+        {# When extended, the content block contains all the html of the webpage
+        #} {% block content %} {% endblock %}
         <!-- END CONTENT -->
-        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!--
+          ////////////////////////////////////////////////////////////////////////////
+        -->
+      </div>
+      <!-- END WRAPPER -->
     </div>
-    <!-- END WRAPPER -->
-</div>
 
-{% block footer %}
-{{ footer.render_footer(current_user) }}
-{% endblock %}
+    {% block footer %} {{ footer.render_footer(current_user) }} {% endblock %}
+    {# Implement CSRF protection for site #} {% if csrf_token()|safe %}
+    <div style="visibility: hidden; display: none">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token()|safe }}" />
+    </div>
+    {% endif %} {% block allscript %}
+    <!--
+      ================================================
+      Scripts
+      ================================================
+    -->
+    <!-- jQuery Library -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='vendors/jquery-3.2.1.min.js') }}"
+    ></script>
+    <!-- materialize js -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/materialize.min.js') }}"
+    ></script>
+    <!-- scrollbar -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"
+    ></script>
+    <!-- chartjs -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='vendors/chartjs/chart.min.js') }}"
+    ></script>
+    <!-- sparkline -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='vendors/sparkline/jquery.sparkline.min.js') }}"
+    ></script>
+    <!-- google map api -->
+    <script
+      type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek"
+    ></script>
+    <!-- jvectormap -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='vendors/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='vendors/jvectormap/jquery-jvectormap-world-mill-en.js') }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='vendors/jvectormap/vectormap-script.js') }}"
+    ></script>
+    <!-- plugins.js - Some Specific JS codes for Plugin Settings -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/plugins.js') }}"
+    ></script>
+    <!-- scrollbar -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"
+    ></script>
+    <!-- data-tables -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='vendors/data-tables/js/jquery.dataTables.min.js') }}"
+    ></script>
+    <!-- data-tables.js - Page Specific JS codes -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/scripts/data-tables.js') }}"
+    ></script>
+    <!-- custom-script.js - Add your own theme custom JS -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/custom-script.js') }}"
+    ></script>
+    <!-- prism -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='vendors/prism/prism.js') }}"
+    ></script>
+    <!-- chartjs -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='vendors/chartjs/chart.min.js') }}"
+    ></script
+    ><!-- masonry -->
+    <script src="{{ url_for('static', filename='vendors/masonry.pkgd.min.js') }}"></script>
+    <!-- imagesloaded -->
+    <script src="{{ url_for('static', filename='vendors/imagesloaded.pkgd.min.js') }}"></script>
 
-{# Implement CSRF protection for site #}
-{% if csrf_token()|safe %}
-<div style="visibility: hidden; display: none">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token()|safe }}">
-</div>
-{% endif %}
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/scripts/page-item.js') }}"
+    ></script>
+    <script src="{{ url_for('static', filename='dist/materialnote.js') }}"></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='vendors/sweetalert/dist/sweetalert.min.js') }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='vendors/dropify/js/dropify.min.js') }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/scripts/form-file-uploads.js') }}"
+    ></script>
+    {{ moment.include_moment() }} {{ moment.lang(g.locale) }} {% endblock %} {%
+    block scripts %} {% endblock %}
+    <script>
+      function delete_listing(id){
+        swal({    title: "Are you sure?",
+                    text: "You will not be able to recover this file!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it!",
+                    closeOnConfirm: false },
+                    function(){
+                    $(id).submit();
+                  });
+      }
 
-{% block allscript %}
-<!-- ================================================
-Scripts
-================================================ -->
-<!-- jQuery Library -->
-<script type="text/javascript" src="{{ url_for('static', filename='vendors/jquery-3.2.1.min.js') }}"></script>
-<!--materialize js-->
-<script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
-<!--scrollbar-->
-<script type="text/javascript"
-        src="{{ url_for('static', filename='vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-<!-- chartjs -->
-<script type="text/javascript" src="{{ url_for('static', filename='vendors/chartjs/chart.min.js') }}"></script>
-<!-- sparkline -->
-<script type="text/javascript"
-        src="{{ url_for('static', filename='vendors/sparkline/jquery.sparkline.min.js') }}"></script>
-<!-- google map api -->
-<script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek"></script>
-<!--jvectormap-->
-<script type="text/javascript"
-        src="{{ url_for('static', filename='vendors/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='vendors/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='vendors/jvectormap/vectormap-script.js') }}"></script>
-<!--plugins.js - Some Specific JS codes for Plugin Settings-->
-<script type="text/javascript" src="{{ url_for('static', filename='js/plugins.js') }}"></script>
-<!--scrollbar-->
-<script type="text/javascript"
-        src="{{ url_for('static', filename='vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-<!-- data-tables -->
-<script type="text/javascript"
-        src="{{ url_for('static', filename='vendors/data-tables/js/jquery.dataTables.min.js') }}"></script>
-<!--data-tables.js - Page Specific JS codes -->
-<script type="text/javascript" src="{{ url_for('static', filename='js/scripts/data-tables.js') }}"></script>
-<!--custom-script.js - Add your own theme custom JS-->
-<script type="text/javascript" src="{{ url_for('static', filename='js/custom-script.js') }}"></script>
-<!--prism -->
-<script type="text/javascript" src="{{ url_for('static', filename='vendors/prism/prism.js') }}"></script>
-<!-- chartjs -->
-<script type="text/javascript" src="{{ url_for('static', filename='vendors/chartjs/chart.min.js') }}"></script><!-- masonry -->
-<script src="{{ url_for('static', filename='vendors/masonry.pkgd.min.js') }}"></script>
-<!-- imagesloaded -->
-<script src="{{ url_for('static', filename='vendors/imagesloaded.pkgd.min.js') }}"></script>
+      var csrftoken = "{{ csrf_token() }}"
 
-<script type="text/javascript" src="{{ url_for('static', filename='js/scripts/page-item.js') }}"></script>
-<script src="{{ url_for('static', filename='dist/materialnote.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='vendors/sweetalert/dist/sweetalert.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='vendors/dropify/js/dropify.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/scripts/form-file-uploads.js') }}"></script>
-{{ moment.include_moment() }}
-{{ moment.lang(g.locale) }}
-{% endblock %}
+        $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+              if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                  xhr.setRequestHeader("X-CSRFToken", csrftoken)
+              }
+          }
+        })
 
-{% block scripts %}
-
-{% endblock %}
-<script>
-function delete_listing(id){
-  swal({    title: "Are you sure?",
-              text: "You will not be able to recover this file!",
-              type: "warning",
-              showCancelButton: true,
-              confirmButtonColor: "#DD6B55",
-              confirmButtonText: "Yes, delete it!",
-              closeOnConfirm: false },
-              function(){
-              $(id).submit();
-            });
-}
-
-var csrftoken = "{{ csrf_token() }}"
-
-  $.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-        if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken)
-        }
-    }
-  })
-
-function cancelBooking(id){
-    swal({   title: "Cancel Booking!",
-             text: "Are you sure you want To Cancel booking?:",
-             type: "input",   showCancelButton: true,
-             closeOnConfirm: false,
-             animation: "slide-from-top",
-             inputPlaceholder: "Reason for cancellation",
-             showLoaderOnConfirm: true, },
-             function(inputValue){
-                 if (inputValue === false) return false;
-                 if (inputValue === "") {
-                 swal.showInputError("You need to write something!");
-                 return false
-                 }
-                 data={
-                   reason:inputValue
-                 }
-                 $.post('{{ url_for('publisher.cancel_booking') }}?id=' + id,data).done(function(response) {
-                   swal("Cancelled!", "Booking successfully cancelled", "success");
-                   $('#placehold').html(response);
-
-              }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-                  swal("Status: " + textStatus, "Error: " + errorThrown, "error");
-              });
-        });
-  }
-
-  function get_profile(id){
-        $.get().done(function(response) {
-          $('#profile-placehold').html(response);
-     }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-         swal("Status: " + textStatus, "Error: " + errorThrown, "error");
-     });
-    }
-
-
-function set_message_count(n) {
-            $('#message_count').text(n);
-            $('#message_count').css('visibility', n ? 'visible' : 'hidden');
-        }
-        {% if current_user.is_authenticated %}
-           $(function() {
-               var since = 0;
-               setInterval(function() {
-                   $.ajax('{{ url_for('publisher.notifications') }}?since=' + since).done(
-                       function(notifications) {
-                           for (var i = 0; i < notifications.length; i++) {
-                            switch (notifications[i].name) {
-                                case 'unread_message_count':
-                                    set_message_count(notifications[i].data);
-                                    break;
-                                case 'unread_booking_count':
-                                    set_notification_count(notifications[i].data);
-                                    break;
-                            }
-                            since = notifications[i].timestamp;
-                        }
+      function cancelBooking(id){
+          swal({   title: "Cancel Booking!",
+                   text: "Are you sure you want To Cancel booking?:",
+                   type: "input",   showCancelButton: true,
+                   closeOnConfirm: false,
+                   animation: "slide-from-top",
+                   inputPlaceholder: "Reason for cancellation",
+                   showLoaderOnConfirm: true, },
+                   function(inputValue){
+                       if (inputValue === false) return false;
+                       if (inputValue === "") {
+                       swal.showInputError("You need to write something!");
+                       return false
                        }
-                   );
-               }, 10000);
+                       data={
+                         reason:inputValue
+                       }
+                       $.post('{{ url_for('publisher.cancel_booking') }}?id=' + id,data).done(function(response) {
+                         swal("Cancelled!", "Booking successfully cancelled", "success");
+                         $('#placehold').html(response);
+
+                    }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+                        swal("Status: " + textStatus, "Error: " + errorThrown, "error");
+                    });
+              });
+        }
+
+        function get_profile(id){
+              $.get().done(function(response) {
+                $('#profile-placehold').html(response);
+           }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+               swal("Status: " + textStatus, "Error: " + errorThrown, "error");
            });
-           {% endif %}
-function set_notification_count(n) {
-  $('#notification_count').text(n);
-  $('#notification_count').css('visibility', n ? 'visible' : 'hidden');
-  if (n > 0){
-      $.ajax('{{ url_for('publisher.notifications_view') }}').done(function(data) {
-        $('#notifications-dropdown').html(data)
-      });
-    }
-  }
+          }
 
-function notification(id){
-  $(id).dropdown();
 
-}
-</script>
+      function set_message_count(n) {
+                  $('#message_count').text(n);
+                  $('#message_count').css('visibility', n ? 'visible' : 'hidden');
+              }
+              {% if current_user.is_authenticated %}
+                 $(function() {
+                     var since = 0;
+                     setInterval(function() {
+                         $.ajax('{{ url_for('publisher.notifications') }}?since=' + since).done(
+                             function(notifications) {
+                                 for (var i = 0; i < notifications.length; i++) {
+                                  switch (notifications[i].name) {
+                                      case 'unread_message_count':
+                                          set_message_count(notifications[i].data);
+                                          break;
+                                      case 'unread_booking_count':
+                                          set_notification_count(notifications[i].data);
+                                          break;
+                                  }
+                                  since = notifications[i].timestamp;
+                              }
+                             }
+                         );
+                     }, 10000);
+                 });
+                 {% endif %}
+      function set_notification_count(n) {
+        $('#notification_count').text(n);
+        $('#notification_count').css('visibility', n ? 'visible' : 'hidden');
+        if (n > 0){
+            $.ajax('{{ url_for('publisher.notifications_view') }}').done(function(data) {
+              $('#notifications-dropdown').html(data)
+            });
+          }
+        }
 
-</body>
+      function notification(id){
+        $(id).dropdown();
+
+      }
+    </script>
+  </body>
 </html>

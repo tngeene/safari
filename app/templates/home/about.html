@@ -1,270 +1,300 @@
-{% extends 'home/home_base.html' %}
+{% extends 'home/home_base.html' %} {% block home_content %}
 
-
-{% block home_content %}
-
-    <div class="main-wraper padd-90">
-        <div class="container pt-2">
-            <div class="row">
-                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-                    <div class="second-title">
-                        <h2>about us</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="simple-text">
-                        <p class="text-center">
-                          Out2safari is a Safari Search, Comparison, Booking and Reviews Marketplace that helps Users to find the
-                          best deals, destinations and Tour Operators for African Safaris. By eliminating the expensive travel
-                          agents, we promote complete transparency in the safari industry for the benefit of Travellers, Tour
-                          Operators and Communities that reside where tourism resources are located. <br>
-                          We bring to you 10 safari destination countries in Africa, their National Parks and Reserves, thousands of
-                          Tour Operators and Travellers reviews of the same on one platform, to not only help you make an
-                          informed decision on your next safari adventure. We require all Tour Operators to furnish us with their
-                          legal registration documents which we verify with relevant authorities in their jurisdictions of operation
-                          before allowing them to advertise and offer their safari packages to Users. <br>
-                          The reviews function and
-                          Users to benefit from the experiences of previous. We have provided expert content on the various
-                          destinations, parks, reserves and other useful travel information to further inform Users in their decision
-                          making process.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="main-wraper padd-90">
+  <div class="container pt-2">
+    <div class="row">
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+        <div class="second-title"><h2>about us</h2></div>
+      </div>
     </div>
-
-    <div class="main-wraper padd-90 bg-white">
-        <div class="container pt-2">
-            <div class="row">
-                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-                    <div class="second-title">
-                        <h2>Why Out2safari?</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="icon-block-entry col-md-4">
-                  <div class="icon-block style-4">
-                    <div class="icon-img-entry">
-                      <img class="icon-img" src="{{ url_for('static', filename='home/img/icon_6.png') }}" alt="icon">
-                    </div>
-                    <div class="icon-content">
-                      <h5 class="icon-title color-dark-2">Large community</h5>
-                      <div class="icon-text color-dark-2-light">
-                        1000’s of other Users from all over the world come to us to help them search, find, plan
-                        and book their safari adventure.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="icon-block-entry col-md-4">
-                  <div class="icon-block style-4">
-                    <div class="icon-img-entry">
-                      <img class="icon-img" src="{{ url_for('static', filename='home/img/icon_6.png') }}" alt="icon">
-                    </div>
-                    <div class="icon-content">
-                      <h5 class="icon-title color-dark-2">Premium Destinations</h5>
-                      <div class="icon-text color-dark-2-light">
-                        You get to choose from 10 premium safari destinations in Africa and thousands of carefully
-                        selected and verified Tour Operators to take you there. We spoil you for choice.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="icon-block-entry col-md-4">
-                  <div class="icon-block style-4">
-                    <div class="icon-img-entry">
-                      <img class="icon-img" src="{{ url_for('static', filename='home/img/icon_6.png') }}" alt="icon">
-                    </div>
-                    <div class="icon-content">
-                      <h5 class="icon-title color-dark-2">24/7 customer support</h5>
-                      <div class="icon-text color-dark-2-light">
-                        We provide 24/7 customer support to our Users and Tour Operators. You can us through email,
-                        chat and phone anytime.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="icon-block-entry col-md-4">
-                  <div class="icon-block style-4">
-                    <div class="icon-img-entry">
-                      <img class="icon-img" src="{{ url_for('static', filename='home/img/icon_6.png') }}" alt="icon">
-                    </div>
-                    <div class="icon-content">
-                      <h5 class="icon-title color-dark-2">Save Time and money</h5>
-                      <div class="icon-text color-dark-2-light">
-                        Booking online saves you the time and money you spend on Travel agents who are usually as
-                        uninformed as you are and have to contact Tour Operators on the ground for information. We
-                        allow you to do that directly at source and at no extra cost.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="icon-block-entry col-md-4">
-                  <div class="icon-block style-4">
-                    <div class="icon-img-entry">
-                      <img class="icon-img" src="{{ url_for('static', filename='home/img/icon_6.png') }}" alt="icon">
-                    </div>
-                    <div class="icon-content">
-                      <h5 class="icon-title color-dark-2">Best rates and pricing</h5>
-                      <div class="icon-text color-dark-2-light">
-                        Our pricing engine lets Tour Operators provide you with the best and latest pricing. Take
-                        advantage of last minute deals and discounts.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="icon-block-entry col-md-4">
-                  <div class="icon-block style-4">
-                    <div class="icon-img-entry">
-                      <img class="icon-img" src="{{ url_for('static', filename='home/img/icon_6.png') }}" alt="icon">
-                    </div>
-                    <div class="icon-content">
-                      <h5 class="icon-title color-dark-2">Tailor made discounts</h5>
-                      <div class="icon-text color-dark-2-light">
-                        We work with Tour Operators to ensure we get the best deals and discounts for our Users
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="simple-text">
+          <p class="text-center">
+            Out2safari is a Safari Search, Comparison, Booking and Reviews
+            Marketplace that helps Users to find the best deals, destinations
+            and Tour Operators for African Safaris. By eliminating the expensive
+            travel agents, we promote complete transparency in the safari
+            industry for the benefit of Travellers, Tour Operators and
+            Communities that reside where tourism resources are located. <br />
+            We bring to you 10 safari destination countries in Africa, their
+            National Parks and Reserves, thousands of Tour Operators and
+            Travellers reviews of the same on one platform, to not only help you
+            make an informed decision on your next safari adventure. We require
+            all Tour Operators to furnish us with their legal registration
+            documents which we verify with relevant authorities in their
+            jurisdictions of operation before allowing them to advertise and
+            offer their safari packages to Users. <br />
+            The reviews function and Users to benefit from the experiences of
+            previous. We have provided expert content on the various
+            destinations, parks, reserves and other useful travel information to
+            further inform Users in their decision making process.
+          </p>
         </div>
+      </div>
     </div>
+  </div>
+</div>
 
-    <!-- PARTNERS -->
-    <!-- <div class="main-wraper padd-90">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-                    <div class="second-title">
-                        <h2>Our Investors</h2>
-                    </div>
-                </div>
+<div class="main-wraper padd-90 bg-white">
+  <div class="container pt-2">
+    <div class="row">
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+        <div class="second-title"><h2>Why Out2safari?</h2></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icon-block-entry col-md-4">
+        <div class="icon-block style-4">
+          <div class="icon-img-entry">
+            <img
+              class="icon-img"
+              src="{{ url_for('static', filename='home/img/icon_6.png') }}"
+              alt="icon"
+            />
+          </div>
+          <div class="icon-content">
+            <h5 class="icon-title color-dark-2">Large community</h5>
+            <div class="icon-text color-dark-2-light">
+              1000’s of other Users from all over the world come to us to help
+              them search, find, plan and book their safari adventure.
             </div>
-            <div class="investors-block">
-                <div class="row no-margin">
-                    <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
-                        <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_1.png" alt=""></a>
-                    </div>
-                    <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
-                        <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_2.png" alt=""></a>
-                    </div>
-                    <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
-                        <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_3.png" alt=""></a>
-                    </div>
-                    <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
-                        <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_4.png" alt=""></a>
-                    </div>
-                    <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
-                        <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_5.png" alt=""></a>
-                    </div>
-                    <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
-                        <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_6.png" alt=""></a>
-                    </div>
-                    <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
-                        <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_7.png" alt=""></a>
-                    </div>
-                    <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
-                        <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_8.png" alt=""></a>
-                    </div>
-                    <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
-                        <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_9.png" alt=""></a>
-                    </div>
-                    <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
-                        <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_10.png" alt=""></a>
-                    </div>
-                    <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
-                        <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_11.png" alt=""></a>
-                    </div>
-                    <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
-                        <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_12.png" alt=""></a>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-    </div> -->
+      </div>
+      <div class="icon-block-entry col-md-4">
+        <div class="icon-block style-4">
+          <div class="icon-img-entry">
+            <img
+              class="icon-img"
+              src="{{ url_for('static', filename='home/img/icon_6.png') }}"
+              alt="icon"
+            />
+          </div>
+          <div class="icon-content">
+            <h5 class="icon-title color-dark-2">Premium Destinations</h5>
+            <div class="icon-text color-dark-2-light">
+              You get to choose from 10 premium safari destinations in Africa
+              and thousands of carefully selected and verified Tour Operators to
+              take you there. We spoil you for choice.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="icon-block-entry col-md-4">
+        <div class="icon-block style-4">
+          <div class="icon-img-entry">
+            <img
+              class="icon-img"
+              src="{{ url_for('static', filename='home/img/icon_6.png') }}"
+              alt="icon"
+            />
+          </div>
+          <div class="icon-content">
+            <h5 class="icon-title color-dark-2">24/7 customer support</h5>
+            <div class="icon-text color-dark-2-light">
+              We provide 24/7 customer support to our Users and Tour Operators.
+              You can us through email, chat and phone anytime.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icon-block-entry col-md-4">
+        <div class="icon-block style-4">
+          <div class="icon-img-entry">
+            <img
+              class="icon-img"
+              src="{{ url_for('static', filename='home/img/icon_6.png') }}"
+              alt="icon"
+            />
+          </div>
+          <div class="icon-content">
+            <h5 class="icon-title color-dark-2">Save Time and money</h5>
+            <div class="icon-text color-dark-2-light">
+              Booking online saves you the time and money you spend on Travel
+              agents who are usually as uninformed as you are and have to
+              contact Tour Operators on the ground for information. We allow you
+              to do that directly at source and at no extra cost.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="icon-block-entry col-md-4">
+        <div class="icon-block style-4">
+          <div class="icon-img-entry">
+            <img
+              class="icon-img"
+              src="{{ url_for('static', filename='home/img/icon_6.png') }}"
+              alt="icon"
+            />
+          </div>
+          <div class="icon-content">
+            <h5 class="icon-title color-dark-2">Best rates and pricing</h5>
+            <div class="icon-text color-dark-2-light">
+              Our pricing engine lets Tour Operators provide you with the best
+              and latest pricing. Take advantage of last minute deals and
+              discounts.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="icon-block-entry col-md-4">
+        <div class="icon-block style-4">
+          <div class="icon-img-entry">
+            <img
+              class="icon-img"
+              src="{{ url_for('static', filename='home/img/icon_6.png') }}"
+              alt="icon"
+            />
+          </div>
+          <div class="icon-content">
+            <h5 class="icon-title color-dark-2">Tailor made discounts</h5>
+            <div class="icon-text color-dark-2-light">
+              We work with Tour Operators to ensure we get the best deals and
+              discounts for our Users
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!-- S_NEWS-ENTRY -->
-    <!-- <div class="main-wraper bg-grey-2 padd-90">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-                    <div class="second-title">
-                        <h4 class="subtitle color-dr-blue-2 underline">news</h4>
-                        <h2>latest news</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-4">
-                    <div class="s_news-entry">
-                        <img class="s_news-img img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/home_8/news_1.jpg" alt="">
-                        <h4 class="s_news-title"><a href="#">Lorem ipsum dolor</a></h4>
-                        <div class="tour-info-line clearfix">
-                            <div class="tour-info fl">
-                                   <img src="http://demo.nrgthemes.com/projects/travel/img/calendar_icon_grey.png" alt="">
-                                   <span class="font-style-2 color-dark-2">03/07/2015</span>
-                               </div>
-                            <div class="tour-info fl">
-                                   <img src="http://demo.nrgthemes.com/projects/travel/img/people_icon_grey.png" alt="">
-                                   <span class="font-style-2 color-dark-2">By Emma Stone</span>
-                               </div>
-                            <div class="tour-info fl">
-                                   <img src="http://demo.nrgthemes.com/projects/travel/img/comment_icon_grey.png" alt="">
-                                   <span class="font-style-2 color-dark-2">10 comments</span>
-                               </div>
-                        </div>
-                        <div class="s_news-text color-grey-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, commodo consequat.</div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <div class="s_news-entry">
-                        <img class="s_news-img img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/home_8/news_2.jpg" alt="">
-                        <h4 class="s_news-title"><a href="#">Lorem ipsum dolor</a></h4>
-                        <div class="tour-info-line clearfix">
-                            <div class="tour-info fl">
-                                   <img src="http://demo.nrgthemes.com/projects/travel/img/calendar_icon_grey.png" alt="">
-                                   <span class="font-style-2 color-dark-2">03/07/2015</span>
-                               </div>
-                            <div class="tour-info fl">
-                                   <img src="http://demo.nrgthemes.com/projects/travel/img/people_icon_grey.png" alt="">
-                                   <span class="font-style-2 color-dark-2">By Emma Stone</span>
-                               </div>
-                            <div class="tour-info fl">
-                                   <img src="http://demo.nrgthemes.com/projects/travel/img/comment_icon_grey.png" alt="">
-                                   <span class="font-style-2 color-dark-2">10 comments</span>
-                               </div>
-                        </div>
-                        <div class="s_news-text color-grey-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, commodo consequat.</div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <div class="s_news-entry">
-                        <img class="s_news-img img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/home_8/news_3.jpg" alt="">
-                        <h4 class="s_news-title"><a href="#">Lorem ipsum dolor</a></h4>
-                        <div class="tour-info-line clearfix">
-                            <div class="tour-info fl">
-                                   <img src="http://demo.nrgthemes.com/projects/travel/img/calendar_icon_grey.png" alt="">
-                                   <span class="font-style-2 color-dark-2">03/07/2015</span>
-                               </div>
-                            <div class="tour-info fl">
-                                   <img src="http://demo.nrgthemes.com/projects/travel/img/people_icon_grey.png" alt="">
-                                   <span class="font-style-2 color-dark-2">By Emma Stone</span>
-                               </div>
-                            <div class="tour-info fl">
-                                   <img src="http://demo.nrgthemes.com/projects/travel/img/comment_icon_grey.png" alt="">
-                                   <span class="font-style-2 color-dark-2">10 comments</span>
-                               </div>
-                        </div>
-                        <div class="s_news-text color-grey-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, commodo consequat.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>   -->
+<!-- PARTNERS -->
+<!--
+  <div class="main-wraper padd-90">
+      <div class="container">
+          <div class="row">
+              <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                  <div class="second-title">
+                      <h2>Our Investors</h2>
+                  </div>
+              </div>
+          </div>
+          <div class="investors-block">
+              <div class="row no-margin">
+                  <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
+                      <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_1.png" alt=""></a>
+                  </div>
+                  <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
+                      <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_2.png" alt=""></a>
+                  </div>
+                  <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
+                      <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_3.png" alt=""></a>
+                  </div>
+                  <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
+                      <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_4.png" alt=""></a>
+                  </div>
+                  <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
+                      <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_5.png" alt=""></a>
+                  </div>
+                  <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
+                      <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_6.png" alt=""></a>
+                  </div>
+                  <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
+                      <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_7.png" alt=""></a>
+                  </div>
+                  <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
+                      <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_8.png" alt=""></a>
+                  </div>
+                  <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
+                      <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_9.png" alt=""></a>
+                  </div>
+                  <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
+                      <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_10.png" alt=""></a>
+                  </div>
+                  <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
+                      <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_11.png" alt=""></a>
+                  </div>
+                  <div class="col-mob-6 col-xs-4 col-sm-3 col-md-2 clear-mob-2 clear-xs-3 clear-sm-4 clear-md-6 no-padding">
+                      <a class="investor-logo" href="#"><img class="img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/inner/investors_12.png" alt=""></a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+-->
+
+<!-- S_NEWS-ENTRY -->
+<!--
+  <div class="main-wraper bg-grey-2 padd-90">
+      <div class="container">
+          <div class="row">
+              <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                  <div class="second-title">
+                      <h4 class="subtitle color-dr-blue-2 underline">news</h4>
+                      <h2>latest news</h2>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-xs-12 col-sm-4">
+                  <div class="s_news-entry">
+                      <img class="s_news-img img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/home_8/news_1.jpg" alt="">
+                      <h4 class="s_news-title"><a href="#">Lorem ipsum dolor</a></h4>
+                      <div class="tour-info-line clearfix">
+                          <div class="tour-info fl">
+                                 <img src="http://demo.nrgthemes.com/projects/travel/img/calendar_icon_grey.png" alt="">
+                                 <span class="font-style-2 color-dark-2">03/07/2015</span>
+                             </div>
+                          <div class="tour-info fl">
+                                 <img src="http://demo.nrgthemes.com/projects/travel/img/people_icon_grey.png" alt="">
+                                 <span class="font-style-2 color-dark-2">By Emma Stone</span>
+                             </div>
+                          <div class="tour-info fl">
+                                 <img src="http://demo.nrgthemes.com/projects/travel/img/comment_icon_grey.png" alt="">
+                                 <span class="font-style-2 color-dark-2">10 comments</span>
+                             </div>
+                      </div>
+                      <div class="s_news-text color-grey-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, commodo consequat.</div>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-4">
+                  <div class="s_news-entry">
+                      <img class="s_news-img img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/home_8/news_2.jpg" alt="">
+                      <h4 class="s_news-title"><a href="#">Lorem ipsum dolor</a></h4>
+                      <div class="tour-info-line clearfix">
+                          <div class="tour-info fl">
+                                 <img src="http://demo.nrgthemes.com/projects/travel/img/calendar_icon_grey.png" alt="">
+                                 <span class="font-style-2 color-dark-2">03/07/2015</span>
+                             </div>
+                          <div class="tour-info fl">
+                                 <img src="http://demo.nrgthemes.com/projects/travel/img/people_icon_grey.png" alt="">
+                                 <span class="font-style-2 color-dark-2">By Emma Stone</span>
+                             </div>
+                          <div class="tour-info fl">
+                                 <img src="http://demo.nrgthemes.com/projects/travel/img/comment_icon_grey.png" alt="">
+                                 <span class="font-style-2 color-dark-2">10 comments</span>
+                             </div>
+                      </div>
+                      <div class="s_news-text color-grey-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, commodo consequat.</div>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-sm-4">
+                  <div class="s_news-entry">
+                      <img class="s_news-img img-responsive" src="http://demo.nrgthemes.com/projects/travel/img/home_8/news_3.jpg" alt="">
+                      <h4 class="s_news-title"><a href="#">Lorem ipsum dolor</a></h4>
+                      <div class="tour-info-line clearfix">
+                          <div class="tour-info fl">
+                                 <img src="http://demo.nrgthemes.com/projects/travel/img/calendar_icon_grey.png" alt="">
+                                 <span class="font-style-2 color-dark-2">03/07/2015</span>
+                             </div>
+                          <div class="tour-info fl">
+                                 <img src="http://demo.nrgthemes.com/projects/travel/img/people_icon_grey.png" alt="">
+                                 <span class="font-style-2 color-dark-2">By Emma Stone</span>
+                             </div>
+                          <div class="tour-info fl">
+                                 <img src="http://demo.nrgthemes.com/projects/travel/img/comment_icon_grey.png" alt="">
+                                 <span class="font-style-2 color-dark-2">10 comments</span>
+                             </div>
+                      </div>
+                      <div class="s_news-text color-grey-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, commodo consequat.</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+-->
 {% endblock home_content %}
