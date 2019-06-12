@@ -1,75 +1,87 @@
-{% extends 'home/home_base.html' %}
+{% extends 'home/home_base.html' %} {% block home_content %}
 
-
-{% block home_content %}
-    
-    <!-- listings -->
-    <div class="list-wrapper bg-grey-2 py-5">
-        <div class="container py-5">
-            <!-- top banner -->
-            <div class="bg-white mb-2 p-2">
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="{{ url_for('static', filename='home/img/slide/main_slide_1.jpg') }}" width="300px" alt="">
-                    </div>
-                    <div class="col-md-6">
-                        <h3 class="color-dark-2">Kenya</h3>
-                        <div class="rate-wrap">
-                            <div class="rate">
-                                <span class="fa fa-star color-yellow"></span>
-                                <span class="fa fa-star color-yellow"></span>
-                                <span class="fa fa-star color-yellow"></span>
-                                <span class="fa fa-star color-yellow"></span>
-                                <span class="fa fa-star color-yellow"></span>
-                            </div>
-                            <i>485 reviews</i> 
-                        </div>
-                        <p><b>Office in: </b>Kenya <span class="fa fa-flag"></span></p>
-                        <p><b>Size: </b>1-5 employees (Founded in 2015)</p>
-                        <p><b>Price range: </b>$908 - $9833</p>
-                        <p><b>Tour types: </b>Custom budget and mid-range tours that can depart every day.</p>
-                    </div>
-                    <div class="col-md-2">
-                        <img src="{{ url_for('static', filename='home/img/slide/main_slide_1.jpg') }}" width="150px" class="pb-2" alt="">
-                        <a href="#" class="c-button b-40 bg-blue-2 hv-blue-2-o">Kenya Safaris</a>
-                    </div>
-                </div>
-            </div>
-            <!-- end top banner -->
-
-            <div class="row">
-                <!-- sidebar -->
-                {% include 'home/country_sidebar.html' %}
-                <!-- end sidebar -->
-
-
-                <div class="col-xs-12 col-sm-8 col-md-9">
-                    <div id="overview" class="mb-2 p-2 bg-white">
-                        <h4 class="sidebar-title color-dark-2">Overview - Kenya</h4>
-                        <p>
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-                            Similique nemo asperiores vel. Quam placeat fuga sapiente 
-                            laborum dolor possimus, dolorem corporis quo natus. Sit tempora 
-                            quam sapiente tenetur esse quae!
-                        </p>
-                    </div>
-
-
-                    <div class="c_pagination clearfix padd-120">
-                        <a href="#" class="c-button b-40 bg-blue-2 hv-blue-2-o fl">prev page</a>
-                        <a href="#" class="c-button b-40 bg-blue-2 hv-blue-2-o fr">next page</a>
-                        <ul class="cp_content color-1">
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">...</a></li>
-                            <li><a href="#">10</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+<!-- listings -->
+<div class="list-wrapper bg-grey-2 py-5">
+  <div class="container py-5">
+    <!-- top banner -->
+    <div class="bg-white mb-2 p-2">
+      <div class="row">
+        <div class="col-md-4">
+          <img
+            src="{{ url_for('static', filename='home/img/slide/main_slide_1.jpg') }}"
+            width="300px"
+            alt=""
+          />
         </div>
+        <div class="col-md-6">
+          <h3 class="color-dr-blue-2">Kenya</h3>
+          <div class="rate-wrap">
+            <div class="rate">
+              <span class="fa fa-star color-yellow"></span>
+              <span class="fa fa-star color-yellow"></span>
+              <span class="fa fa-star color-yellow"></span>
+              <span class="fa fa-star color-yellow"></span>
+              <span class="fa fa-star color-yellow"></span>
+            </div>
+            <i>485 reviews</i>
+          </div>
+          <p><b>Office in: </b>Kenya <span class="fa fa-flag"></span></p>
+          <p><b>Size: </b>1-5 employees (Founded in 2015)</p>
+          <p><b>Price range: </b>$908 - $9833</p>
+          <p>
+            <b>Tour types: </b>Custom budget and mid-range tours that can depart
+            every day.
+          </p>
+        </div>
+        <div class="col-md-2">
+          <img
+            src="{{ url_for('static', filename='home/img/slide/main_slide_1.jpg') }}"
+            width="150px"
+            class="pb-2"
+            alt=""
+          />
+          <a href="#" class="c-button b-40 bg-blue-2 hv-blue-2-o"
+            >Kenya Safaris</a
+          >
+        </div>
+      </div>
     </div>
+    <!-- end top banner -->
+
+    <div class="row">
+      <!-- sidebar -->
+      {% include 'home/country_sidebar.html' %}
+      <!-- end sidebar -->
+
+      <div class="col-xs-12 col-sm-8 col-md-9">
+        <div id="overview" class="mb-2 p-2 bg-white">
+          <h4 class="sidebar-title color-dr-blue-2">Overview - Kenya</h4>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique
+            nemo asperiores vel. Quam placeat fuga sapiente laborum dolor
+            possimus, dolorem corporis quo natus. Sit tempora quam sapiente
+            tenetur esse quae!
+          </p>
+        </div>
+
+        <div class="c_pagination clearfix padd-120">
+          <a href="#" class="c-button b-40 bg-blue-2 hv-blue-2-o fl"
+            >prev page</a
+          >
+          <a href="#" class="c-button b-40 bg-blue-2 hv-blue-2-o fr"
+            >next page</a
+          >
+          <ul class="cp_content color-1">
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">...</a></li>
+            <li><a href="#">10</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock home_content %}
-    

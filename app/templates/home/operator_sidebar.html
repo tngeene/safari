@@ -1,24 +1,48 @@
-    <div class="col-xs-12 col-sm-4 col-md-3">
-        <div class="sidebar bg-white clearfix">
-            <div class="sidebar-block type-2">
-                <h4 class="sidebar-title color-dark-2">{{ publisher.get_full_name }}</h4>
-                <ul class="sidebar-category color-5">
-                    <li class="{% if '/overview' in request.path %}active{% endif %}">
-                        <a href="{{ url_for('home.tour_operator_details', publisher_id=publisher.id) }}">Overview</a>
-                    </li>
-                    <li class="{% if '/listings' in request.path %}active{% endif %}">
-                        <a href="{{ url_for('home.tour_operator_listings', publisher_id=publisher.id) }}">Listings <span class="fr">({{ publisher.listings.filter_by(status=True).count() }})</span></a>
-                    </li>
-                    <li class="{% if '/reviews' in request.path %}active{% endif %}">
-                        <a href="{{ url_for('home.tour_operator_reviews', publisher_id=publisher.id) }}">Reviews <span class="fr">({{ publisher.publisher.overal_ratings }})</span></a>
-                    </li>
-                    <li class="{% if '/destinations' in request.path %}active{% endif %}">
-                        <a href="{{ url_for('home.tour_operator_destinations', publisher_id=publisher.id) }}">Destinations  <span class="fr">({{ publisher.get_destination_count() }})</span></a>
-                    </li>
-                    <li class="{% if '/contact' in request.path %}active{% endif %}">
-                        <a href="{{ url_for('home.tour_operator_contact', publisher_id=publisher.id) }}">Contacts</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+<div class="col-xs-12 col-sm-4 col-md-3">
+  <div class="sidebar bg-white clearfix">
+    <div class="sidebar-block type-2">
+      <h4 class="sidebar-title color-dr-blue-2">
+        {{ publisher.get_full_name }}
+      </h4>
+      <ul class="sidebar-category color-5">
+        <li class="{% if '/overview' in request.path %}active{% endif %}">
+          <a
+            href="{{ url_for('home.tour_operator_details', publisher_id=publisher.id) }}"
+            >Overview</a
+          >
+        </li>
+        <li class="{% if '/listings' in request.path %}active{% endif %}">
+          <a
+            href="{{ url_for('home.tour_operator_listings', publisher_id=publisher.id) }}"
+            >Listings
+            <span class="fr"
+              >({{ publisher.listings.filter_by(status=True).count() }})</span
+            ></a
+          >
+        </li>
+        <li class="{% if '/reviews' in request.path %}active{% endif %}">
+          <a
+            href="{{ url_for('home.tour_operator_reviews', publisher_id=publisher.id) }}"
+            >Reviews
+            <span class="fr"
+              >({{ publisher.publisher.overal_ratings }})</span
+            ></a
+          >
+        </li>
+        <li class="{% if '/destinations' in request.path %}active{% endif %}">
+          <a
+            href="{{ url_for('home.tour_operator_destinations', publisher_id=publisher.id) }}"
+            >Destinations
+            <span class="fr">({{ publisher.get_destination_count() }})</span></a
+          >
+        </li>
+        <li class="{% if '/contact' in request.path %}active{% endif %}">
+          <a
+            href="{{ url_for('home.tour_operator_contact', publisher_id=publisher.id) }}"
+            >Contacts</a
+          >
+        </li>
+      </ul>
     </div>
+  </div>
+</div>

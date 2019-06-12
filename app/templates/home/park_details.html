@@ -1,19 +1,16 @@
-{% extends 'home/home_base.html' %}
+{% extends 'home/home_base.html' %} {% block home_content %}
 
-
-{% block home_content %}
-
-    <!-- listings -->
-    <div class="list-wrapper bg-grey-2 py-5">
-        <div class="container py-5">
-            <div class="bg-white mb-2 p-2">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3 class="color-dark-2">{{ park.name }}</h3>
-                        {{ park.description |safe }}
-                    </div>
-                </div>
-            </div>
+<!-- listings -->
+<div class="list-wrapper bg-grey-2 py-5">
+  <div class="container py-5">
+    <div class="bg-white mb-2 p-2">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="color-dr-blue-2">{{ park.name }}</h3>
+          {{ park.description |safe }}
         </div>
+      </div>
     </div>
+  </div>
+</div>
 {% endblock home_content %}

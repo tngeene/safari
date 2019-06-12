@@ -1,62 +1,79 @@
-{% extends 'home/home_base.html' %}
+{% extends 'home/home_base.html' %} {% block home_content %}
 
+<!-- listings -->
+<div class="list-wrapper bg-grey-2 py-5">
+  <div class="container py-5">
+    <!-- top banner -->
+    {% include 'home/_banner.html' %}
+    <!-- end top banner -->
 
-{% block home_content %}
+    <div class="row">
+      <!-- sidebar -->
+      {% include 'home/operator_sidebar.html' %}
+      <!-- end sidebar -->
 
-    <!-- listings -->
-    <div class="list-wrapper bg-grey-2 py-5">
-        <div class="container py-5">
-            <!-- top banner -->
-          {% include 'home/_banner.html' %}
-            <!-- end top banner -->
-
-            <div class="row">
-                <!-- sidebar -->
-                {% include 'home/operator_sidebar.html' %}
-                <!-- end sidebar -->
-
-
-                <div class="col-xs-12 col-sm-8 col-md-9">
-                    <!-- list -->
-                    <div id="listings" class="grid-content clearfix">
-                        <!-- list item -->
-                            <ul class="comments-block">
-                              {% for review in publisher.pub_reviews %}
-                                <li class="comment-entry clearfix">
-                                    <img class="commnent-img" src="{{review.user.avatar(70) }}" alt="">
-                                    <div class="comment-content clearfix bg-white">
-                                        <div class="tour-info-line">
-                                            <h5>{{ review.user.full_name() }}</h5>
-                                            <div class="tour-info">
-                                                <img src="{{ url_for('static', filename='home/img/calendar_icon_grey.png') }}" alt="">
-                                                <span class="font-style-2 color-dark-2">Reviewed - {{ moment(review.createdAt).fromNow() }}</span>
-                                            </div>
-                                            <div class="rate-wrap">
-                                                <div class="rate">
-                                                  <span class="fa fa-star {{'color-yellow' if review.value >= 1 else 'color-grey'  }}"></span>
-                                                  <span class="fa fa-star {{'color-yellow' if review.value >= 2 else 'color-grey'  }}"></span>
-                                                  <span class="fa fa-star {{'color-yellow' if review.value >= 3 else 'color-grey'  }}"></span>
-                                                  <span class="fa fa-star {{'color-yellow' if review.value >= 4 else 'color-grey'  }}"></span>
-                                                  <span class="fa fa-star {{'color-yellow' if review.value >= 5 else 'color-grey'  }}"></span>
-                                                  <span class="font-style-2 color-dark-2">{{ review.value }}/5</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="comment-text color-grey">{{ review.comment }}</div>
-                                    </div>
-                                </li>
-                                {% else %}
-                                <li class="comment-entry clearfix">
-                                <div class="alert alert-warning" role="alert">
-                                            <span class="text-success">No Destinations Found!!</span>
-                                </div>
-                              </li>
-                                {%endfor%}
-                            </ul>
+      <div class="col-xs-12 col-sm-8 col-md-9">
+        <!-- list -->
+        <div id="listings" class="grid-content clearfix">
+          <!-- list item -->
+          <ul class="comments-block">
+            {% for review in publisher.pub_reviews %}
+            <li class="comment-entry clearfix">
+              <img
+                class="commnent-img"
+                src="{{review.user.avatar(70) }}"
+                alt=""
+              />
+              <div class="comment-content clearfix bg-white">
+                <div class="tour-info-line">
+                  <h5>{{ review.user.full_name() }}</h5>
+                  <div class="tour-info">
+                    <img
+                      src="{{ url_for('static', filename='home/img/calendar_icon_grey.png') }}"
+                      alt=""
+                    />
+                    <span class="font-style-2 color-dr-blue-2"
+                      >Reviewed - {{ moment(review.createdAt).fromNow() }}</span
+                    >
+                  </div>
+                  <div class="rate-wrap">
+                    <div class="rate">
+                      <span
+                        class="fa fa-star {{'color-yellow' if review.value >= 1 else 'color-grey'  }}"
+                      ></span>
+                      <span
+                        class="fa fa-star {{'color-yellow' if review.value >= 2 else 'color-grey'  }}"
+                      ></span>
+                      <span
+                        class="fa fa-star {{'color-yellow' if review.value >= 3 else 'color-grey'  }}"
+                      ></span>
+                      <span
+                        class="fa fa-star {{'color-yellow' if review.value >= 4 else 'color-grey'  }}"
+                      ></span>
+                      <span
+                        class="fa fa-star {{'color-yellow' if review.value >= 5 else 'color-grey'  }}"
+                      ></span>
+                      <span class="font-style-2 color-dr-blue-2"
+                        >{{ review.value }}/5</span
+                      >
                     </div>
-                    <!-- end list item -->
+                  </div>
                 </div>
-            </div>
+                <div class="comment-text color-grey">{{ review.comment }}</div>
+              </div>
+            </li>
+            {% else %}
+            <li class="comment-entry clearfix">
+              <div class="alert alert-warning" role="alert">
+                <span class="text-success">No Destinations Found!!</span>
+              </div>
+            </li>
+            {%endfor%}
+          </ul>
         </div>
+        <!-- end list item -->
+      </div>
     </div>
+  </div>
+</div>
 {% endblock home_content %}

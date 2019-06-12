@@ -1,284 +1,400 @@
-{% extends 'home/home_base.html' %}
+{% extends 'home/home_base.html' %} {% block home_content %}
 
-
-{% block home_content %}
-
-    <div class="top-baner swiper-animate arrows">
-        <div class="swiper-container main-slider" data-autoplay=false data-loop="1" data-speed="900" data-center="0" data-slides-per-view="1">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide" data-val="0">
-                    <div class="clip">
-                        <div class="bg bg-bg-chrome act" style="background-image:url({{ url_for('static', filename='home/img/P18.jpg') }})"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="pagination pagination-hidden poin-style-1"></div>
+<div class="top-baner swiper-animate arrows">
+  <div
+    class="swiper-container main-slider"
+    data-autoplay="false"
+    data-loop="1"
+    data-speed="900"
+    data-center="0"
+    data-slides-per-view="1"
+  >
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" data-val="0">
+        <div class="clip">
+          <div
+            class="bg bg-bg-chrome act"
+            style="background-image:url({{ url_for('static', filename='home/img/P18.jpg') }})"
+          ></div>
         </div>
-        <div class="baner-tabs">
-            <div class="tab-content tpl-tabs-cont section-text t-con-style-1">
-                <div class="tab-pane active in" id="one">
-                    <form action="{{ url_for('home.listings') }}">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="tabs-block">
-                                        <div class="input-style-1 b-50 color-3">
-                                            <img src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}" alt="">
-                                            <input type="text" name="place" placeholder="Where to?">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                                    <div class="tabs-block">
-                                        <div class="input-style-1 b-50 color-3">
-                                            <img src="{{ url_for('static', filename='home/img/calendar_icon_grey.png') }}" alt="">
-                                            <input type="text" name="date" placeholder="Check In" class="datepicker">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
-                                    <div class="tabs-block">
-                                      <select class="input-style-1 b-50 color-3" name="" style="color: #b9b9b9;padding-left: 20px; background-color: #f8f8f8; height: 50px; width:100%;">
-                                        <option value="" style="padding: 10px 0;">Children</option>
-                                        <option value="">1 Child</option>
-                                        <option value="">2 Children</option>
-                                        <option value="">3 Children</option>
-                                        <option value="">4 Children</option>
-                                        <option value="">5 Children</option>
-                                        <option value="">6 Children</option>
-                                        <option value="">7 Children</option>
-                                        <option value="">8 Children</option>
-                                        <option value="">9 Children</option>
-                                        <option value="">10 Children</option>
-                                      </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
-                                    <div class="tabs-block">
-                                      <select class="input-style-1 b-50 color-3" name="" style="color: #b9b9b9;padding-left: 20px; background-color: #f8f8f8; height: 50px; width:100%;">
-                                        <option value="" style="padding: 10px 0;">Adults</option>
-                                        <option value="">1 Adult</option>
-                                        <option value="">2 Adults</option>
-                                        <option value="">3 Adults</option>
-                                        <option value="">4 Adults</option>
-                                        <option value="">5 Adults</option>
-                                        <option value="">6 Adults</option>
-                                        <option value="">7 Adults</option>
-                                        <option value="">8 Adults</option>
-                                        <option value="">9 Adults</option>
-                                        <option value="">10 Adults</option>
-                                      </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
-                                    <input type="submit" class="c-button b-40 bg-blue-2 hv-blue-2-o" value="search">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="pagination pagination-hidden poin-style-1"></div>
+  </div>
+  <div class="baner-tabs">
+    <div class="tab-content tpl-tabs-cont section-text t-con-style-1">
+      <div class="tab-pane active in" id="one">
+        <form action="{{ url_for('home.listings') }}">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="tabs-block">
+                  <div class="input-style-1 b-50 color-3">
+                    <img
+                      src="{{ url_for('static', filename='home/img/loc_icon_small_grey.png') }}"
+                      alt=""
+                    />
+                    <input type="text" name="place" placeholder="Where to?" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                <div class="tabs-block">
+                  <div class="input-style-1 b-50 color-3">
+                    <img
+                      src="{{ url_for('static', filename='home/img/calendar_icon_grey.png') }}"
+                      alt=""
+                    />
+                    <input
+                      type="text"
+                      name="date"
+                      placeholder="Check In"
+                      class="datepicker"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+                <div class="tabs-block">
+                  <select
+                    class="input-style-1 b-50 color-3"
+                    name=""
+                    style="color: #b9b9b9;padding-left: 20px; background-color: #f8f8f8; height: 50px; width:100%;"
+                  >
+                    <option value="" style="padding: 10px 0;">Children</option>
+                    <option value="">1 Child</option>
+                    <option value="">2 Children</option>
+                    <option value="">3 Children</option>
+                    <option value="">4 Children</option>
+                    <option value="">5 Children</option>
+                    <option value="">6 Children</option>
+                    <option value="">7 Children</option>
+                    <option value="">8 Children</option>
+                    <option value="">9 Children</option>
+                    <option value="">10 Children</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+                <div class="tabs-block">
+                  <select
+                    class="input-style-1 b-50 color-3"
+                    name=""
+                    style="color: #b9b9b9;padding-left: 20px; background-color: #f8f8f8; height: 50px; width:100%;"
+                  >
+                    <option value="" style="padding: 10px 0;">Adults</option>
+                    <option value="">1 Adult</option>
+                    <option value="">2 Adults</option>
+                    <option value="">3 Adults</option>
+                    <option value="">4 Adults</option>
+                    <option value="">5 Adults</option>
+                    <option value="">6 Adults</option>
+                    <option value="">7 Adults</option>
+                    <option value="">8 Adults</option>
+                    <option value="">9 Adults</option>
+                    <option value="">10 Adults</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                <input
+                  type="submit"
+                  class="c-button b-40 bg-blue-2 hv-blue-2-o"
+                  value="search"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!-- <div class="main-wraper padd-90">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="second-title">
-                        <h2>SAFARI PACKAGES</h2>
-                    </div>
+<!--
+  <div class="main-wraper padd-90">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="second-title">
+                      <h2>SAFARI PACKAGES</h2>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <div class="radius-mask tour-block hover-aqua">
+                      <div class="clip">
+                  <div class="bg bg-bg-chrome act" style="background-image:url({{ url_for('static', filename='home/img/slide/main_slide_1.jpg') }})">
+                  </div>
+                  </div>
+                  <div class="tour-layer delay-1"></div>
+                  <div class="tour-caption m-2">
+                      <div class="vertical-align">
+                          <h3 class="hover-it">maasai mara</h3>
+                          <p class="py-2">
+                              Book your safari with Africa’s top luxury operator &Beyond.
+                              Become one with the African wilderness on tailor-made journeys.
+                              Rekindle your spirit the luxurious, African way.
+                          </p>
+                      </div>
+                      <div class="vertical-bottom">
+                          <a href="{{url_for('home.listings_by_package', package='package')}}" class="c-button b-50 bg-aqua hv-transparent"><span>view more</span></a>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <div class="radius-mask tour-block hover-aqua">
+                      <div class="clip">
+                  <div class="bg bg-bg-chrome act" style="background-image:url({{ url_for('static', filename='home/img/slide/main_slide_1.jpg') }})">
+                  </div>
+                  </div>
+                  <div class="tour-layer delay-1"></div>
+                  <div class="tour-caption">
+                      <div class="vertical-align">
+                          <h3 class="hover-it">kenyan coast</h3>
+                          <p class="py-2">
+                              Book your safari with Africa’s top luxury operator &Beyond.
+                              Become one with the African wilderness on tailor-made journeys.
+                              Rekindle your spirit the luxurious, African way.
+                          </p>
+                      </div>
+                      <div class="vertical-bottom">
+                          <a href="{{url_for('home.listings_by_package', package='package')}}" class="c-button b-50 bg-aqua hv-transparent"><span>view more</span></a>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+-->
+
+<div class="main-wraper">
+  <div class="container">
+    <div class="second-title">
+      <h2 class="color-dr-blue-2">Top safari destinations</h2>
+    </div>
+    <div class="row">
+      {% for country in countries %}
+      <div class="col-sm-12 col-md-4">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <a
+              href="{{ url_for('home.country_details',country_id=country.id) }}"
+            >
+              <div class="radius-mask popular-img popular-img-300">
+                <div class="clip">
+                  <div
+                    class="bg bg-bg-chrome act"
+                    style="background-image:url({{ url_for('static', filename='uploads/{}'.format(country.image_url) ) if country.image_url else url_for('static', filename='images/placeholder.png') }})"
+                  ></div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="radius-mask tour-block hover-aqua">
-                        <div class="clip">
-                    <div class="bg bg-bg-chrome act" style="background-image:url({{ url_for('static', filename='home/img/slide/main_slide_1.jpg') }})">
-                    </div>
-                    </div>
-                    <div class="tour-layer delay-1"></div>
-                    <div class="tour-caption m-2">
-                        <div class="vertical-align">
-                            <h3 class="hover-it">maasai mara</h3>
-                            <p class="py-2">
-                                Book your safari with Africa’s top luxury operator &Beyond.
-                                Become one with the African wilderness on tailor-made journeys.
-                                Rekindle your spirit the luxurious, African way.
-                            </p>
-                        </div>
-                        <div class="vertical-bottom">
-                            <a href="{{url_for('home.listings_by_package', package='package')}}" class="c-button b-50 bg-aqua hv-transparent"><span>view more</span></a>
-                        </div>
-                    </div>
-                    </div>
+                <div class="tour-layer delay-1"></div>
+                <div class="vertical-bottom">
+                  <h4>
+                    <a
+                      href="{{ url_for('home.country_details',country_id=country.id) }}"
+                      >{{ country.name }}</a
+                    >
+                  </h4>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="radius-mask tour-block hover-aqua">
-                        <div class="clip">
-                    <div class="bg bg-bg-chrome act" style="background-image:url({{ url_for('static', filename='home/img/slide/main_slide_1.jpg') }})">
-                    </div>
-                    </div>
-                    <div class="tour-layer delay-1"></div>
-                    <div class="tour-caption">
-                        <div class="vertical-align">
-                            <h3 class="hover-it">kenyan coast</h3>
-                            <p class="py-2">
-                                Book your safari with Africa’s top luxury operator &Beyond.
-                                Become one with the African wilderness on tailor-made journeys.
-                                Rekindle your spirit the luxurious, African way.
-                            </p>
-                        </div>
-                        <div class="vertical-bottom">
-                            <a href="{{url_for('home.listings_by_package', package='package')}}" class="c-button b-50 bg-aqua hv-transparent"><span>view more</span></a>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
+              </div>
+            </a>
+          </div>
         </div>
-    </div>  -->
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
 
-    <div class="main-wraper">
-        <div class="container">
-            <div class="second-title">
-                <h2>Top safari destinations</h2>
+<div class="main-wraper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="second-title">
+          <h2 class="color-dr-blue-2">POPULAR SAFARI PACKAGES</h2>
+          <p class="color-grey">
+            Check out the trips other travelers have booked, straight at the
+            source
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="top-baner arrows">
+        <div
+          class="swiper-container offers-slider"
+          data-autoplay="5000"
+          data-loop="1"
+          data-speed="500"
+          data-slides-per-view="responsive"
+          data-mob-slides="1"
+          data-xs-slides="2"
+          data-sm-slides="2"
+          data-md-slides="3"
+          data-lg-slides="3"
+          data-add-slides="3"
+        >
+          <div class="swiper-wrapper">
+            {%for listing in popular_packages%}
+            <a href="{{url_for('home.listings_by_details', id=listing.id)}}">
+              <div class="col-md-4">
+                <div class="thumbnail">
+                  <img
+                    src="{% if listing.images[0] %}{{ url_for('static', filename='uploads/{}'.format(listing.images[0].image_url))}}{% else %}{{ url_for('static', filename='images/gallary/10.png')}}{% endif %}"
+                    alt="item-img"
+                    style="height: 225px !important; width: 100%;"
+                  />
+                  <div class="caption">
+                    <h4>{{listing.title}}</h4>
+                    <div class="rate">
+                      <span
+                        class="fa fa-star {{'color-yellow' if listing.rating >= 1 else 'color-grey'  }}"
+                      ></span>
+                      <span
+                        class="fa fa-star {{'color-yellow' if listing.rating >= 2 else 'color-grey'  }}"
+                      ></span>
+                      <span
+                        class="fa fa-star {{'color-yellow' if listing.rating >= 3 else 'color-grey'  }}"
+                      ></span>
+                      <span
+                        class="fa fa-star {{'color-yellow' if listing.rating >= 4 else 'color-grey'  }}"
+                      ></span>
+                      <span
+                        class="fa fa-star {{'color-yellow' if listing.rating >= 5 else 'color-grey'  }}"
+                      ></span>
+                    </div>
+                    <ul class="offers-info">
+                      <li>
+                        <b
+                          >{{ "$
+                          {:,.0f}".format(listing.price.total_price_adults)
+                          }}</b
+                        ><br />Per Adult
+                      </li>
+                      <li>
+                        <b
+                          >{{ "$
+                          {:,.0f}".format(listing.price.total_price_children)
+                          }}</b
+                        ><br />Per Child
+                      </li>
+                      <li>Duration<br />{{listing.duration}} Days<br /></li>
+                    </ul>
+                    <p>
+                      <b>Location: </b> {{listing.location}}
+                      <span class="bull">{{ listing.package}}<br /></span>
+                    </p>
+                    <a
+                      href="{{url_for('home.listings_by_details', id=listing.id)}}"
+                      class="c-button bg-aqua hv-aqua-o b-40"
+                    >
+                      <span>view more</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </a>
+            {% else %}
+            <div class="alert alert-warning" role="alert">
+              <span class="text-success">No Listings Found!!</span>
             </div>
-            <div class="row">
-                {% for country in countries %}
-                <div class="col-sm-12 col-md-4">
+            {%endfor%}
+          </div>
+          <div class="pagination  poin-style-1 pagination-hidden"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main-wraper padd-90">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="second-title">
+          <h2 class="color-dr-blue-2">Top tour operators</h2>
+          <p class="color-grey">More attractions for you.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="top-baner arrows">
+        <div
+          class="swiper-container offers-slider swiper-swiper-unique-id-2 initialized pagination-hidden"
+          data-autoplay="5000"
+          data-loop="1"
+          data-speed="500"
+          data-slides-per-view="responsive"
+          data-mob-slides="1"
+          data-xs-slides="2"
+          data-sm-slides="2"
+          data-md-slides="3"
+          data-lg-slides="3"
+          data-add-slides="3"
+        >
+          <div class="swiper-wrapper">
+            {%for operator in popular_operators%}
+            <a
+              href="{{ url_for('home.tour_operator_details', publisher_id=operator.user.id) }}"
+            >
+              <div class="swiper-slide" data-val="{{loop.index}}">
+                <div class="thumbnail">
+                  <img
+                    src="{{ url_for('static', filename='uploads/{}'.format(operator.banner)) if operator.banner else url_for('static', filename='images/placeholder.png')}}"
+                    alt="item-img"
+                    style="height: 200px !important; width:100%;"
+                  />
+                  <div class="caption" style="min-height: 150px;">
                     <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                          <a href="{{ url_for('home.country_details',country_id=country.id) }}">
-                            <div class="radius-mask popular-img popular-img-300">
-                                <div class="clip">
-                                    <div class="bg bg-bg-chrome act" style="background-image:url({{ url_for('static', filename='uploads/{}'.format(country.image_url) ) if country.image_url else url_for('static', filename='images/placeholder.png') }})">
-                                    </div>
-                                </div>
-                                <div class="tour-layer delay-1"></div>
-                                <div class="vertical-bottom">
-                                    <h4><a href="{{ url_for('home.country_details',country_id=country.id) }}">{{ country.name }}</a></h4>
-                                </div>
-                            </div>
-                          </a>
+                      <div class="col-md-3">
+                        <img
+                          src="{{ url_for('static', filename='uploads/{}'.format(operator.logo) ) if operator.logo else url_for('static', filename='images/placeholder.png') }}"
+                          alt=""
+                          width="75px"
+                        />
+                      </div>
+                      <div class="col-md-9">
+                        <h4>{{ operator.company_name }}</h4>
+                        <div class="rate-wrap">
+                          <div class="rate">
+                            <span
+                              class="fa fa-star {{'color-yellow' if operator.rating >= 1 else 'color-grey'  }}"
+                            ></span>
+                            <span
+                              class="fa fa-star {{'color-yellow' if operator.rating >= 2 else 'color-grey'  }}"
+                            ></span>
+                            <span
+                              class="fa fa-star {{'color-yellow' if operator.rating >= 3 else 'color-grey'  }}"
+                            ></span>
+                            <span
+                              class="fa fa-star {{'color-yellow' if operator.rating >= 4 else 'color-grey'  }}"
+                            ></span>
+                            <span
+                              class="fa fa-star {{'color-yellow' if operator.rating >= 5 else 'color-grey'  }}"
+                            ></span>
+                          </div>
+                          <i>{{ operator.overal_ratings }} reviews</i>
                         </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
-                {% endfor %}
+              </div>
+            </a>
+            {% else %}
+            <div class="alert alert-warning" role="alert">
+              <span class="text-success">No operators Found!!</span>
             </div>
+            {%endfor%}
+          </div>
+          <div class="pagination  poin-style-1 pagination-hidden"></div>
         </div>
+      </div>
     </div>
-
-    <div class="main-wraper">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="second-title">
-                        <h2>POPULAR SAFARI PACKAGES</h2>
-                        <p class="color-grey">Check out the trips other travelers have booked, straight at the source</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="top-baner arrows">
-                    <div class="swiper-container offers-slider" data-autoplay="5000" data-loop="1" data-speed="500" data-slides-per-view="responsive" data-mob-slides="1" data-xs-slides="2" data-sm-slides="2" data-md-slides="3" data-lg-slides="3" data-add-slides="3">
-                        <div class="swiper-wrapper">
-                            {%for listing in popular_packages%}
-                            <a href="{{url_for('home.listings_by_details', id=listing.id)}}">
-                                <div class="col-md-4">
-                                    <div class="thumbnail">
-                                        <img src="{% if listing.images[0] %}{{ url_for('static', filename='uploads/{}'.format(listing.images[0].image_url))}}{% else %}{{ url_for('static', filename='images/gallary/10.png')}}{% endif %}" alt="item-img" style="height: 225px !important; width: 100%;">
-                                        <div class="caption">
-                                            <h4>{{listing.title}}</h4>
-                                            <div class="rate">
-                                                <span class="fa fa-star {{'color-yellow' if listing.rating >= 1 else 'color-grey'  }}"></span>
-                                                <span class="fa fa-star {{'color-yellow' if listing.rating >= 2 else 'color-grey'  }}"></span>
-                                                <span class="fa fa-star {{'color-yellow' if listing.rating >= 3 else 'color-grey'  }}"></span>
-                                                <span class="fa fa-star {{'color-yellow' if listing.rating >= 4 else 'color-grey'  }}"></span>
-                                                <span class="fa fa-star {{'color-yellow' if listing.rating >= 5 else 'color-grey'  }}"></span>
-                                            </div>
-                                            <ul class="offers-info">
-                                                <li><b>{{ "$ {:,.0f}".format(listing.price.total_price_adults) }}</b><br>Per Adult</li>
-                                                <li><b>{{ "$ {:,.0f}".format(listing.price.total_price_children) }}</b><br>Per Child</li>
-                                                <li>Duration<br>{{listing.duration}} Days<br></li>
-                                            </ul>
-                                            <p>
-                                                <b>Location: </b>
-                                                {{listing.location}}
-                                                <span class="bull">{{ listing.package}}<br></span>
-                                            </p>
-                                            <a href="{{url_for('home.listings_by_details', id=listing.id)}}" class="c-button bg-aqua hv-aqua-o b-40">
-                                                <span>view more</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                            {% else %}
-                            <div class="alert alert-warning" role="alert">
-                                <span class="text-success">No Listings Found!!</span>
-                            </div>
-                            {%endfor%}
-                        </div>
-                    <div class="pagination  poin-style-1 pagination-hidden"></div>
-                </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="main-wraper padd-90">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="second-title">
-                        <h2>Top tour operators</h2>
-                        <p class="color-grey">More attractions for you.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="top-baner arrows">
-                    <div class="swiper-container offers-slider swiper-swiper-unique-id-2 initialized pagination-hidden" data-autoplay="5000" data-loop="1" data-speed="500" data-slides-per-view="responsive" data-mob-slides="1" data-xs-slides="2" data-sm-slides="2" data-md-slides="3" data-lg-slides="3" data-add-slides="3">
-                        <div class="swiper-wrapper">
-                            {%for operator in popular_operators%}
-                            <a href="{{ url_for('home.tour_operator_details', publisher_id=operator.user.id) }}">
-                              <div class="swiper-slide" data-val={{loop.index}}>
-                                    <div class="thumbnail">
-                                        <img src="{{ url_for('static', filename='uploads/{}'.format(operator.banner)) if operator.banner else url_for('static', filename='images/placeholder.png')}}" alt="item-img" style="height: 200px !important; width:100%;">
-                                        <div class="caption" style="min-height: 150px;">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <img src="{{ url_for('static', filename='uploads/{}'.format(operator.logo) ) if operator.logo else url_for('static', filename='images/placeholder.png') }}" alt="" width="75px">
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <h4>{{ operator.company_name }}</h4>
-                                                    <div class="rate-wrap">
-                                                        <div class="rate">
-                                                            <span class="fa fa-star {{'color-yellow' if operator.rating >= 1 else 'color-grey'  }}"></span>
-                                                            <span class="fa fa-star {{'color-yellow' if operator.rating >= 2 else 'color-grey'  }}"></span>
-                                                            <span class="fa fa-star {{'color-yellow' if operator.rating >= 3 else 'color-grey'  }}"></span>
-                                                            <span class="fa fa-star {{'color-yellow' if operator.rating >= 4 else 'color-grey'  }}"></span>
-                                                            <span class="fa fa-star {{'color-yellow' if operator.rating >= 5 else 'color-grey'  }}"></span>
-                                                        </div>
-                                                        <i>{{ operator.overal_ratings }} reviews</i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                              </a>
-                            {% else %}
-                            <div class="alert alert-warning" role="alert">
-                                <span class="text-success">No operators Found!!</span>
-                            </div>
-                            {%endfor%}
-                        </div>
-                    <div class="pagination  poin-style-1 pagination-hidden"></div>
-                </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
+</div>
 {% endblock home_content %}
