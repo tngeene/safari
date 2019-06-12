@@ -21,6 +21,7 @@ current_user.role.index == 'admin' %} {% set endpoints = [
 Users', ''), ('admin.invite_user', 'Invite Users', ''), ('home.index', 'View
 Site', 'home') ]%} {% elif current_user.is_authenticated and
 current_user.role.index == 'publisher'%} {% set endpoints = [
+('home.tour_operators_terms', 'Terms & Conditions', 'event_note'),
 ('publisher.bookings', 'Bookings', 'people'), ('publisher.destination',
 'Destinations', 'my_location'), ('publisher.profile', 'My Account',
 'account_circle'), ('publisher.settings', 'Settings', 'settings'),
@@ -54,16 +55,15 @@ dropdown=[]) %}
   id="left-sidebar-nav"
   class="nav-expanded nav-lock nav-collapsible nav-background"
 >
-  <div class="brand-sidebar">
-    <h1 class="logo-wrapper">
-      <a href="#" class="brand-logo darken-1">
-        <img
-          src="{{ url_for('static', filename='home/img/safari.png') }}"
-          alt="materialize logo"
-        />
-        <span class="logo-text hide-on-med-and-down">Safari</span>
-      </a>
-    </h1>
+  <div
+    class="brand-sidebar"
+    style="background-color: white !important; padding: 5px"
+  >
+    <img
+      src="{{ url_for('static', filename='home/img/safari.png') }}"
+      alt="safari"
+      width="200px"
+    />
   </div>
   <ul id="slide-out" class="side-nav fixed leftside-navigation">
     <li class="no-padding">

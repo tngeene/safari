@@ -65,10 +65,6 @@ class ListingForm(Form):
     )
     physical_condition = SelectField(
         validators=[DataRequired()],
-        choices=[("Good", "Good"), ("Fair", "Fair"), ("Bad", "Bad")],
-    )
-    connectivity = SelectField(
-        validators=[DataRequired()],
         choices=[
             ("Normal physcial condition", "Normal physcial condition"),
             (
@@ -76,6 +72,10 @@ class ListingForm(Form):
                 "Not fit for people with special conditions",
             ),
         ],
+    )
+    connectivity = SelectField(
+        validators=[DataRequired()],
+        choices=[("Good", "Good"), ("Fair", "Fair"), ("Bad", "Bad")],
     )
     package = SelectField(
         validators=[DataRequired()],
@@ -119,10 +119,6 @@ class EditListingForm(Form):
     )
     physical_condition = SelectField(
         validators=[DataRequired()],
-        choices=[("Good", "Good"), ("Fair", "Fair"), ("Bad", "Bad")],
-    )
-    connectivity = SelectField(
-        validators=[DataRequired()],
         choices=[
             ("Normal physcial condition", "Normal physcial condition"),
             (
@@ -130,6 +126,10 @@ class EditListingForm(Form):
                 "Not fit for people with special conditions",
             ),
         ],
+    )
+    connectivity = SelectField(
+        validators=[DataRequired()],
+        choices=[("Good", "Good"), ("Fair", "Fair"), ("Bad", "Bad")],
     )
     package = SelectField(
         validators=[DataRequired()],
@@ -202,7 +202,6 @@ class ProfileForm(Form):
     phones = FieldList(FormField(PhoneForm), min_entries=1)
     emails = FieldList(FormField(EmailForm), min_entries=1)
     locations = FieldList(FormField(LocationForm), min_entries=1)
-    paypal = StringField("paypal", validators=[Length(min=0, max=80), Email()])
     terms_of_use = BooleanField(validators=[DataRequired()], id="terms_of_use")
     operator_licence = FileField(
         validators=[
@@ -232,7 +231,6 @@ class EditProfileForm(Form):
     locations = FieldList(
         FormField(LocationForm, default=lambda: Publocations()), min_entries=1
     )
-    paypal = StringField("paypal", validators=[Length(min=0, max=80), Email()])
     physical_address = StringField(validators=[Length(min=1, max=100)])
     postal_address = StringField(validators=[Length(min=1, max=100)])
     association_membership = StringField(validators=[Length(min=0, max=100)])

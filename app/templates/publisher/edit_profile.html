@@ -40,14 +40,6 @@
                     {%endfor%}
                   </div>
                   <div class="input-field col s6">
-                    <i class="material-icons prefix">payment</i> {{
-                    form.paypal() }}
-                    <label for="email">Paypal Email</label> {%for error in
-                    form.paypal.errors%}
-                    <div class="error">{{ error }}</div>
-                    {%endfor%}
-                  </div>
-                  <div class="input-field col s6">
                     <i class="material-icons prefix">location_searching</i> {{
                     form.physical_address() }}
                     <label for="email">Physical Address</label> {%for error in
@@ -114,7 +106,7 @@
                           class="file-path validate"
                           type="text"
                           disabled
-                          value="Upload Operator License"
+                          value="Upload Current Operator License"
                           id="disabled"
                         />
                       </div>

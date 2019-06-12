@@ -502,7 +502,6 @@ def edit_profile():
                 physical_address=form.physical_address.data,
                 postal_address=form.postal_address.data,
                 association_membership=form.association_membership.data,
-                paypal=form.paypal.data,
                 user=current_user,
                 operator_licence=operator_licence,
                 reg_certificate=reg_certificate,
