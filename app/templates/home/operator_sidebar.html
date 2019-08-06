@@ -36,12 +36,12 @@
             <span class="fr">({{ publisher.get_destination_count() }})</span></a
           >
         </li>
-        <li class="{% if '/contact' in request.path %}active{% endif %}">
+        <!-- <li class="{% if '/contact' in request.path %}active{% endif %}">
           <a
             href="{{ url_for('home.tour_operator_contact', publisher_id=publisher.id) }}"
             >Contacts</a
           >
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>

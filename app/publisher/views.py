@@ -506,6 +506,9 @@ def edit_profile():
                 operator_licence=operator_licence,
                 reg_certificate=reg_certificate,
                 tax_registration=tax_registration,
+                bank_name=bank_name,
+                bank_account=bank_account,
+                swift_code=swift_code,
             )
 
             for item in form.phones.data:

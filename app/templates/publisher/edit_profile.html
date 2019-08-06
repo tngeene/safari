@@ -63,6 +63,30 @@
                     <div class="error">{{ error }}</div>
                     {%endfor%}
                   </div>
+                  <div class="input-field col s6">
+                    <i class="material-icons prefix">account_balance</i> {{
+                    form.bank_name() }}
+                    <label for="email">Bank Name</label> {%for error in
+                    form.bank_name.errors%}
+                    <div class="error">{{ error }}</div>
+                    {%endfor%}
+                  </div>
+                  <div class="input-field col s6">
+                    <i class="material-icons prefix">credit_card</i> {{
+                    form.bank_account() }}
+                    <label for="email">Bank Account</label> {%for error in
+                    form.bank_account.errors%}
+                    <div class="error">{{ error }}</div>
+                    {%endfor%}
+                  </div>
+                  <div class="input-field col s6">
+                    <i class="material-icons prefix">credit_card</i> {{
+                    form.swift_code() }}
+                    <label for="email">Swift Code</label> {%for error in
+                    form.swift_code.errors%}
+                    <div class="error">{{ error }}</div>
+                    {%endfor%}
+                  </div>
                 </div>
                 <div class="row">
                   <div class="input-field col s12">
