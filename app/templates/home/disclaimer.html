@@ -1,0 +1,23 @@
+{% extends 'home/home_base.html' %}
+
+
+{% block home_content %}
+    <div class="main-wraper padd-90 bg-white">
+        <div class="container pt-2">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                    <div class="second-title">
+                        <h2 class="color-dr-blue-2">Disclaimer</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="simple-text">
+                      {{ disclaimer.text | safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock home_content %}

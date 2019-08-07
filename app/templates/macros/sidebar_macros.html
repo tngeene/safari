@@ -22,6 +22,7 @@ Users', ''), ('admin.invite_user', 'Invite Users', ''), ('home.index', 'View
 Site', 'home') ]%} {% elif current_user.is_authenticated and
 current_user.role.index == 'publisher'%} {% set endpoints = [
 ('home.tour_operators_terms', 'Terms & Conditions', 'event_note'),
+('home.disclaimer', 'Disclaimer', 'dehaze'),
 ('publisher.bookings', 'Bookings', 'people'), ('publisher.destination',
 'Destinations', 'my_location'), ('publisher.profile', 'My Account',
 'account_circle'), ('publisher.settings', 'Settings', 'settings'),

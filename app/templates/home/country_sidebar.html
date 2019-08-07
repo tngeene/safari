@@ -16,14 +16,31 @@
             >Parks and Reserves</a
           >
         </li>
-        <!--
-          <li class="{% if '/wildlife' in request.path %}active{% endif %}">
-              <a href="{{ url_for('home.country_wildlife', country_id=country.id) }}">Wildlife</span></a>
+          {% if '/parks_and_reserves' not in request.path %}
+          <li>
+              <a href="#wildlife">Wildlife</a>
           </li>
-          <li class="{% if '/birds' in request.path %}active{% endif %}">
-              <a href="{{ url_for('home.country_birds', country_id=country.id) }}">Birds</span></a>
+          <li>
+              <a href="#climate">Climate</a>
           </li>
-        -->
+          <li>
+              <a href="#best">Best Time To Visit</a>
+          </li>
+          {% endif %}
+          <li>
+            <a
+              href="{{ url_for('home.listings', place=country.name) }}"
+            >
+              Safaris
+            </a>
+          </li>
+          <li>
+            <a
+              href="{{ url_for('home.tour_operators_list', place=country.name) }}"
+            >
+              Tour Operators
+            </a>
+          </li>
       </ul>
     </div>
   </div>

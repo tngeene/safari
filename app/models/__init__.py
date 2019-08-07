@@ -27,3 +27,4 @@ from .parks import *
 from .wildlife import *
 from .country import *
 from .birds import *
+from .disclaimer import *

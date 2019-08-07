@@ -87,6 +87,30 @@
                     <div class="error">{{ error }}</div>
                     {%endfor%}
                   </div>
+                  <div class="input-field col s6">
+                    <i class="material-icons prefix">person_outline</i> {{
+                    form.director() }}
+                    <label for="email">Director Name</label>
+                    {%for error in form.director.errors%}
+                    <div class="error">{{ error }}</div>
+                    {%endfor%}
+                  </div>
+                  <div class="input-field col s6">
+                    <i class="material-icons prefix">phone</i> {{
+                    form.director_phone() }}
+                    <label for="email">Director  Phone</label> {%for error in
+                    form.director_phone.errors%}
+                    <div class="error">{{ error }}</div>
+                    {%endfor%}
+                  </div>
+                  <div class="input-field col s6">
+                    <i class="material-icons prefix">email</i> {{
+                    form.director_email() }}
+                    <label for="email">Director Email</label> {%for error in
+                    form.director_email.errors%}
+                    <div class="error">{{ error }}</div>
+                    {%endfor%}
+                  </div>
                 </div>
                 <div class="row">
                   <div class="input-field col s12">

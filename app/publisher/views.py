@@ -9,13 +9,13 @@ from flask import (
     send_from_directory,
 )
 from flask_login import current_user, login_required, logout_user
-
 from app.auth.admin_decorators import publisher_login_required, check_profile
 from app.publisher.forms import *
 import os, random, string, PIL, simplejson, traceback
 from PIL import Image
 from werkzeug import secure_filename
 from app.lib.upload_file import uploadfile
+from app.auth.email import send_operator_registered
 
 publisher = Blueprint("publisher", __name__)
 photos = UploadSet("photos", IMAGES)
@@ -488,11 +488,13 @@ def edit_profile():
         form = EditProfileForm(obj=publisher)
     if form.validate_on_submit():
         if publisher is not None:
+            new_registration = False
             form.operator_licence.data = photos.save(form.operator_licence.data)
             form.reg_certificate.data = photos.save(form.reg_certificate.data)
             form.tax_registration.data = photos.save(form.tax_registration.data)
             form.populate_obj(publisher)
         else:
+            new_registration = True
             operator_licence = photos.save(form.operator_licence.data)
             reg_certificate = photos.save(form.reg_certificate.data)
             tax_registration = photos.save(form.tax_registration.data)
@@ -506,9 +508,12 @@ def edit_profile():
                 operator_licence=operator_licence,
                 reg_certificate=reg_certificate,
                 tax_registration=tax_registration,
-                bank_name=bank_name,
-                bank_account=bank_account,
-                swift_code=swift_code,
+                bank_name=form.bank_name.data,
+                bank_account=form.bank_account.data,
+                swift_code=form.swift_code.data,
+                director=form.director.data,
+                director_phone=form.director_phone.data,
+                director_email=form.director_email.data,
             )
 
             for item in form.phones.data:
@@ -524,9 +529,10 @@ def edit_profile():
                     city=item["city"], country=item["country"], profile=profile
                 )
                 db.session.add(locations)
-
             db.session.add(profile)
         db.session.commit()
+        if new_registration:
+            send_operator_registered(publisher)
         flash("Profile Edited successfully waiting for Adminstrator approval", "green")
         return redirect(url_for("publisher.edit_cover"))
     return render_template("publisher/edit_profile.html", form=form)

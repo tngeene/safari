@@ -1,0 +1,13 @@
+Dear Sir,
+
+New Tour Operator Registered!
+
+{{ publisher.company_name }} has registered to the system
+
+Please login to the system to approve them.
+
+Sincerely,
+
+The {{ config.APP_NAME }} Team
+
+Note: replies to this email address are not monitored.

@@ -1,0 +1,61 @@
+{% extends 'layouts/admin_base.html' %}
+{% import 'macros/form_macros.html' as f %}
+{% import 'macros/check_password.html' as check %}
+
+{% block custom_head_tags %}
+{{ super() }}
+<!-- CORE CSS-->
+<link href="{{ url_for('static', filename='css/themes/fixed-menu/materialize.css')}}" type="text/css"
+      rel="stylesheet">
+<link href="{{ url_for('static', filename='css/themes/fixed-menu/style.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+
+<!-- START CONTENT -->
+<section id="content">
+    <!--start container-->
+    <div class="container">
+
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card-panel">
+                    <h4 class="header2">Disclaimer</h4>
+                    <div class="row">
+                        <form class="col s12" method="post" enctype="multipart/form-data">
+                            {{ form.hidden_tag() }}
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix"></i>
+                                    {{ form.text() }}
+
+                                    {%for error in form.text.errors%}
+                                    <div class="error">{{ error }}</div>
+                                    {%endfor%}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="center-align">
+                                    <button id="submit" class="btn cyan waves-effect waves-light" type="submit">Submit
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!--end container-->
+</section>
+<!-- END CONTENT -->
+{% endblock %}
+{% block scripts %}
+    {{ ckeditor.load() }}
+    {{ ckeditor.config(name='description') }}
+{% endblock %}

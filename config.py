@@ -44,7 +44,7 @@ class Config:
 
     # Admin account
     ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD") or "1con"
-    ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL") or "iroshbrian@gmail.com"
+    ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL") or "ronoclement86@gmail.com"
     EMAIL_SUBJECT_PREFIX = "[{}]".format(APP_NAME)
     EMAIL_SENDER = "{app_name} Admin <{email}>".format(
         app_name=APP_NAME, email=MAIL_USERNAME

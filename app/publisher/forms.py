@@ -201,6 +201,9 @@ class ProfileForm(Form):
     bank_name = StringField(validators=[Length(min=0, max=100)])
     bank_account = StringField(validators=[Length(min=0, max=100)])
     swift_code = StringField(validators=[Length(min=0, max=100)])
+    director = StringField(validators=[Length(min=0, max=100)])
+    director_phone = StringField(validators=[Length(min=0, max=100)])
+    director_email = StringField(validators=[Length(min=0, max=100)])
     overview = TextAreaField(validators=[Length(min=2, max=2000)])
     phones = FieldList(FormField(PhoneForm), min_entries=1)
     emails = FieldList(FormField(EmailForm), min_entries=1)
@@ -241,6 +244,9 @@ class EditProfileForm(Form):
     bank_name = StringField(validators=[Length(min=0, max=100)])
     bank_account = StringField(validators=[Length(min=0, max=100)])
     swift_code = StringField(validators=[Length(min=0, max=100)])
+    director = StringField(validators=[Length(min=0, max=100)])
+    director_phone = StringField(validators=[Length(min=0, max=100)])
+    director_email = StringField(validators=[Length(min=0, max=100)])
     operator_licence = FileField(
         validators=[
             FileAllowed(photos, u"Image Only!"),
