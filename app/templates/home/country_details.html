@@ -28,23 +28,32 @@
     $(document).ready(function() {
        $("#wildlife").on('click', function(e) {
           e.preventDefault();
-          $('html, body').animate({
-             scrollTop: $("strong:contains(Wildlife)").offset().top-100
-         }, 2000);
+          if ($("strong:contains(Wildlife)").offset()) {
+            $('html, body').animate({
+               scrollTop: $("strong:contains(Wildlife)").offset().top-100
+           }, 2000);
+          }
+
       });
 
       $("#climate").on('click', function(e) {
          e.preventDefault();
-         $('html, body').animate({
-            scrollTop: $("strong:contains(Climate)").offset().top-100
-        }, 2000);
+         if ($("strong:contains(Wildlife)").offset()) {
+           $('html, body').animate({
+              scrollTop: $("strong:contains(Wildlife)").offset().top-100
+          }, 2000);
+         }
+
       });
 
       $("#best").on('click', function(e) {
           e.preventDefault();
-          $('html, body').animate({
-             scrollTop: $("strong:contains(Best)").offset().top-100
-         }, 2000);
+          if ($("strong:contains(Best)").offset()) {
+            $('html, body').animate({
+               scrollTop: $("strong:contains(Best)").offset().top-100
+           }, 2000);
+          }
+
       });
     });
   </script>
