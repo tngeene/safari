@@ -3,3 +3,5 @@ app/static/uploads
 .env
 *.pyc
 *.py[cod]
+.vscode
+.idea
