@@ -74,7 +74,7 @@ oauthlib==2.1.0
 packaging==16.8
 Parsley==1.2
 pbr==4.2.0
-Pillow==5.4.1
+Pillow==8.1.1
 psutil==5.4.2
 pyasn1==0.4.4
 pyasn1-modules==0.2.2
